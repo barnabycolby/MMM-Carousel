@@ -2,14 +2,16 @@
     'use strict';
 
     Module.register('MMM-Carousel', {
-        defaults: {
-            text: 'Hello World!'
-        },
+        notificationReceived: function (notification) {
+            var modules, i;
 
-        getDom: function () {
-            var wrapper = document.createElement('div');
-            wrapper.innerHTML = this.config.text;
-            return wrapper;
+            if (notification === 'DOM_OBJECTS_CREATED') {
+                // Initially, all modules are hidden except the first
+                modules = MM.getModules().exceptModule(this);
+                for (i = 1; i < modules.length; i += 1) {
+                    modules[i].hide();
+                }
+            }
         }
     });
 }());
