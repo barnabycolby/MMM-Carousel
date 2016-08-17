@@ -14,8 +14,5 @@
 
         require('load-grunt-config')(grunt);
 
-        // Actually load this plugin's task(s).
-        grunt.loadTasks('tasks');
-
     };
 }());
