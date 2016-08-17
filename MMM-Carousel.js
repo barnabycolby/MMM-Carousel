@@ -1,3 +1,4 @@
+/*global Module, MM */
 (function () {
     'use strict';
 
