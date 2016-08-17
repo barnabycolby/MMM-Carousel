@@ -1,5 +1,6 @@
 {
     "default": [
-        "jslint"
+        "jslint",
+        "nodeunit"
     ]
 }

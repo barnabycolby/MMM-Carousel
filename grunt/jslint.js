@@ -4,7 +4,8 @@ module.exports = {
         src: [
             'Gruntfile.js',
             'grunt/**/*.js',
-            'MMM-Carousel.js'
+            'MMM-Carousel.js',
+            'test.js'
         ]
     }
 };

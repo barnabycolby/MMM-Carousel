@@ -22,8 +22,9 @@
   },
   "homepage": "https://github.com/barnabycolby/MMM-Carousel#readme",
   "dependencies": {
-    "grunt": "^1.0.1",
-    "grunt-jslint": "^1.1.14",
-    "load-grunt-config": "^0.19.2"
+    "grunt": "latest",
+    "grunt-jslint": "latest",
+    "load-grunt-config": "latest",
+    "grunt-contrib-nodeunit": "^1.0.0"
   }
 }
