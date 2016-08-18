@@ -2,7 +2,7 @@
 (function () {
     'use strict';
 
-    var moduleObject, modulesList, i, hideFunction;
+    var moduleObject, modulesList, i, hideFunction, showFunction;
 
     function initialiseModule() {
         require('./MMM-Carousel.js');
@@ -28,10 +28,14 @@
     hideFunction = function () {
         this.hidden = true;
     };
+    showFunction = function () {
+        this.hidden = false;
+    };
     for (i = 0; i < 3; i += 1) {
         modulesList[i] = {
             hidden: false,
-            hide: hideFunction
+            hide: hideFunction,
+            show: showFunction
         };
     }
     modulesList.exceptModule = function () {
@@ -56,6 +60,40 @@
         errorMessageForMostModules = "All modules except the first in the config list should be hidden initially.";
         test.ok(modulesList[1].hidden, errorMessageForMostModules);
         test.ok(modulesList[2].hidden, errorMessageForMostModules);
+        test.done();
+    };
+
+    exports.moduleTransitionCorrectlyUpdatesHiddenStatus = function (test) {
+        initialiseModule();
+        moduleObject.moduleTransition();
+
+        test.expect(3);
+        test.ok(modulesList[0].hidden, "After a module transition, the first module should be hidden.");
+        test.ok(!modulesList[1].hidden, "After a module transition, the second module should now be shown.");
+        test.ok(modulesList[2].hidden, "After a module transition, the third module should still be hidden");
+        test.done();
+    };
+
+    exports.moduleTransitionCorrectlyUpdatesHiddenStatus = function (test) {
+        initialiseModule();
+        moduleObject.moduleTransition();
+        moduleObject.moduleTransition();
+        moduleObject.moduleTransition();
+
+        test.expect(3);
+        test.ok(!modulesList[0].hidden, "After 3 module transitions, the first module should be shown.");
+        test.ok(modulesList[1].hidden, "After 3 module transitions, the second module should be hidden.");
+        test.ok(modulesList[2].hidden, "After 3 module transitions, the third module should be hidden");
+        test.done();
+    };
+
+    exports.transitionTimerSet = function (test) {
+        initialiseModule();
+
+        test.expect(1);
+        /*jslint nomen: true*/
+        test.equal(moduleObject.transitionTimer._idleTimeout, 10000, "The transition timer should have a timeout of 10 seconds.");
+        /*jslint nomen: false*/
         test.done();
     };
 }());
