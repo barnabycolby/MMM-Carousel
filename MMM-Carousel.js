@@ -3,6 +3,10 @@
     'use strict';
 
     Module.register('MMM-Carousel', {
+        defaults: {
+            transitionInterval: 10000
+        },
+
         notificationReceived: function (notification) {
             var i;
 
@@ -15,7 +19,7 @@
                 }
 
                 // We set a timer to cause the page transitions
-                this.transitionTimer = setInterval(this.moduleTransition.bind(this), 10000);
+                this.transitionTimer = setInterval(this.moduleTransition.bind(this), this.config.transitionInterval);
             }
         },
 

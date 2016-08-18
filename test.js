@@ -19,6 +19,11 @@
             };
             doNothing(name);
 
+            // We add the config option to the moduleObject, allowing us to test for these specific values later
+            moduleObjectArgument.config = {
+                transitionInterval: 12345
+            };
+
             moduleObject = moduleObjectArgument;
         }
     };
@@ -92,7 +97,7 @@
 
         test.expect(1);
         /*jslint nomen: true*/
-        test.equal(moduleObject.transitionTimer._idleTimeout, 10000, "The transition timer should have a timeout of 10 seconds.");
+        test.equal(moduleObject.transitionTimer._idleTimeout, 12345, "The transition timer should have a timeout of 12345 milliseconds, as set in the config.");
         /*jslint nomen: false*/
         test.done();
     };
