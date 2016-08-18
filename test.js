@@ -21,7 +21,8 @@
 
             // We add the config option to the moduleObject, allowing us to test for these specific values later
             moduleObjectArgument.config = {
-                transitionInterval: 12345
+                transitionInterval: 12345,
+                ignoreModules: [ '0' ]
             };
 
             moduleObject = moduleObjectArgument;
@@ -36,8 +37,9 @@
     showFunction = function () {
         this.hidden = false;
     };
-    for (i = 0; i < 3; i += 1) {
+    for (i = 0; i < 4; i += 1) {
         modulesList[i] = {
+            name: i.toString(),
             hidden: false,
             hide: hideFunction,
             show: showFunction
@@ -60,11 +62,12 @@
 
         initialiseModule();
 
-        test.expect(3);
-        test.ok(!modulesList[0].hidden, "The first module in the config list should not initially be hidden.");
-        errorMessageForMostModules = "All modules except the first in the config list should be hidden initially.";
-        test.ok(modulesList[1].hidden, errorMessageForMostModules);
+        test.expect(4);
+        test.ok(!modulesList[0].hidden, "The ignoreModules option should cause the first module to be ignored.");
+        test.ok(!modulesList[1].hidden, "The first non-ignored module in the config list should not initially be hidden.");
+        errorMessageForMostModules = "All modules except the first in the config list and any ignored modules should be hidden initially.";
         test.ok(modulesList[2].hidden, errorMessageForMostModules);
+        test.ok(modulesList[3].hidden, errorMessageForMostModules);
         test.done();
     };
 
@@ -72,23 +75,25 @@
         initialiseModule();
         moduleObject.moduleTransition();
 
-        test.expect(3);
-        test.ok(modulesList[0].hidden, "After a module transition, the first module should be hidden.");
-        test.ok(!modulesList[1].hidden, "After a module transition, the second module should now be shown.");
-        test.ok(modulesList[2].hidden, "After a module transition, the third module should still be hidden");
+        test.expect(4);
+        test.ok(!modulesList[0].hidden, "The ignoreModules option should cause the first module to be ignored.");
+        test.ok(modulesList[1].hidden, "After a module transition, the first non-ignored module should be hidden.");
+        test.ok(!modulesList[2].hidden, "After a module transition, the second non-ignored module should now be shown.");
+        test.ok(modulesList[3].hidden, "After a module transition, the third non-ignored module should still be hidden");
         test.done();
     };
 
-    exports.moduleTransitionCorrectlyUpdatesHiddenStatus = function (test) {
+    exports.moduleTransitionCorrectlyCycles = function (test) {
         initialiseModule();
         moduleObject.moduleTransition();
         moduleObject.moduleTransition();
         moduleObject.moduleTransition();
 
-        test.expect(3);
-        test.ok(!modulesList[0].hidden, "After 3 module transitions, the first module should be shown.");
-        test.ok(modulesList[1].hidden, "After 3 module transitions, the second module should be hidden.");
-        test.ok(modulesList[2].hidden, "After 3 module transitions, the third module should be hidden");
+        test.expect(4);
+        test.ok(!modulesList[0].hidden, "The ignoreModules option should cause the first module to be ignored.");
+        test.ok(!modulesList[1].hidden, "After 3 module transitions, the first non-ignored module should be shown.");
+        test.ok(modulesList[2].hidden, "After 3 module transitions, the second non-ignored module should be hidden.");
+        test.ok(modulesList[3].hidden, "After 3 module transitions, the third non-ignored module should be hidden");
         test.done();
     };
 
