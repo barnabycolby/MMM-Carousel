@@ -24,6 +24,8 @@ To use this module, add the following configuration block to the modules array i
 
 Note that a `position` setting is not required.
 
+A typical config file is also provided: [config.sample.js](config.sample.js)
+
 ### Configuration options
 #### ignoreModules
 Type: `String array` Default value: `[]`
