@@ -6,12 +6,12 @@ var config = {
 	units: 'metric',
 
 	modules: [
-        {
-            module: 'MMM-Carousel',
-            config: {
-                ignoreModules: [ 'alert' ]
-            }
-        },
+		{
+			module: 'MMM-Carousel',
+			config: {
+				ignoreModules: [ 'alert' ]
+			}
+		},
 		{
 			module: 'alert',
 		},
