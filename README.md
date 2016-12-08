@@ -30,7 +30,7 @@ A typical config file is also provided: [config.sample.js](config.sample.js)
 #### ignoreModules
 Type: `String array` Default value: `[]`
 
-A list of module names whom should not be considered as part of the carousel. For example, the `alert` module should be able to display the a notification at any time, by ignoring it we can prevent the plugin from hiding any notifications.
+A list of module names whom should not be considered as part of the carousel. For example, the `alert` module should be able to display a notification at any time, by ignoring it we can prevent the plugin from hiding any notifications.
 
 #### transitionInterval
 Type: `Integer` Default value: `10000`
