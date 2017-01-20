@@ -29,8 +29,8 @@
                     this.setUpTransitionTimers(null);
                 } else {
                     for (position in positions) {
-                        if (!positions.hasOwnProperty(position)) {continue;}
-                        if (!this.config.hasOwnProperty(positions[position])) {continue;}
+                        if (!positions.hasOwnProperty(position)) { continue; }
+                        if (!this.config.hasOwnProperty(positions[position])) { continue; }
                         if (this.config[positions[position]].enabled === true) {
                             this.setUpTransitionTimers(positions[position]);
                         }
@@ -39,15 +39,13 @@
             }
         },
 
-        setUpTransitionTimers: function(positionIndex) {
-            var i;
-            var modules;
+        setUpTransitionTimers: function (positionIndex) {
+            var i, modules;
             modules = MM.getModules().exceptModule(this).filter(function (module) {
                 if (this.config.global === true) {
                     return this.config.ignoreModules.indexOf(module.name) === -1;
-                } else {
-                    return ((this.config[positionIndex].ignoreModules.indexOf(module.name) === -1) && (module.data.position === positionIndex));
                 }
+                return ((this.config[positionIndex].ignoreModules.indexOf(module.name) === -1) && (module.data.position === positionIndex));
             }, this);
             modules.currentIndex = 0;
             for (i = 1; i < modules.length; i += 1) {
