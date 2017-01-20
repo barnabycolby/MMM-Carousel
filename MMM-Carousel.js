@@ -43,10 +43,10 @@
                     var modules;
                     for (var position in positions) {
                         if (!positions.hasOwnProperty(position)) continue;
-                        if (!this.config.hasOwnProperty(position)) continue;
-                        if (this.config[position].enabled === true) {
+                        if (!this.config.hasOwnProperty(positions[position])) continue;
+                        if (this.config[positions[position]].enabled === true) {
                             modules = MM.getModules().exceptModule(this).filter(function (module) {
-                                return ((this.config[position].ignoreModules.indexOf(module.name) === -1) && (module.data.position === position));
+                                return ((this.config[positions[position]].ignoreModules.indexOf(module.name) === -1) && (module.data.position === positions[position]));
                             }, this);
 
                             modules.currentIndex = 0;
