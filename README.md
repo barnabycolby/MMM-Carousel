@@ -73,14 +73,14 @@ The following properties can be configured:
 			    <br><code>lower_third</code>
 			    <br><code>bottom_left</code>
 			    <br><code>bottom_center</code>
-			    <br><code>Bottom_right</code>
+			    <br><code>bottom_right</code>
 			    <br><code>bottom_bar</code>
 			</td>
-			<td>Determines if this position should be rotated and which modules in this position should be ignored and always displayed.  <b>NOTE: is only used when <code>global</code> is <code>false</code></b>.
+			<td>Determines if this position should be rotated and which modules in this position should be ignored.  <b>NOTE: is only used when <code>global</code> is <code>false</code></b>.
 				<br> <br> This value is <b>OPTIONAL</b>
 				<br><b>Possible values:</b> Object with keys;
 				<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>enabled</code>, a boolean to rotate this position or not,
-				<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>ignoredModules</code>, a <code>String array</code> of modules nemes to ignore.
+				<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>ignoredModules</code>, a <code>String array</code> of modules names to ignore.
                 <br><b>Default value:</b> <code>{enabled: false, ignoreModules: []}</code>
 			</td>
 		</tr>
@@ -88,15 +88,15 @@ The following properties can be configured:
 </table>
 
 #### Example
-```json
-{
-    module: 'MMM-Carousel',
-    config: {
-        transitionInterval: 10000,
-        ignoreModules: [],
-        global: false,
-        top_left: {enabled: true, ignoreModules: []},
-        top_right: {enabled: true, ignoreModules: ['currentweather']}
+```javascript
+    {
+        module: 'MMM-Carousel',
+        config: {
+            transitionInterval: 10000,
+            ignoreModules: [],
+            global: false,
+            top_left: {enabled: true, ignoreModules: []},
+            top_right: {enabled: true, ignoreModules: ['currentweather']}
+        }
     }
-}
 ```
