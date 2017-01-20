@@ -37,26 +37,26 @@
                 }
 
                 // We set a timer to cause the page transitions
-                this.transitionTimer = setInterval(this.moduleTransition(this.modules), this.config.transitionInterval);
+                this.transitionTimer = setInterval(this.moduleTransition.bind(this.modules), this.config.transitionInterval);
             }
         },
 
-        moduleTransition: function (modules) {
+        moduleTransition: function () {
             var i;
 
             // Update the current index
             this.currentIndex += 1;
-            if (this.currentIndex >= modules.length) {
+            if (this.currentIndex >= this.length) {
                 this.currentIndex = 0;
             }
 
-            for (i = 0; i < modules.length; i += 1) {
+            for (i = 0; i < this.length; i += 1) {
                 // There is currently no easy way to discover whether a module is ALREADY shown/hidden
                 // In testing, calling show/hide twice seems to cause no issues
                 if (i === this.currentIndex) {
-                    modules[i].show();
+                    this[i].show();
                 } else {
-                    modules[i].hide();
+                    this[i].hide();
                 }
             }
         }
