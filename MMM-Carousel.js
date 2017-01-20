@@ -27,17 +27,38 @@
             if (notification === 'DOM_OBJECTS_CREATED') {
                 // Initially, all modules are hidden except the first and any ignored modules
                 // We start by getting a list of all of the modules in the transition cycle
-                this.modules = MM.getModules().exceptModule(this).filter(function (module) {
-                    return this.config.ignoreModules.indexOf(module.name) === -1;
-                }, this);
+                if (this.config.global === true) {
+                    this.modules = MM.getModules().exceptModule(this).filter(function (module) {
+                        return this.config.ignoreModules.indexOf(module.name) === -1;
+                    }, this);
 
-                this.modules.currentIndex = 0;
-                for (i = 1; i < this.modules.length; i += 1) {
-                    this.modules[i].hide();
+                    this.modules.currentIndex = 0;
+                    for (i = 1; i < this.modules.length; i += 1) {
+                        this.modules[i].hide();
+                    }
+
+                    // We set a timer to cause the page transitions
+                    this.transitionTimer = setInterval(this.moduleTransition.bind(this.modules), this.config.transitionInterval);
+                } else {
+                    var modules;
+                    for (var position in positions) {
+                        if (!positions.hasOwnProperty(position)) continue;
+                        if (!this.config.hasOwnProperty(position)) continue;
+                        if (this.config[position].enabled === true) {
+                            modules = MM.getModules().exceptModule(this).filter(function (module) {
+                                return ((this.config[position].ignoreModules.indexOf(module.name) === -1) && (module.data.position === position));
+                            }, this);
+
+                            modules.currentIndex = 0;
+                            for (i = 1; i < modules.length; i += 1) {
+                                modules[i].hide();
+                            }
+
+                            // We set a timer to cause the page transitions
+                            this.transitionTimer = setInterval(this.moduleTransition.bind(modules), this.config.transitionInterval);
+                        }
+                    }
                 }
-
-                // We set a timer to cause the page transitions
-                this.transitionTimer = setInterval(this.moduleTransition.bind(this.modules), this.config.transitionInterval);
             }
         },
 
