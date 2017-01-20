@@ -51,7 +51,7 @@
                 }
             }, this);
             modules.currentIndex = 0;
-            for (i = 1; i < this.modules.length; i += 1) {
+            for (i = 1; i < modules.length; i += 1) {
                 modules[i].hide();
             }
 
