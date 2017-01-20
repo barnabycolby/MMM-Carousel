@@ -21,8 +21,7 @@
         },
 
         notificationReceived: function (notification) {
-            var positions = ['top_bar', 'bottom_bar', 'top_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'bottom_right', 'upper_third', 'middle_center', 'lower_third'];
-            var position;
+            var position, positions = ['top_bar', 'bottom_bar', 'top_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'bottom_right', 'upper_third', 'middle_center', 'lower_third'];
             if (notification === 'DOM_OBJECTS_CREATED') {
                 // Initially, all modules are hidden except the first and any ignored modules
                 // We start by getting a list of all of the modules in the transition cycle
@@ -30,8 +29,8 @@
                     this.setUpTransitionTimers(null);
                 } else {
                     for (position in positions) {
-                        if (!positions.hasOwnProperty(position)) continue;
-                        if (!this.config.hasOwnProperty(positions[position])) continue;
+                        if (!positions.hasOwnProperty(position)) {continue;}
+                        if (!this.config.hasOwnProperty(positions[position])) {continue;}
                         if (this.config[positions[position]].enabled === true) {
                             this.setUpTransitionTimers(positions[position]);
                         }
