@@ -75,9 +75,9 @@
                 // There is currently no easy way to discover whether a module is ALREADY shown/hidden
                 // In testing, calling show/hide twice seems to cause no issues
                 if (i === this.currentIndex) {
-                    this[i].show();
+                    this[i].show(1500);
                 } else {
-                    this[i].hide();
+                    this[i].hide(0);
                 }
             }
         }
