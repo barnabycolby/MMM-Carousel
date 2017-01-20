@@ -31,7 +31,7 @@
                     return this.config.ignoreModules.indexOf(module.name) === -1;
                 }, this);
 
-                this.currentIndex = 0;
+                this.modules.currentIndex = 0;
                 for (i = 1; i < this.modules.length; i += 1) {
                     this.modules[i].hide();
                 }
