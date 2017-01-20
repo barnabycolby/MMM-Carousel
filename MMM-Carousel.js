@@ -28,7 +28,7 @@
                 if (this.config.global === true) {
                     this.setUpTransitionTimers(null);
                 } else {
-                    for (position=0;position < positions.length; position++) {
+                    for (position = 0; position < positions.length; position += 1) {
                         if (this.config[positions[position]].enabled === true) {
                             this.setUpTransitionTimers(positions[position]);
                         }
