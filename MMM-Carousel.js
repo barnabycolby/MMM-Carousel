@@ -23,42 +23,26 @@
         notificationReceived: function (notification) {
             var i;
             var positions = ['top_bar', 'bottom_bar', 'top_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'bottom_right', 'upper_third', 'middle_center', 'lower_third'];
+            var modules;
 
             if (notification === 'DOM_OBJECTS_CREATED') {
                 // Initially, all modules are hidden except the first and any ignored modules
                 // We start by getting a list of all of the modules in the transition cycle
-                if (this.config.global === true) {
-                    this.modules = MM.getModules().exceptModule(this).filter(function (module) {
-                        return this.config.ignoreModules.indexOf(module.name) === -1;
-                    }, this);
+                    modules = MM.getModules().exceptModule(this).filter(function (module) {
+                        if (this.config.global === true) {
+                            return this.config.ignoreModules.indexOf(module.name) === -1;
+                        } else {
+                            return ((this.config[positions[position]].ignoreModules.indexOf(module.name) === -1) && (module.data.position === positions[position]));
 
-                    this.modules.currentIndex = 0;
+                        }
+                    }, this);
+                    modules.currentIndex = 0;
                     for (i = 1; i < this.modules.length; i += 1) {
-                        this.modules[i].hide();
+                        modules[i].hide();
                     }
 
                     // We set a timer to cause the page transitions
-                    this.transitionTimer = setInterval(this.moduleTransition.bind(this.modules), this.config.transitionInterval);
-                } else {
-                    var modules;
-                    for (var position in positions) {
-                        if (!positions.hasOwnProperty(position)) continue;
-                        if (!this.config.hasOwnProperty(positions[position])) continue;
-                        if (this.config[positions[position]].enabled === true) {
-                            modules = MM.getModules().exceptModule(this).filter(function (module) {
-                                return ((this.config[positions[position]].ignoreModules.indexOf(module.name) === -1) && (module.data.position === positions[position]));
-                            }, this);
-
-                            modules.currentIndex = 0;
-                            for (i = 1; i < modules.length; i += 1) {
-                                modules[i].hide();
-                            }
-
-                            // We set a timer to cause the page transitions
-                            this.transitionTimer = setInterval(this.moduleTransition.bind(modules), this.config.transitionInterval);
-                        }
-                    }
-                }
+                    this.transitionTimer = setInterval(this.moduleTransition.bind(modules), this.config.transitionInterval);
             }
         },
 
