@@ -76,7 +76,7 @@
 
     exports.moduleTransitionCorrectlyUpdatesHiddenStatus = function (test) {
         initialiseModule();
-        moduleObject.moduleTransition();
+        moduleObject.moduleTransition(modulesList);
 
         test.expect(4);
         test.ok(!modulesList[0].hidden, "The ignoreModules option should cause the first module to be ignored.");
