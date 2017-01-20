@@ -27,8 +27,6 @@
             };
 
             moduleObject = moduleObjectArgument;
-
-            moduleObject.currentIndex = 0;
         }
     };
 
@@ -76,7 +74,7 @@
 
     exports.moduleTransitionCorrectlyUpdatesHiddenStatus = function (test) {
         initialiseModule();
-        moduleObject.moduleTransition(modulesList);
+        moduleObject.moduleTransition();
 
         test.expect(4);
         test.ok(!modulesList[0].hidden, "The ignoreModules option should cause the first module to be ignored.");
