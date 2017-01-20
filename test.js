@@ -22,7 +22,8 @@
             // We add the config option to the moduleObject, allowing us to test for these specific values later
             moduleObjectArgument.config = {
                 transitionInterval: 12345,
-                ignoreModules: [ '0' ]
+                ignoreModules: [ '0' ],
+                global: true
             };
 
             moduleObject = moduleObjectArgument;
