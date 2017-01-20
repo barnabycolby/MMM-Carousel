@@ -8,16 +8,16 @@
             ignoreModules: [],
             global: true,
             top_bar: {enabled: false, ignoreModules: []},
-            bottom_bar: {enabled: false, ignoreModules: []},
             top_left: {enabled: false, ignoreModules: []},
-            bottom_left: {enabled: false, ignoreModules: []},
             top_center: {enabled: false, ignoreModules: []},
-            bottom_center: {enabled: false, ignoreModules: []},
             top_right: {enabled: false, ignoreModules: []},
-            bottom_right: {enabled: false, ignoreModules: []},
             upper_third: {enabled: false, ignoreModules: []},
             middle_center: {enabled: false, ignoreModules: []},
-            lower_third: {enabled: false, ignoreModules: []}
+            lower_third: {enabled: false, ignoreModules: []},
+            bottom_left: {enabled: false, ignoreModules: []},
+            bottom_center: {enabled: false, ignoreModules: []},
+            bottom_right: {enabled: false, ignoreModules: []},
+            bottom_bar: {enabled: false, ignoreModules: []}
         },
 
         notificationReceived: function (notification) {
