@@ -22,25 +22,25 @@
 
         notificationReceived: function (notification) {
             var positions = ['top_bar', 'bottom_bar', 'top_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'bottom_right', 'upper_third', 'middle_center', 'lower_third'];
-
+            var position;
             if (notification === 'DOM_OBJECTS_CREATED') {
                 // Initially, all modules are hidden except the first and any ignored modules
                 // We start by getting a list of all of the modules in the transition cycle
                 if (this.config.global === true) {
-                    this.setUpTransitionTimers(true, null, null);
+                    this.setUpTransitionTimers(null);
                 } else {
-                    for (var position in positions) {
+                    for (position in positions) {
                         if (!positions.hasOwnProperty(position)) continue;
                         if (!this.config.hasOwnProperty(positions[position])) continue;
                         if (this.config[positions[position]].enabled === true) {
-                            this.setUpTransitionTimers(false, positions[position]);
+                            this.setUpTransitionTimers(positions[position]);
                         }
                     }
                 }
             }
         },
 
-        setUpTransitionTimers: function(global, positionIndex) {
+        setUpTransitionTimers: function(positionIndex) {
             var i;
             var modules;
             modules = MM.getModules().exceptModule(this).filter(function (module) {
