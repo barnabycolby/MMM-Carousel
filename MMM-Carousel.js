@@ -33,7 +33,7 @@
                         if (!positions.hasOwnProperty(position)) continue;
                         if (!this.config.hasOwnProperty(positions[position])) continue;
                         if (this.config[positions[position]].enabled === true) {
-                            this.setUpTransitionTimers(false, position[position]);
+                            this.setUpTransitionTimers(false, positions[position]);
                         }
                     }
                 }
