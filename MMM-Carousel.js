@@ -54,7 +54,7 @@
             }
 
             if (positionIndex !== null) {
-                if ((typeof this.config[positionIndex].overrideTransitionInterval !== 'undefined') && (this.config[positionIndex].overrideTransitionInterval > 0)) {
+                if ((this.config[positionIndex].overrideTransitionInterval !== undefined) && (this.config[positionIndex].overrideTransitionInterval > 0)) {
                     timer = this.config[positionIndex].overrideTransitionInterval;
                 }
             }
@@ -67,7 +67,7 @@
 
         moduleTransition: function () {
             var i, resetCurrentIndex = this.length;
-            if (typeof this.slides !== 'undefined') {
+            if (this.slides !== undefined) {
                 resetCurrentIndex = this.slides.length;
             }
             // Update the current index
@@ -79,7 +79,7 @@
             for (i = 0; i < this.length; i += 1) {
                 // There is currently no easy way to discover whether a module is ALREADY shown/hidden
                 // In testing, calling show/hide twice seems to cause no issues
-                if (((typeof this.slides === 'undefined') && (i === this.currentIndex)) || ((typeof this.slides !== 'undefined') && (this.slides[this.currentIndex].indexOf(this[i].name) !== -1))) {
+                if (((this.slides === undefined) && (i === this.currentIndex)) || ((this.slides !== undefined) && (this.slides[this.currentIndex].indexOf(this[i].name) !== -1))) {
                     this[i].show(1500);
                 } else {
                     this[i].hide(0);
