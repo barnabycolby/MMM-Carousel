@@ -43,7 +43,7 @@
         setUpTransitionTimers: function (positionIndex) {
             var modules, timer = this.config.transitionInterval;
             modules = MM.getModules().exceptModule(this).filter(function (module) {
-                if ((this.config.mode === 'global') || (this.config.mode === 'slides')) {
+                if (positionIndex === null) {
                     return this.config.ignoreModules.indexOf(module.name) === -1;
                 }
                 return ((this.config[positionIndex].ignoreModules.indexOf(module.name) === -1) && (module.data.position === positionIndex));
@@ -53,8 +53,10 @@
                 modules.slides = this.config.slides;
             }
 
-            if ((this.config[positionIndex].overrideTransitionInterval !== 'undefined') && (this.config[positionIndex].overrideTransitionInterval > 0)) {
-                timer = this.config[positionIndex].overrideTransitionInterval;
+            if (positionIndex !== null) {
+                if ((this.config[positionIndex].overrideTransitionInterval !== 'undefined') && (this.config[positionIndex].overrideTransitionInterval > 0)) {
+                    timer = this.config[positionIndex].overrideTransitionInterval;
+                }
             }
 
             modules.currentIndex = -1;
