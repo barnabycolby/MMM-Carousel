@@ -23,7 +23,7 @@
             moduleObjectArgument.config = {
                 transitionInterval: 12345,
                 ignoreModules: [ '0' ],
-                global: true
+                mode: 'global'
             };
 
             moduleObject = moduleObjectArgument;
@@ -74,7 +74,7 @@
 
     exports.moduleTransitionCorrectlyUpdatesHiddenStatus = function (test) {
         initialiseModule();
-        moduleObject.moduleTransition();
+        moduleObject.moduleTransition.call(modulesList);
 
         test.expect(4);
         test.ok(!modulesList[0].hidden, "The ignoreModules option should cause the first module to be ignored.");
