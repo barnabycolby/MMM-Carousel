@@ -60,7 +60,7 @@
             }
 
             modules.currentIndex = -1;
-            this.moduleTransition().call(modules);
+            this.moduleTransition.call(modules);
             // We set a timer to cause the page transitions
             this.transitionTimer = setInterval(this.moduleTransition.bind(modules), timer);
         },
