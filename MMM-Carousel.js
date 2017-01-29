@@ -41,25 +41,24 @@
         },
 
         setUpTransitionTimers: function (positionIndex) {
-            var i, modules, timer = this.config.transitionInterval;
+            var modules, timer = this.config.transitionInterval;
             modules = MM.getModules().exceptModule(this).filter(function (module) {
                 if ((this.config.mode === 'global') || (this.config.mode === 'slides')) {
                     return this.config.ignoreModules.indexOf(module.name) === -1;
                 }
                 return ((this.config[positionIndex].ignoreModules.indexOf(module.name) === -1) && (module.data.position === positionIndex));
             }, this);
-            modules.currentIndex = 0;
 
             if (this.config.mode === 'slides') {
                 modules.slides = this.config.slides;
-            } else {
-                for (i = 1; i < modules.length; i += 1) {
-                    modules[i].hide();
-                }
-                if ((this.config[positionIndex].overrideTransitionInterval !== 'undefined') && (this.config[positionIndex].overrideTransitionInterval > 0)) {
-                    timer = this.config[positionIndex].overrideTransitionInterval;
-                }
             }
+
+            if ((this.config[positionIndex].overrideTransitionInterval !== 'undefined') && (this.config[positionIndex].overrideTransitionInterval > 0)) {
+                timer = this.config[positionIndex].overrideTransitionInterval;
+            }
+
+            modules.currentIndex = -1;
+            this.moduleTransition().call(modules);
             // We set a timer to cause the page transitions
             this.transitionTimer = setInterval(this.moduleTransition.bind(modules), timer);
         },
