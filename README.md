@@ -45,9 +45,9 @@ The following properties can be configured:
 	<tbody>
 		<tr>
 			<td><code>mode</code></td>
-			<td><ul><li>`'global'` - All modules not cited in the `ignoreModules` config are rotated, displaying only one at a time for the duration of `transitionInterval`.  This is particularly useful on small screens where there may not be enough space to display several components at once. 
-                </li><li>`'positinal'` - Modules are grouped by `position` setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.
-                </li><li>`'slides'` - groups of modules can be assigned to be displayed at the same time (regardless of `position`), an unlimited number of these "slide" groups can be set up.</li></ul>
+			<td><ul><li><code>'global'</code> - All modules not cited in the <code>ignoreModules</code> config are rotated, displaying only one at a time for the duration of <code>transitionInterval</code>.  This is particularly useful on small screens where there may not be enough space to display several components at once. 
+                </li><li><code>'positinal'</code> - Modules are grouped by <code>position</code> setting and rotated within a position except for modules listed in that position's <code>ignoreModules</code>, an <code>overrideTransitionInterval</code> can also be set to rotated different position at different speeds.
+                </li><li><code>'slides'</code> - groups of modules can be assigned to be displayed at the same time (regardless of <code>position</code>), an unlimited number of these "slide" groups can be set up.</li></ul>
 				<br> <br> This value is <b>OPTIONAL</b>
 				<br><b>Possible values:</b> <code>'global'</code> or <code>'positional'</code> or <code>'slides'</code>
                 <br><b>Default value:</b> <code>'global'</code>
@@ -92,6 +92,14 @@ The following properties can be configured:
                 <br><b>Default value:</b> <code>{enabled: false, ignoreModules: [], overrideTransitionInterval: 10000}</code>
 			</td>
 		</tr>
+		<tr>
+        			<td><code>slides</code></td>
+        			<td>An array of string arrays.  Each string array is a list of content for an individual slide.  The slides will be rotated as a complete set using the <code>transitionInterval</code> setting.  Ingnored modules (<code>ignoreModules</code>) will be diplayed on all slides.
+        				<br> <br> This value is <b>OPTIONAL</b>
+        				<br><b>Possible values:</b> <code>array of String array</code>
+                        <br><b>Default value:</b> <code>[[]]</code>
+        			</td>
+        		</tr>
 	</tbody>
 </table>
 
