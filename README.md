@@ -1,7 +1,7 @@
 # MMM-Carousel
 > This is an extension to the [MagicMirror](https://github.com/MichMich/MagicMirror) project, allowing the modules to be displayed in a rotating carousel instead of displaying all of them at once. There are three modes available:
 * `'global'` - All modules not cited in the `ignoreModules` config are rotated, displaying only one at a time for the duration of `transitionInterval`.  This is particularly useful on small screens where there may not be enough space to display several components at once. 
-* `'positinal'` - Modules are grouped by `position` setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.
+* `'positional'` - Modules are grouped by `position` setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.
 * `'slides'` - groups of modules can be assigned to be displayed at the same time (regardless of `position`), an unlimited number of these "slide" groups can be set up.
 
 [![Build Status](https://travis-ci.org/barnabycolby/MMM-Carousel.svg?branch=master)](https://travis-ci.org/barnabycolby/MMM-Carousel)
@@ -46,7 +46,7 @@ The following properties can be configured:
 		<tr>
 			<td><code>mode</code></td>
 			<td><ul><li><code>'global'</code> - All modules not cited in the <code>ignoreModules</code> config are rotated, displaying only one at a time for the duration of <code>transitionInterval</code>.  This is particularly useful on small screens where there may not be enough space to display several components at once. 
-                </li><li><code>'positinal'</code> - Modules are grouped by <code>position</code> setting and rotated within a position except for modules listed in that position's <code>ignoreModules</code>, an <code>overrideTransitionInterval</code> can also be set to rotated different position at different speeds.
+                </li><li><code>'positional'</code> - Modules are grouped by <code>position</code> setting and rotated within a position except for modules listed in that position's <code>ignoreModules</code>, an <code>overrideTransitionInterval</code> can also be set to rotated different position at different speeds.
                 </li><li><code>'slides'</code> - groups of modules can be assigned to be displayed at the same time (regardless of <code>position</code>), an unlimited number of these "slide" groups can be set up.</li></ul>
 				<br> <br> This value is <b>OPTIONAL</b>
 				<br><b>Possible values:</b> <code>'global'</code> or <code>'positional'</code> or <code>'slides'</code>
@@ -83,7 +83,7 @@ The following properties can be configured:
 			    <br><code>bottom_right</code>
 			    <br><code>bottom_bar</code>
 			</td>
-			<td>Determines if this position should be rotated and which modules in this position should be ignored.  <b>NOTE: is only used when <code>global</code> is <code>false</code></b>.
+			<td>Determines if this position should be rotated and which modules in this position should be ignored.  <b>NOTE: is only used when <code>mode</code> is <code>'positional'</code> otherwise ignored</b>.
 				<br> <br> This value is <b>OPTIONAL</b>
 				<br><b>Possible values:</b> Object with keys;
 				<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>enabled</code>, a boolean to rotate this position or not,
