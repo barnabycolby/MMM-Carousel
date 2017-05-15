@@ -20,7 +20,9 @@
             bottom_bar: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
             slides: [
                 []
-            ]
+            ],
+            showPageIndicators: true,
+            showPageControls: true
         },
 
         notificationReceived: function (notification) {
@@ -85,6 +87,77 @@
                     this[i].hide(0);
                 }
             }
-        }
+        },
+
+        /* getDom()
+		 * This method generates the dom which needs to be displayed. This method is called by the Magic Mirror core.
+		 * This method needs to be subclassed if the module wants to display info on the mirror.
+		 *
+		 * return domobject - The dom to display.
+		 */
+		getDom: function () {
+			var nameWrapper = document.createElement("div");
+			var name = document.createTextNode(this.name);
+			nameWrapper.appendChild(name);
+
+			var identifierWrapper = document.createElement("div");
+			var identifier = document.createTextNode(this.identifier);
+			identifierWrapper.appendChild(identifier);
+			identifierWrapper.className = "small dimmed";
+
+			var div = document.createElement("div");
+			div.appendChild(nameWrapper);
+			div.appendChild(identifierWrapper);
+
+			if (this.config.mode === "slides" && this.config.showPageIndicators) {
+				if (this.config.showPageIndicators) {
+					var paginationWrapper = document.createElement("div");
+					paginationWrapper.className = "slider-pagination";
+
+					for (var i = 0; i < this.config.slides.length; i++) {
+						var labelWrapper = document.createElement("label");
+						label.for = "slider_" + (i+1);
+						label.className = "page" + (i+1);
+
+						var inputWrapper = document.createElement("input");
+						input.type = "radio";
+						input.name = "slider";
+						input.id = "slider_" + (i+1);
+						input.className = "slide-radio" + (i+1);
+						
+						paginationWrapper.appendChild(labelWrapper);
+						paginationWrapper.appendChild(inputWrapper);
+					}
+
+					div.appendChild(paginationWrapper);
+				}
+
+				if (this.config.showPageControls) {
+					var nextWrapper = document.createElement("div");
+					nextWrapper.className = "next control";
+					
+					var previousWrapper = document.createElement("div");
+					previousWrapper.className = "previous control";
+
+					for (var j = 0; j < this.config.slides.length; j++) {	
+						var nCtrlLabelWrapper = document.createElement("div");
+						nCtrlLabelWrapper.for = "slider_" + (j+1);
+						nCtrlLabelWrapper.className = "numb" + (j+1);
+						nCtrlLabelWrapper.innerHTML = '<i class="fa fa-arrow-circle-right"></i>';
+						nextWrapper.appendChild(nCtrlLabelWrapper);
+
+						var pCtrlLabelWrapper = document.createElement("div");
+						pCtrlLabelWrapper.for = "slider_" + (j+1);
+						pCtrlLabelWrapper.className = "numb" + (j+1);
+						pCtrlLabelWrapper.innerHTML = '<i class="fa fa-arrow-circle-left"></i>';
+						previousWrapper.appendChild(pCtrlLabelWrapper);
+					}
+
+					div.appendChild(nextWrapper);
+					div.appendChild(previousWrapper);
+				}
+			}
+			return div;
+		},
     });
 }());
