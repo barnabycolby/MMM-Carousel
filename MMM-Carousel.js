@@ -89,6 +89,17 @@
             }
         },
 
+        manualTransition: function (slideNum) {
+        	console.log("manualTransition was called by slider_" + slideNum);
+        	// TODO: Manually drive slide changes based on the slide that was clicked
+        	// TODO: Make sure to add/remove the "available" class to the next/previous button that should be enabled.
+        	//       ^^ This should probably be done in the module transition function so if you use timers the buttons still work
+        },
+
+        getStyles: function() {
+            return ["MMM-Carousel.css"];
+        },
+
         /* getDom()
 		 * This method generates the dom which needs to be displayed. This method is called by the Magic Mirror core.
 		 * This method needs to be subclassed if the module wants to display info on the mirror.
@@ -96,6 +107,7 @@
 		 * return domobject - The dom to display.
 		 */
 		getDom: function () {
+			var self = this;
 			var nameWrapper = document.createElement("div");
 			var name = document.createTextNode(this.name);
 			nameWrapper.appendChild(name);
@@ -109,6 +121,12 @@
 			div.appendChild(nameWrapper);
 			div.appendChild(identifierWrapper);
 
+			function makeOnChangeHandler(id) {
+			    return function () {
+			        self.manualTransition(id);
+			    };
+			}
+
 			if (this.config.mode === "slides" && this.config.showPageIndicators) {
 				if (this.config.showPageIndicators) {
 					var paginationWrapper = document.createElement("div");
@@ -117,14 +135,13 @@
 					for (var i = 0; i < this.config.slides.length; i++) {
 						var labelWrapper = document.createElement("label");
 						label.for = "slider_" + (i+1);
-						label.className = "page" + (i+1);
 
 						var inputWrapper = document.createElement("input");
 						input.type = "radio";
 						input.name = "slider";
 						input.id = "slider_" + (i+1);
-						input.className = "slide-radio" + (i+1);
-						
+						input.className = "slide-radio";
+						input.onchange = makeOnChangeHandler(i+1);
 						paginationWrapper.appendChild(labelWrapper);
 						paginationWrapper.appendChild(inputWrapper);
 					}
@@ -140,17 +157,19 @@
 					previousWrapper.className = "previous control";
 
 					for (var j = 0; j < this.config.slides.length; j++) {	
-						var nCtrlLabelWrapper = document.createElement("div");
-						nCtrlLabelWrapper.for = "slider_" + (j+1);
-						nCtrlLabelWrapper.className = "numb" + (j+1);
-						nCtrlLabelWrapper.innerHTML = '<i class="fa fa-arrow-circle-right"></i>';
-						nextWrapper.appendChild(nCtrlLabelWrapper);
+						if (j !== this.config.slides.length - 1) {
+							var nCtrlLabelWrapper = document.createElement("div");
+							nCtrlLabelWrapper.for = "slider_" + (j+1);
+							nCtrlLabelWrapper.innerHTML = '<i class="fa fa-arrow-circle-right"></i>';
+							nextWrapper.appendChild(nCtrlLabelWrapper);
+						}
 
-						var pCtrlLabelWrapper = document.createElement("div");
-						pCtrlLabelWrapper.for = "slider_" + (j+1);
-						pCtrlLabelWrapper.className = "numb" + (j+1);
-						pCtrlLabelWrapper.innerHTML = '<i class="fa fa-arrow-circle-left"></i>';
-						previousWrapper.appendChild(pCtrlLabelWrapper);
+						if (j !== 0) {
+							var pCtrlLabelWrapper = document.createElement("div");
+							pCtrlLabelWrapper.for = "slider_" + (j+1);
+							pCtrlLabelWrapper.innerHTML = '<i class="fa fa-arrow-circle-left"></i>';
+							previousWrapper.appendChild(pCtrlLabelWrapper);
+						}
 					}
 
 					div.appendChild(nextWrapper);

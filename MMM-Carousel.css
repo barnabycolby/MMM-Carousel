@@ -1,0 +1,71 @@
+
+/*****************************************************
+ *													 *
+ * Custom Styles for Slider Animations Adapted from: *
+ * https://www.htmllion.com/						 *
+ *	pure-css-based-fullscreen-slider.html			 *
+ *													 *
+ *****************************************************/
+
+/* Next and Previous arrow */ 
+.control {
+  position: absolute;
+  bottom: 5%;
+  width: 50px;
+  height: 50px;
+  margin-top: -25px;
+  z-index: 55;
+}
+.control label {
+  z-index: 0;
+  display: none;
+  text-align: center;
+  line-height: 50px;
+  font-size: 50px;
+  color: #FFF;
+  cursor: pointer !important;
+  opacity: 0.2;
+}
+.control label:hover {
+  opacity: 0.5;
+}
+.next {
+  right: 1%;
+}
+.previous {
+  left: 1%;
+}
+/* Slider Pagger */ 
+.slider-pagination {
+  position: absolute;
+  bottom: -5px;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  z-index: 1000;
+}
+.slider-pagination label {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  margin: 0 2px;
+  border: solid 1px rgba(255,255,255,0.4);
+  cursor: pointer !important;
+}
+
+/* Hide actual radio buttons */
+.slide-radio
+{
+	position: absolute;
+	bottom: -200px;
+	left: -200px;
+	visibility: hidden;
+}
+
+/* Slider Pagger arrow event */
+.slide-radio:checked .available {
+  display: block;
+  z-index: 100
+}
