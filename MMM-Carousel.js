@@ -62,20 +62,37 @@
             }
 
             modules.currentIndex = -1;
+            modules.showPageIndicators = this.config.showPageIndicators; 
+            modules.showPageControls = this.config.showPageControls;
             this.moduleTransition.call(modules);
+
+            // Reference to function for manual transitions
+            this.manualTransition = this.moduleTransition.bind(modules);
+
             // We set a timer to cause the page transitions
-            this.transitionTimer = setInterval(this.moduleTransition.bind(modules), timer);
+            this.transitionTimer = setInterval(this.manualTransition, timer);
         },
 
-        moduleTransition: function () {
+        moduleTransition: function (goToIndex=-1, goDirection=0) {
             var i, resetCurrentIndex = this.length;
             if (this.slides !== undefined) {
                 resetCurrentIndex = this.slides.length;
             }
+
             // Update the current index
-            this.currentIndex += 1;
-            if (this.currentIndex >= resetCurrentIndex) {
-                this.currentIndex = 0;
+            if (goToIndex === -1) {                             // Go to a specific slide?
+                if (goDirection === 0) {
+                    this.currentIndex += 1;                     // Normal Transition, Increment by 1
+                } else {
+                    this.currentIndex += goDirection;           // Told to go a specific direction
+                }
+                if (this.currentIndex >= resetCurrentIndex) {   // Wrap-around back to beginning
+                    this.currentIndex = 0;
+                } else if (this.currentIndex < 0) {
+                    this.currentIndex = resetCurrentIndex - 1;  // Went too far backwards, wrap-around to end
+                }
+            } else if (goToIndex >= 0 && goToIndex < resetCurrentIndex) {
+                this.currentIndex = goToIndex;                  // Go to a specific slide if in range
             }
 
             for (i = 0; i < this.length; i += 1) {
@@ -87,13 +104,52 @@
                     this[i].hide(0);
                 }
             }
+
+            // Update the DOM if we're using it.
+            if (this.showPageIndicators || this.showPageControls) {
+                var slider = document.getElementById("slider_" + this.currentIndex);
+                slider.checked = true;
+                var label
+
+                if (this.showPageIndicators) {
+                    var currPages = document.getElementsByClassName("MMMCarouselCurrentPage");
+                    if (currPages && currPages.length > 0) {
+                        for(i = 0; i < currPages.length; i++)
+                        {
+                           currPages[i].classList.remove('MMMCarouselCurrentPage');
+                        }
+                    }
+                    document.getElementById("sliderLabel_" + this.currentIndex).classList.add('MMMCarouselCurrentPage');
+                }
+                
+                if (this.showPageControls) {
+                    var currBtns = document.getElementsByClassName("MMMCarouselAvailable");
+                    if (currBtns && currBtns.length > 0) {
+                        while (currBtns.length > 0) {
+                            console.log("removing " + currBtns[0].id);
+                           currBtns[0].classList.remove('MMMCarouselAvailable');
+                        }
+                    }
+                    if (this.currentIndex !== resetCurrentIndex - 1) {
+                        console.log("Trying to enable button sliderNextBtn_" + (this.currentIndex+1));
+                        document.getElementById("sliderNextBtn_" + (this.currentIndex+1)).classList.add('MMMCarouselAvailable');
+                    }
+                    if (this.currentIndex !== 0) {
+                        console.log("Trying to enable button sliderPrevBtn_" + (this.currentIndex-1))
+                        document.getElementById("sliderPrevBtn_" + (this.currentIndex-1)).classList.add('MMMCarouselAvailable');
+                    }
+                }
+            }
         },
 
-        manualTransition: function (slideNum) {
+        manualTransitionCallback: function (slideNum) {
         	console.log("manualTransition was called by slider_" + slideNum);
-        	// TODO: Manually drive slide changes based on the slide that was clicked
-        	// TODO: Make sure to add/remove the "available" class to the next/previous button that should be enabled.
-        	//       ^^ This should probably be done in the module transition function so if you use timers the buttons still work
+        	// Perform the manual transitio
+            this.manualTransition(slideNum);
+
+            // Restart the timer
+            clearInterval(this.transitionTimer);
+            this.transitionTimer = setInterval(this.manualTransition, this.config.transitionInterval);
         },
 
         getStyles: function() {
@@ -108,46 +164,40 @@
 		 */
 		getDom: function () {
 			var self = this;
-			var nameWrapper = document.createElement("div");
-			var name = document.createTextNode(this.name);
-			nameWrapper.appendChild(name);
-
-			var identifierWrapper = document.createElement("div");
-			var identifier = document.createTextNode(this.identifier);
-			identifierWrapper.appendChild(identifier);
-			identifierWrapper.className = "small dimmed";
-
 			var div = document.createElement("div");
-			div.appendChild(nameWrapper);
-			div.appendChild(identifierWrapper);
+            div.className = "MMMCarouselContainer";
 
 			function makeOnChangeHandler(id) {
 			    return function () {
-			        self.manualTransition(id);
+			        self.manualTransitionCallback(id);
 			    };
 			}
 
-			if (this.config.mode === "slides" && this.config.showPageIndicators) {
-				if (this.config.showPageIndicators) {
-					var paginationWrapper = document.createElement("div");
-					paginationWrapper.className = "slider-pagination";
+			if (this.config.mode === "slides" && (this.config.showPageIndicators || this.config.showPageControls)) {
+			
+                var paginationWrapper = document.createElement("div");
+                paginationWrapper.className = "slider-pagination";
 
-					for (var i = 0; i < this.config.slides.length; i++) {
-						var labelWrapper = document.createElement("label");
-						label.for = "slider_" + (i+1);
+                for (var i = 0; i < this.config.slides.length; i++) {
+                    var input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = "slider";
+                    input.id = "slider_" + i;
+                    input.className = "slide-radio";
+                    input.onchange = makeOnChangeHandler(i);
+                    paginationWrapper.appendChild(input);
+                }
 
-						var inputWrapper = document.createElement("input");
-						input.type = "radio";
-						input.name = "slider";
-						input.id = "slider_" + (i+1);
-						input.className = "slide-radio";
-						input.onchange = makeOnChangeHandler(i+1);
-						paginationWrapper.appendChild(labelWrapper);
-						paginationWrapper.appendChild(inputWrapper);
+                if (this.config.showPageIndicators) {
+					for (i = 0; i < this.config.slides.length; i++) {
+						var label = document.createElement("label");
+						label.setAttribute("for", "slider_" + i);
+                        label.id = "sliderLabel_" + i;
+						paginationWrapper.appendChild(label);
 					}
-
-					div.appendChild(paginationWrapper);
 				}
+
+                div.appendChild(paginationWrapper);
 
 				if (this.config.showPageControls) {
 					var nextWrapper = document.createElement("div");
@@ -157,16 +207,18 @@
 					previousWrapper.className = "previous control";
 
 					for (var j = 0; j < this.config.slides.length; j++) {	
-						if (j !== this.config.slides.length - 1) {
-							var nCtrlLabelWrapper = document.createElement("div");
-							nCtrlLabelWrapper.for = "slider_" + (j+1);
+						if (j !== 0) {
+							var nCtrlLabelWrapper = document.createElement("label");
+							nCtrlLabelWrapper.setAttribute("for", "slider_" + j);
+                            nCtrlLabelWrapper.id = "sliderNextBtn_" + j;
 							nCtrlLabelWrapper.innerHTML = '<i class="fa fa-arrow-circle-right"></i>';
 							nextWrapper.appendChild(nCtrlLabelWrapper);
 						}
 
-						if (j !== 0) {
-							var pCtrlLabelWrapper = document.createElement("div");
-							pCtrlLabelWrapper.for = "slider_" + (j+1);
+						if (j !== this.config.slides.length - 1) {
+							var pCtrlLabelWrapper = document.createElement("label");
+                            pCtrlLabelWrapper.setAttribute("for", "slider_" + j);
+                            pCtrlLabelWrapper.id = "sliderPrevBtn_" + j;
 							pCtrlLabelWrapper.innerHTML = '<i class="fa fa-arrow-circle-left"></i>';
 							previousWrapper.appendChild(pCtrlLabelWrapper);
 						}

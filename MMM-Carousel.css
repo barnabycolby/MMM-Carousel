@@ -7,43 +7,94 @@
  *													 *
  *****************************************************/
 
-/* Next and Previous arrow */ 
+ /* Overwrite some of the main.css values */
+html {
+  /*cursor: auto;*/
+}
+
+body {
+  /*overflow: hidden;*/
+  overflow:visible;
+  margin-bottom: 0px;
+  height: calc(100% - 60px);
+}
+
+.region.bottom {
+    bottom: 60px;
+}
+
+
+.zoom125 {
+  zoom: 1.25;
+}
+
+.zoom150 {
+  zoom: 1.5;
+}
+
+.zoom175 {
+  zoom: 1.75;
+}
+
+.zoom200 {
+  zoom: 2.0;
+}
+
+
+/* Next and Previous arrow */
 .control {
   position: absolute;
-  bottom: 5%;
-  width: 50px;
-  height: 50px;
-  margin-top: -25px;
+  bottom: 0px;
+  width: 150px;
+  height: 150px;
   z-index: 55;
 }
+
+/* Show button when you hover near */
+.control:hover label {
+  opacity: 0.2;
+  cursor: pointer !important;
+}
+
 .control label {
   z-index: 0;
   display: none;
   text-align: center;
   line-height: 50px;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  left: 33%;  /* Center in .control div: this.width / .control.width; */
+  top: 33%;   /* Center in .control div: this.height / .control.height;; */
   font-size: 50px;
   color: #FFF;
   cursor: pointer !important;
-  opacity: 0.2;
+  opacity: 0.0;
 }
+
+/*Increase brightness when directly over*/
 .control label:hover {
   opacity: 0.5;
 }
+
 .next {
-  right: 1%;
+  right: -60px;
 }
+
 .previous {
-  left: 1%;
+  left: -60px;
 }
+
 /* Slider Pagger */ 
 .slider-pagination {
   position: absolute;
-  bottom: -5px;
+  bottom: 15px;
   width: 100%;
   left: 0;
   text-align: center;
   z-index: 1000;
 }
+
 .slider-pagination label {
   width: 10px;
   height: 10px;
@@ -55,6 +106,9 @@
   cursor: pointer !important;
 }
 
+.MMMCarouselCurrentPage {
+  background: rgba(255,255,255,1) !important;
+}
 /* Hide actual radio buttons */
 .slide-radio
 {
@@ -65,7 +119,19 @@
 }
 
 /* Slider Pagger arrow event */
-.slide-radio:checked .available {
-  display: block;
-  z-index: 100
+.MMMCarouselAvailable {
+  display: block !important;
+  z-index: 100 !important;
+}
+
+.MMMCarouselContainer {
+  overflow: visible !important;
+  position: absolute;
+  height: 60px;
+  bottom: -60px;
+  width: 100%;
+  left: 0%;
+  z-index: 50;
+  background-color: black;
+
 }

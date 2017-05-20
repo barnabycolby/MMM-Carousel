@@ -1,17 +1,15 @@
-# MMM-Carousel
+f# MMM-Carousel
 > This is an extension to the [MagicMirror](https://github.com/MichMich/MagicMirror) project, allowing the modules to be displayed in a rotating carousel instead of displaying all of them at once. There are three modes available:
 * `'global'` - All modules not cited in the `ignoreModules` config are rotated, displaying only one at a time for the duration of `transitionInterval`.  This is particularly useful on small screens where there may not be enough space to display several components at once. 
 * `'positional'` - Modules are grouped by `position` setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.
 * `'slides'` - groups of modules can be assigned to be displayed at the same time (regardless of `position`), an unlimited number of these "slide" groups can be set up.
-
-[![Build Status](https://travis-ci.org/barnabycolby/MMM-Carousel.svg?branch=master)](https://travis-ci.org/barnabycolby/MMM-Carousel)
 
 ## Installation
 Run these commands at the root of your magic mirror install.
 
 ```shell
 cd modules
-git clone https://github.com/barnabycolby/MMM-Carousel
+git clone https://github.com/shbatm/MMM-Carousel
 ```
 
 ## Using the module
@@ -21,6 +19,7 @@ var config = {
     modules: [
         {
             module: 'MMM-Carousel',
+            position: 'bottom_bar'
             config: {
                 // See below for configurable options
             }
@@ -29,7 +28,7 @@ var config = {
 }
 ```
 
-Note that a `position` setting is not required.
+Note that a `position` setting is required only if you want to show the page navigation icons and buttons.
 
 ### Configuration options
 The following properties can be configured:
@@ -100,6 +99,16 @@ The following properties can be configured:
                         <br><b>Default value:</b> <code>[[]]</code>
         			</td>
         		</tr>
+        <tr>
+            <td><code>showPageIndicators</code></td>
+            <td>A <code>boolean true or false</code> to show or hide the page indication 'bubbles' at the bottom of the screen. Default is <code>true</code>.
+            </td>
+        </tr>
+        <tr>
+            <td><code>showPageControls</code></td>
+            <td>A <code>boolean true or false</code> to show or hide the next and previous page buttons. Buttons will only appear when hovered near or over. They can be clicked when not visible. Default is <code>true</code>.
+            </td>
+        </tr>
 	</tbody>
 </table>
 
