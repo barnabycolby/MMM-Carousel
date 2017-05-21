@@ -1,4 +1,4 @@
-f# MMM-Carousel
+# MMM-Carousel
 > This is an extension to the [MagicMirror](https://github.com/MichMich/MagicMirror) project, allowing the modules to be displayed in a rotating carousel instead of displaying all of them at once. There are three modes available:
 * `'global'` - All modules not cited in the `ignoreModules` config are rotated, displaying only one at a time for the duration of `transitionInterval`.  This is particularly useful on small screens where there may not be enough space to display several components at once. 
 * `'positional'` - Modules are grouped by `position` setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.
@@ -109,6 +109,19 @@ The following properties can be configured:
             <td>A <code>boolean true or false</code> to show or hide the next and previous page buttons. Buttons will only appear when hovered near or over. They can be clicked when not visible. Default is <code>true</code>.
             </td>
         </tr>
+	<tr>
+		<td><code>keyBindingsMode</code></td>
+		<td>Mode Keyword for responding to key press events sent from [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings). Default: "DEFAULT" which repsonds to any key press when no other module has taken focus or changed the keyword.</td>
+	</tr>
+	<tr>
+		<td><code>
+keyBindings: { 
+  NextSlide: "ArrowRight",
+  PrevSlide: "ArrowLeft"
+}
+</code></td>
+		<td>Key bindings to use for navigation with [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings) plugin.</td>
+	</tr>
 	</tbody>
 </table>
 
@@ -159,6 +172,28 @@ var config = {
                     ['weatherforecast', 'MMM-Trello', 'planetrise', 'newsfeed'],
                     ['MMM-fitbit']
                 ]
+            }
+        }
+    ]
+}
+```
+#### Example - Slides Carousel w/ [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings)
+```javascript
+var config = {
+    modules: [
+        {
+            module: 'MMM-Carousel',
+            config: {
+                transitionInterval: 10000,
+                ignoreModules: ['clock', 'alert'],
+                mode: 'slides',
+                slides: [
+                    ['calendar', 'compliments', 'currentweather'],
+                    ['weatherforecast', 'MMM-Trello', 'planetrise', 'newsfeed'],
+                    ['MMM-fitbit']
+                ],
+                keyBindingsMode: "DEFAULT",
+                keyBindings: { NextSlide: "ArrowRight", PrevSlide: "ArrowLeft"}
             }
         }
     ]

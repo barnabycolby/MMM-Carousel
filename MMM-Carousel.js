@@ -22,10 +22,28 @@
                 []
             ],
             showPageIndicators: true,
-            showPageControls: true
+            showPageControls: true,
+            // MMM-KeyBindings mapping.
+            keyBindingsMode: "DEFAULT",
+            keyBindings: { NextSlide: "ArrowRight", PrevSlide: "ArrowLeft"}
         },
 
-        notificationReceived: function (notification) {
+        start: function () {
+        	this.setupKeyBindings();
+        },
+
+        /* Setup Key Bindings for the MMM-KeyBindings module */
+        setupKeyBindings: function () {
+        	this.currentKeyPressMode = this.config.keyBindingsMode;
+	       	this.reverseKeyMap = {};
+	        for (var eKey in this.config.keyBindings) {
+	            if (this.config.keyBindings.hasOwnProperty(eKey)) {
+	                this.reverseKeyMap[this.config.keyBindings[eKey]] = eKey;
+	            }
+	        }
+        },
+
+        notificationReceived: function (notification, payload, sender) {
             var position, positions = ['top_bar', 'bottom_bar', 'top_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'bottom_right', 'upper_third', 'middle_center', 'lower_third'];
             if (notification === 'DOM_OBJECTS_CREATED') {
                 // Initially, all modules are hidden except the first and any ignored modules
@@ -40,6 +58,26 @@
                     }
                 }
             }
+
+            // Handle KEYPRESS events from the MMM-KeyBindings Module
+            if (notification === "KEYPRESS_MODE_CHANGED") {
+            	this.currentKeyPressMode = payload;
+        	}
+        	// if (notification === "KEYPRESS") {
+        	// 	console.log(payload);
+        	// }
+        	if (notification === "KEYPRESS" && (this.currentKeyPressMode === this.config.keyBindingsMode) && 
+        			payload.KeyName in this.reverseKeyMap) {
+        		console.log(payload.KeyName === this.config.keyBindings.NextSlide);
+        		if (payload.KeyName === this.config.keyBindings.NextSlide) {
+        			this.manualTransition(undefined, 1);
+        			this.restartTimer();
+        		}
+        		else if (payload.KeyName === this.config.keyBindings.PrevSlide) {
+        			this.manualTransition(undefined, -1);
+        			this.restartTimer();
+        		}
+        	}
         },
 
         setUpTransitionTimers: function (positionIndex) {
@@ -84,6 +122,7 @@
                 if (goDirection === 0) {
                     this.currentIndex += 1;                     // Normal Transition, Increment by 1
                 } else {
+                	// console.log("Currently on slide " + this.currentIndex + " and going to slide " + (this.currentIndex + goDirection));
                     this.currentIndex += goDirection;           // Told to go a specific direction
                 }
                 if (this.currentIndex >= resetCurrentIndex) {   // Wrap-around back to beginning
@@ -106,10 +145,10 @@
             }
 
             // Update the DOM if we're using it.
-            if (this.showPageIndicators || this.showPageControls) {
+            if ((this.slides !== undefined) && (this.showPageIndicators || this.showPageControls)) {
                 var slider = document.getElementById("slider_" + this.currentIndex);
                 slider.checked = true;
-                var label
+                var label;
 
                 if (this.showPageIndicators) {
                     var currPages = document.getElementsByClassName("MMMCarouselCurrentPage");
@@ -126,30 +165,32 @@
                     var currBtns = document.getElementsByClassName("MMMCarouselAvailable");
                     if (currBtns && currBtns.length > 0) {
                         while (currBtns.length > 0) {
-                            console.log("removing " + currBtns[0].id);
                            currBtns[0].classList.remove('MMMCarouselAvailable');
                         }
                     }
                     if (this.currentIndex !== resetCurrentIndex - 1) {
-                        console.log("Trying to enable button sliderNextBtn_" + (this.currentIndex+1));
+                        // console.log("Trying to enable button sliderNextBtn_" + (this.currentIndex+1));
                         document.getElementById("sliderNextBtn_" + (this.currentIndex+1)).classList.add('MMMCarouselAvailable');
                     }
                     if (this.currentIndex !== 0) {
-                        console.log("Trying to enable button sliderPrevBtn_" + (this.currentIndex-1))
+                        // console.log("Trying to enable button sliderPrevBtn_" + (this.currentIndex-1));
                         document.getElementById("sliderPrevBtn_" + (this.currentIndex-1)).classList.add('MMMCarouselAvailable');
                     }
                 }
             }
         },
 
-        manualTransitionCallback: function (slideNum) {
-        	console.log("manualTransition was called by slider_" + slideNum);
-        	// Perform the manual transitio
-            this.manualTransition(slideNum);
-
+        restartTimer: function () {
             // Restart the timer
             clearInterval(this.transitionTimer);
             this.transitionTimer = setInterval(this.manualTransition, this.config.transitionInterval);
+        },
+
+        manualTransitionCallback: function (slideNum) {
+        	// console.log("manualTransition was called by slider_" + slideNum);
+        	// Perform the manual transitio
+            this.manualTransition(slideNum);
+            this.restartTimer();
         },
 
         getStyles: function() {
@@ -164,9 +205,6 @@
 		 */
 		getDom: function () {
 			var self = this;
-			var div = document.createElement("div");
-            div.className = "MMMCarouselContainer";
-
 			function makeOnChangeHandler(id) {
 			    return function () {
 			        self.manualTransitionCallback(id);
@@ -174,7 +212,10 @@
 			}
 
 			if (this.config.mode === "slides" && (this.config.showPageIndicators || this.config.showPageControls)) {
-			
+				
+				var div = document.createElement("div");
+	            div.className = "MMMCarouselContainer";
+
                 var paginationWrapper = document.createElement("div");
                 paginationWrapper.className = "slider-pagination";
 
@@ -227,8 +268,8 @@
 					div.appendChild(nextWrapper);
 					div.appendChild(previousWrapper);
 				}
+				return div;
 			}
-			return div;
 		},
     });
 }());
