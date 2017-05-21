@@ -5,9 +5,9 @@
 * `'slides'` - groups of modules can be assigned to be displayed at the same time (regardless of `position`), an unlimited number of these "slide" groups can be set up.
 * ***New:*** Slide Indicators and Navigation Buttons can be enabled (see config settings)
 
-    ![](https://raw.githubusercontent.com/shbatm/MMM-KeyBindings/master/img/slide.jpg)
+    ![](https://raw.githubusercontent.com/shbatm/MMM-Carousel/wip/img/slide.jpg)
 
-    ![](https://raw.githubusercontent.com/shbatm/MMM-KeyBindings/master/img/navbar.jpg)
+    ![](https://raw.githubusercontent.com/shbatm/MMM-Carousel/wip/img/navbar.jpg)
 
 ## Installation
 Run these commands at the root of your magic mirror install.
