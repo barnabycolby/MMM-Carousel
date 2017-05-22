@@ -25,7 +25,7 @@
             showPageControls: true,
             // MMM-KeyBindings mapping.
             keyBindingsMode: "DEFAULT",
-            keyBindings: { NextSlide: "ArrowRight", PrevSlide: "ArrowLeft"}
+            keyBindings: { NextSlide: "ArrowRight", PrevSlide: "ArrowLeft", Slide0: "Home" }
         },
 
         start: function () {
@@ -68,7 +68,6 @@
         	// }
         	if (notification === "KEYPRESS" && (this.currentKeyPressMode === this.config.keyBindingsMode) && 
         			payload.KeyName in this.reverseKeyMap) {
-        		console.log(payload.KeyName === this.config.keyBindings.NextSlide);
         		if (payload.KeyName === this.config.keyBindings.NextSlide) {
         			this.manualTransition(undefined, 1);
         			this.restartTimer();
@@ -77,6 +76,14 @@
         			this.manualTransition(undefined, -1);
         			this.restartTimer();
         		}
+                else if (this.reverseKeyMap[payload.KeyName].startsWith("Slide")) {
+                    var goToSlide = this.reverseKeyMap[payload.KeyName].match(/Slide([0-9]+)/i);
+                    console.log((typeof goToSlide[1]) + " " + goToSlide[1]);
+                    if (typeof parseInt(goToSlide[1]) === "number") { 
+                        this.manualTransition(parseInt(goToSlide[1]));
+                        this.restartTimer();                        
+                    }
+                }
         	}
         },
 
@@ -159,7 +166,7 @@
                 // In testing, calling show/hide twice seems to cause no issues
                 console.log("Processing " + this[i].name);
                 if ((this.slides === undefined) && (i === this.currentIndex)) {
-                    this[i].show(1500);
+                    this[i].show(1500, {lockString: "mmmc"});
                 } else if (this.slides !== undefined) {
                     // Handle slides
                     var mods = this.slides[this.currentIndex];
@@ -168,7 +175,7 @@
                     for (var s = 0; s < mods.length; s++) {
                         if (typeof mods[s] === "string" && mods[s] === this[i].name) {
                         // If only the module name is given as a string, and it matches, show the module
-                            this[i].show(1500);
+                            this[i].show(1500, {lockString: "mmmc"});
                             show = true;
                             break;
                         } else if (typeof mods[s] === "object" && ("name" in mods[s]) && mods[s].name === this[i].name) {
@@ -191,16 +198,16 @@
                                 selectWrapper(mods[s].position).appendChild(document.getElementById(this[i].identifier));
                             }
                             // Finally show the module
-                            this[i].show(1500);
+                            this[i].show(1500, {lockString: "mmmc"});
                             show = true;
                             break;
                         }
                     }
                     // The module is not in this slide.
-                    if (!show) { this[i].hide(0); }
+                    if (!show) { this[i].hide(0, {lockString: "mmmc"}); }
                 } else {
                     // We aren't using slides and this module shouldn't be shown.
-                    this[i].hide(0);
+                    this[i].hide(0, {lockString: "mmmc"});
                 }
             }
 

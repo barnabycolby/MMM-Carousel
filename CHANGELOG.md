@@ -15,6 +15,7 @@ Changes:
 ```
 * Made use of `zoom` classes introduced in [0.1.1]: using the method above, supported zooms are 070%, 080%, 090%, 125%, 150%, 175%, and 200%. Pass `classes:''` for 100%.
 * Added support for indefinite slides -- set `transitionInterval: 0` for manual-transition only slides
+* Added KeyPress events to go to specific slide index. (e.g. `Slide0: "Home"` in the KeyBindings would jump to the first slide when the home key is pushed). Works with any number of slides in the format `Slide#: "KeyName"` where # is the 0-based index of the slide.
 
 ## [0.1.1] - Added manual transitions
 

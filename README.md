@@ -1,13 +1,19 @@
 # MMM-Carousel w/ Slide Navigation
-> This is an extension to the [MagicMirror](https://github.com/MichMich/MagicMirror) project, allowing the modules to be displayed in a rotating carousel instead of displaying all of them at once. There are three modes available:
+> This is an extension to the [MagicMirror](https://github.com/MichMich/MagicMirror) project, allowing the modules to be displayed in a rotating carousel instead of displaying all of them at once.
+> This version of the module was forked from [barnabycolby's MMM-Carousel](https://github.com/barnabycolby/MMM-Carousel).
+>  
+>    There are three modes available:
 * `'global'` - All modules not cited in the `ignoreModules` config are rotated, displaying only one at a time for the duration of `transitionInterval`.  This is particularly useful on small screens where there may not be enough space to display several components at once. 
 * `'positional'` - Modules are grouped by `position` setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.
-* `'slides'` - groups of modules can be assigned to be displayed at the same time (regardless of `position`), an unlimited number of these "slide" groups can be set up.
+* `'slides'` - groups of modules can be assigned to be displayed at the same time (regardless of `position`), an unlimited number of these "slide" groups can be set up. Module positions and appearances can also be changed for each slide.
 * ***New:*** Slide Indicators and Navigation Buttons can be enabled (see config settings)
 
     ![](https://raw.githubusercontent.com/shbatm/MMM-Carousel/wip/img/slide.jpg)
 
     ![](https://raw.githubusercontent.com/shbatm/MMM-Carousel/wip/img/navbar.jpg)
+
+* ***New:*** Modules can be moved to different positions and CSS classes applied to them for each slide.
+* ***New:*** Integration with [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings) for keyboard and bluetooth remote navigation.
 
 ## Installation
 Run these commands at the root of your magic mirror install.
@@ -61,7 +67,7 @@ The following properties can be configured:
 			<td><code>transitionInterval</code></td>
 			<td>The number of milliseconds to display each module for.
 				<br> <br> This value is <b>OPTIONAL</b>
-				<br><b>Possible values:</b> Any valid <code>int</code>
+				<br><b>Possible values:</b> Any valid <code>int</code>, passing 0 with <code>mode:"slides"</code> will disable the timer for manual navigation.
                 <br><b>Default value:</b> <code>10000</code>
 			</td>
 		</tr>
@@ -100,7 +106,7 @@ The following properties can be configured:
         			<td><code>slides</code></td>
         			<td>An array of string arrays.  Each string array is a list of content for an individual slide.  The slides will be rotated as a complete set using the <code>transitionInterval</code> setting.  Ingnored modules (<code>ignoreModules</code>) will be diplayed on all slides.
         				<br> <br> This value is <b>OPTIONAL</b>
-        				<br><b>Possible values:</b> <code>array of String array</code>
+        				<br><b>Possible values:</b> <code>array of String/Object array</code> <a href="#advanced-slides">(see below)</a>
                         <br><b>Default value:</b> <code>[[]]</code>
         			</td>
         		</tr>
@@ -116,16 +122,15 @@ The following properties can be configured:
         </tr>
 	<tr>
 		<td><code>keyBindingsMode</code></td>
-		<td>Mode Keyword for responding to key press events sent from [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings). Default: "DEFAULT" which repsonds to any key press when no other module has taken focus or changed the keyword.</td>
+		<td>Mode Keyword for responding to key press events sent from <A href="https://github.com/shbatm/MMM-KeyBindings">MMM-KeyBindings</A>. Default: "DEFAULT" which repsonds to any key press when no other module has taken focus or changed the keyword.</td>
 	</tr>
 	<tr>
-		<td><code>
-keyBindings: { 
-  NextSlide: "ArrowRight",
-  PrevSlide: "ArrowLeft"
-}
-</code></td>
-		<td>Key bindings to use for navigation with [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings) plugin.</td>
+		<td><code>keyBindings: {</code><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<code>NextSlide:"ArrowRight",</code><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<code>PrevSlide:"ArrowLeft",</code><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<code>Slide0:"Home"</code><br>
+<code>}</code></td>
+		<td>Key bindings to use for navigation with <A href="https://github.com/shbatm/MMM-KeyBindings">MMM-KeyBindings</A> plugin. The values are the KeyNames to respond to from the <code>"KEYPRESS"</code> events generated in MMM-KeyBindings.<br>Note: any <code>Slide##</code> can be assigned to jump to a specific slide.</td>
 	</tr>
 	</tbody>
 </table>
@@ -198,9 +203,29 @@ var config = {
                     ['MMM-fitbit']
                 ],
                 keyBindingsMode: "DEFAULT",
-                keyBindings: { NextSlide: "ArrowRight", PrevSlide: "ArrowLeft"}
+                keyBindings: { 
+                    NextSlide: "ArrowRight", 
+                    PrevSlide: "ArrowLeft", 
+                    Slide0:    "Home"
+                }
             }
         }
     ]
 }
 ```
+
+#### <a name="advanced-slides"></a>Example - Advanced Slides Carousel
+The `slides` parameter can accept an array of both String or an Object of the form: `{ name: "ModuleName", position: "top_left", classes: "CSSclassName" }`. 
+Passing a config similar to the following shows a large clock on the first slide and then a small clock and additional modules on the second.
+```
+    mode: 'slides',
+    slides: [
+        [   {name:'clock', classes:'zoom200', position:"middle_center"} ],
+        [   {name:'clock', classes:'', position:"top_left"}, 
+            {name:'calendar', position:'top_left'}, 
+            'MMM-WunderGround', 
+            'newsfeed'
+        ]
+```
+
+**Note:** The `zoomXXX` classes are available to change the scaling of a module. Using the methods above, you can pass `classes:'zoom%%%'` to scale a single module to a larger or smaller size.  Supported zooms are 070%, 080%, 090%, 125%, 150%, 175%, and 200%. Pass `classes:''` for 100%.  Edit your `'css/custom.css'` file to add additional classes.
