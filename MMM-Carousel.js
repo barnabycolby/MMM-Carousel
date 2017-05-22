@@ -1,4 +1,4 @@
-/*global Module, MM, setInterval */
+/*global Module, MM, setInterval, esversion: 6 */
 (function () {
     'use strict';
 
@@ -107,8 +107,11 @@
             // Reference to function for manual transitions
             this.manualTransition = this.moduleTransition.bind(modules);
 
-            // We set a timer to cause the page transitions
-            this.transitionTimer = setInterval(this.manualTransition, timer);
+            if (this.config.mode !== "slides" || (this.config.mode === "slides" && this.timer > 0)) {
+                // We set a timer to cause the page transitions
+                // If we're in slides mode and the timer is set to 0, we only use manual transitions
+                this.transitionTimer = setInterval(this.manualTransition, timer);
+            }
         },
 
         moduleTransition: function (goToIndex=-1, goDirection=0) {
@@ -134,12 +137,69 @@
                 this.currentIndex = goToIndex;                  // Go to a specific slide if in range
             }
 
+            /* selectWrapper(position)
+             * Select the wrapper dom object for a specific position.
+             *
+             * argument position string - The name of the position.
+             */
+            var selectWrapper = function(position) {
+                var classes = position.replace("_"," ");
+                var parentWrapper = document.getElementsByClassName(classes);
+                if (parentWrapper.length > 0) {
+                    var wrapper = parentWrapper[0].getElementsByClassName("container");
+                    if (wrapper.length > 0) {
+                        return wrapper[0];
+                    }
+                }
+            };
+
+
             for (i = 0; i < this.length; i += 1) {
                 // There is currently no easy way to discover whether a module is ALREADY shown/hidden
                 // In testing, calling show/hide twice seems to cause no issues
-                if (((this.slides === undefined) && (i === this.currentIndex)) || ((this.slides !== undefined) && (this.slides[this.currentIndex].indexOf(this[i].name) !== -1))) {
+                console.log("Processing " + this[i].name);
+                if ((this.slides === undefined) && (i === this.currentIndex)) {
                     this[i].show(1500);
+                } else if (this.slides !== undefined) {
+                    // Handle slides
+                    var mods = this.slides[this.currentIndex];
+                    var show = false;
+                    // Loop through all of the modules that are supposed to be in this slide
+                    for (var s = 0; s < mods.length; s++) {
+                        if (typeof mods[s] === "string" && mods[s] === this[i].name) {
+                        // If only the module name is given as a string, and it matches, show the module
+                            this[i].show(1500);
+                            show = true;
+                            break;
+                        } else if (typeof mods[s] === "object" && ("name" in mods[s]) && mods[s].name === this[i].name) {
+                        // If the slide definition has an object, and it's name matches the module continue
+                            if (typeof mods[s].classes === "string") {
+                            // Check if we have any classes we're supposed to add
+                                var dom = document.getElementById(this[i].identifier);
+                                // Remove any classes added by this module (other slides)
+                                dom.className = dom.className.split("mmmc")[0]; 
+                                if (mods[s].classes) {  
+                                // check for an empty classes tag (required to remove classes added from other slides)
+                                    // If we have a valid class list, add the classes
+                                    dom.classList.add("mmmc");
+                                    dom.classList.add(mods[s].classes);
+                                }
+                            }
+
+                            if (typeof mods[s].position === "string") {
+                            // Check if we were given a position to change, if so, move the module to the new position
+                                selectWrapper(mods[s].position).appendChild(document.getElementById(this[i].identifier));
+                            }
+                            // Finally show the module
+                            this[i].show(1500);
+                            show = true;
+                            break;
+                        }
+                    }
+                    // The module is not in this slide.
+                    if (!show) { this[i].hide(0); }
                 } else {
+                    // We aren't using slides and this module shouldn't be shown.
                     this[i].hide(0);
                 }
             }
@@ -181,9 +241,11 @@
         },
 
         restartTimer: function () {
-            // Restart the timer
-            clearInterval(this.transitionTimer);
-            this.transitionTimer = setInterval(this.manualTransition, this.config.transitionInterval);
+            if (this.config.transitionTimer > 0) {
+                // Restart the timer
+                clearInterval(this.transitionTimer);
+                this.transitionTimer = setInterval(this.manualTransition, this.config.transitionInterval);
+            }
         },
 
         manualTransitionCallback: function (slideNum) {
