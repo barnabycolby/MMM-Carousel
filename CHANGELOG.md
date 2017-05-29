@@ -1,3 +1,36 @@
+## <a name="0_2_1"></a>[0.2.1] - Multiple instances of a module
+
+Changes:
+
+* Added the ability to handle mutiple instances of a module. To use, add a `carouselId: "uniqueString"` to each modules' `config` section:
+```
+        {
+            module: "clock",
+            position: "top_left",
+            config: {
+				carouselId: "1",
+                displayType: "both"
+            }
+        },
+        {
+            module: "clock",
+            position: "top_left",
+            config: {
+				carouselId: 2,
+			}
+        },
+        {
+            module: 'MMM-Carousel',
+            position: "bottom_bar",
+            config: {
+                mode: 'slides',
+                slides: [
+                    [   {name:'clock', classes:'zoom200', position:"top_left", carouselId: "1"} ],
+                    [   {name:'clock', classes:'', position:"top_left", carouselId: 2},  ]]
+            }
+        },
+```
+
 ## [0.2.0] - Added manual-only slides and per-slide positions & classes
 
 Changes:
