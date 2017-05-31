@@ -182,7 +182,7 @@
                             // check if carouselId is set (mutiple module instances) and this is not the one we should show
                             if ((typeof mods[s].carouselId !== "undefined") &&
 								(typeof this[i].data.config.carouselId !== "undefined") &&
-								(mods[s].carouselId === this[i].data.config.carouselId))  { break; }
+								(mods[s].carouselId !== this[i].data.config.carouselId))  { break; }
                             if (typeof mods[s].classes === "string") {
                             // Check if we have any classes we're supposed to add
                                 var dom = document.getElementById(this[i].identifier);
