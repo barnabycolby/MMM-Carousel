@@ -29,18 +29,19 @@
         },
 
         start: function () {
-        	this.setupKeyBindings();
+            this.setupKeyBindings();
         },
 
         /* Setup Key Bindings for the MMM-KeyBindings module */
         setupKeyBindings: function () {
-        	this.currentKeyPressMode = this.config.keyBindingsMode;
-	       	this.reverseKeyMap = {};
-	        for (var eKey in this.config.keyBindings) {
-	            if (this.config.keyBindings.hasOwnProperty(eKey)) {
-	                this.reverseKeyMap[this.config.keyBindings[eKey]] = eKey;
-	            }
-	        }
+            this.currentKeyPressMode = this.config.keyBindingsMode;
+            this.instance = (["127.0.0.1","localhost"].indexOf(window.location.hostname) > -1) ? "SERVER" : "LOCAL";
+            this.reverseKeyMap = {};
+            for (var eKey in this.config.keyBindings) {
+                if (this.config.keyBindings.hasOwnProperty(eKey)) {
+                    this.reverseKeyMap[this.config.keyBindings[eKey]] = eKey;
+                }
+            }
         },
 
         notificationReceived: function (notification, payload, sender) {
@@ -61,21 +62,21 @@
 
             // Handle KEYPRESS events from the MMM-KeyBindings Module
             if (notification === "KEYPRESS_MODE_CHANGED") {
-            	this.currentKeyPressMode = payload;
-        	}
-        	// if (notification === "KEYPRESS") {
-        	// 	console.log(payload);
-        	// }
-        	if (notification === "KEYPRESS" && (this.currentKeyPressMode === this.config.keyBindingsMode) && 
-        			payload.KeyName in this.reverseKeyMap) {
-        		if (payload.KeyName === this.config.keyBindings.NextSlide) {
-        			this.manualTransition(undefined, 1);
-        			this.restartTimer();
-        		}
-        		else if (payload.KeyName === this.config.keyBindings.PrevSlide) {
-        			this.manualTransition(undefined, -1);
-        			this.restartTimer();
-        		}
+                this.currentKeyPressMode = payload;
+            }
+            // if (notification === "KEYPRESS") {
+            //     console.log(payload);
+            // }
+            if (notification === "KEYPRESS" && (this.currentKeyPressMode === this.config.keyBindingsMode) && 
+                    payload.KeyName in this.reverseKeyMap && payload.Sender === this.instance) {
+                if (payload.KeyName === this.config.keyBindings.NextSlide) {
+                    this.manualTransition(undefined, 1);
+                    this.restartTimer();
+                }
+                else if (payload.KeyName === this.config.keyBindings.PrevSlide) {
+                    this.manualTransition(undefined, -1);
+                    this.restartTimer();
+                }
                 else if (this.reverseKeyMap[payload.KeyName].startsWith("Slide")) {
                     var goToSlide = this.reverseKeyMap[payload.KeyName].match(/Slide([0-9]+)/i);
                     console.log((typeof goToSlide[1]) + " " + goToSlide[1]);
@@ -84,7 +85,7 @@
                         this.restartTimer();                        
                     }
                 }
-        	}
+            }
         },
 
         setUpTransitionTimers: function (positionIndex) {
@@ -132,7 +133,7 @@
                 if (goDirection === 0) {
                     this.currentIndex += 1;                     // Normal Transition, Increment by 1
                 } else {
-                	// console.log("Currently on slide " + this.currentIndex + " and going to slide " + (this.currentIndex + goDirection));
+                    // console.log("Currently on slide " + this.currentIndex + " and going to slide " + (this.currentIndex + goDirection));
                     this.currentIndex += goDirection;           // Told to go a specific direction
                 }
                 if (this.currentIndex >= resetCurrentIndex) {   // Wrap-around back to beginning
@@ -181,8 +182,8 @@
                         // If the slide definition has an object, and it's name matches the module continue
                             // check if carouselId is set (mutiple module instances) and this is not the one we should show
                             if ((typeof mods[s].carouselId !== "undefined") &&
-								(typeof this[i].data.config.carouselId !== "undefined") &&
-								(mods[s].carouselId !== this[i].data.config.carouselId))  { break; }
+                                (typeof this[i].data.config.carouselId !== "undefined") &&
+                                (mods[s].carouselId !== this[i].data.config.carouselId))  { break; }
                             if (typeof mods[s].classes === "string") {
                             // Check if we have any classes we're supposed to add
                                 var dom = document.getElementById(this[i].identifier);
@@ -259,8 +260,8 @@
         },
 
         manualTransitionCallback: function (slideNum) {
-        	// console.log("manualTransition was called by slider_" + slideNum);
-        	// Perform the manual transitio
+            // console.log("manualTransition was called by slider_" + slideNum);
+            // Perform the manual transitio
             this.manualTransition(slideNum);
             this.restartTimer();
         },
@@ -270,23 +271,23 @@
         },
 
         /* getDom()
-		 * This method generates the dom which needs to be displayed. This method is called by the Magic Mirror core.
-		 * This method needs to be subclassed if the module wants to display info on the mirror.
-		 *
-		 * return domobject - The dom to display.
-		 */
-		getDom: function () {
-			var self = this;
-			function makeOnChangeHandler(id) {
-			    return function () {
-			        self.manualTransitionCallback(id);
-			    };
-			}
+         * This method generates the dom which needs to be displayed. This method is called by the Magic Mirror core.
+         * This method needs to be subclassed if the module wants to display info on the mirror.
+         *
+         * return domobject - The dom to display.
+         */
+        getDom: function () {
+            var self = this;
+            function makeOnChangeHandler(id) {
+                return function () {
+                    self.manualTransitionCallback(id);
+                };
+            }
 
-			if (this.config.mode === "slides" && (this.config.showPageIndicators || this.config.showPageControls)) {
-				
-				var div = document.createElement("div");
-	            div.className = "MMMCarouselContainer";
+            if (this.config.mode === "slides" && (this.config.showPageIndicators || this.config.showPageControls)) {
+                
+                var div = document.createElement("div");
+                div.className = "MMMCarouselContainer";
 
                 var paginationWrapper = document.createElement("div");
                 paginationWrapper.className = "slider-pagination";
@@ -302,46 +303,46 @@
                 }
 
                 if (this.config.showPageIndicators) {
-					for (i = 0; i < this.config.slides.length; i++) {
-						var label = document.createElement("label");
-						label.setAttribute("for", "slider_" + i);
+                    for (i = 0; i < this.config.slides.length; i++) {
+                        var label = document.createElement("label");
+                        label.setAttribute("for", "slider_" + i);
                         label.id = "sliderLabel_" + i;
-						paginationWrapper.appendChild(label);
-					}
-				}
+                        paginationWrapper.appendChild(label);
+                    }
+                }
 
                 div.appendChild(paginationWrapper);
 
-				if (this.config.showPageControls) {
-					var nextWrapper = document.createElement("div");
-					nextWrapper.className = "next control";
-					
-					var previousWrapper = document.createElement("div");
-					previousWrapper.className = "previous control";
+                if (this.config.showPageControls) {
+                    var nextWrapper = document.createElement("div");
+                    nextWrapper.className = "next control";
+                    
+                    var previousWrapper = document.createElement("div");
+                    previousWrapper.className = "previous control";
 
-					for (var j = 0; j < this.config.slides.length; j++) {	
-						if (j !== 0) {
-							var nCtrlLabelWrapper = document.createElement("label");
-							nCtrlLabelWrapper.setAttribute("for", "slider_" + j);
+                    for (var j = 0; j < this.config.slides.length; j++) {   
+                        if (j !== 0) {
+                            var nCtrlLabelWrapper = document.createElement("label");
+                            nCtrlLabelWrapper.setAttribute("for", "slider_" + j);
                             nCtrlLabelWrapper.id = "sliderNextBtn_" + j;
-							nCtrlLabelWrapper.innerHTML = '<i class="fa fa-arrow-circle-right"></i>';
-							nextWrapper.appendChild(nCtrlLabelWrapper);
-						}
+                            nCtrlLabelWrapper.innerHTML = '<i class="fa fa-arrow-circle-right"></i>';
+                            nextWrapper.appendChild(nCtrlLabelWrapper);
+                        }
 
-						if (j !== this.config.slides.length - 1) {
-							var pCtrlLabelWrapper = document.createElement("label");
+                        if (j !== this.config.slides.length - 1) {
+                            var pCtrlLabelWrapper = document.createElement("label");
                             pCtrlLabelWrapper.setAttribute("for", "slider_" + j);
                             pCtrlLabelWrapper.id = "sliderPrevBtn_" + j;
-							pCtrlLabelWrapper.innerHTML = '<i class="fa fa-arrow-circle-left"></i>';
-							previousWrapper.appendChild(pCtrlLabelWrapper);
-						}
-					}
+                            pCtrlLabelWrapper.innerHTML = '<i class="fa fa-arrow-circle-left"></i>';
+                            previousWrapper.appendChild(pCtrlLabelWrapper);
+                        }
+                    }
 
-					div.appendChild(nextWrapper);
-					div.appendChild(previousWrapper);
-				}
-				return div;
-			}
-		},
+                    div.appendChild(nextWrapper);
+                    div.appendChild(previousWrapper);
+                }
+                return div;
+            }
+        },
     });
 }());
