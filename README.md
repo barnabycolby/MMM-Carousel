@@ -11,6 +11,8 @@
     ![](https://raw.githubusercontent.com/shbatm/MMM-Carousel/wip/img/slide.jpg)
 
     ![](https://raw.githubusercontent.com/shbatm/MMM-Carousel/wip/img/navbar.jpg)
+    
+    Screencast (from @AgilesChroms) : https://www.youtube.com/watch?v=2WTgQLaAMQk
 
 * ***New:*** Modules can be moved to different positions and CSS classes applied to them for each slide.
 * ***New:*** Multiple instances of a module can be used on different slides.
