@@ -35,7 +35,7 @@
         /* Setup Key Bindings for the MMM-KeyBindings module */
         setupKeyBindings: function () {
             this.currentKeyPressMode = this.config.keyBindingsMode;
-            this.instance = (["127.0.0.1","localhost","0.0.0.0"].indexOf(window.location.hostname) > -1) ? "SERVER" : "LOCAL";
+            this.instance = (["localhost", "127.0.0.1", "::1", "::ffff:127.0.0.1", undefined, "0.0.0.0"].indexOf(window.location.hostname) > -1) ? "SERVER" : "LOCAL";
             this.reverseKeyMap = {};
             for (var eKey in this.config.keyBindings) {
                 if (this.config.keyBindings.hasOwnProperty(eKey)) {
