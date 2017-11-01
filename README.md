@@ -14,6 +14,8 @@
     
     Screencast (from @AgilesChroms) : https://www.youtube.com/watch?v=2WTgQLaAMQk
 
+    Screencast (from @AgilesChroms) : https://www.youtube.com/watch?v=2WTgQLaAMQk 
+
 * ***New:*** Modules can be moved to different positions and CSS classes applied to them for each slide.
 * ***New:*** Multiple instances of a module can be used on different slides.
 * ***New:*** Integration with [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings) for keyboard and bluetooth remote navigation.
@@ -33,7 +35,7 @@ var config = {
     modules: [
         {
             module: 'MMM-Carousel',
-            position: 'bottom_bar'
+            position: 'bottom_bar',  // Only required to show navigation
             config: {
                 // See below for configurable options
             }
@@ -176,8 +178,11 @@ var config = {
     modules: [
         {
             module: 'MMM-Carousel',
+            position: 'bottom_bar', // Required only for navigation controls
             config: {
                 transitionInterval: 10000,
+                showPageIndicators: true,
+                showPageControls: true,
                 ignoreModules: ['clock', 'alert'],
                 mode: 'slides',
                 slides: [
@@ -196,10 +201,13 @@ var config = {
     modules: [
         {
             module: 'MMM-Carousel',
+            position: 'bottom_bar', // Required only for navigation controls
             config: {
                 transitionInterval: 10000,
                 ignoreModules: ['clock', 'alert'],
                 mode: 'slides',
+                showPageIndicators: true,
+                showPageControls: true,
                 slides: [
                     ['calendar', 'compliments', 'currentweather'],
                     ['weatherforecast', 'MMM-Trello', 'planetrise', 'newsfeed'],
