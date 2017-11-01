@@ -55,6 +55,10 @@ body {
   cursor: pointer !important;
 }
 
+.control:hover {
+  cursor: pointer !important;
+}
+
 .control label {
   z-index: 0;
   display: none;
