@@ -1,3 +1,7 @@
+## <a name="0_2_3"></a>[0.2.3] - Fix for #1 - Fix timed transition for slides
+
+* Bug fix for Issue #1 -- Correct issue where setting transitionInterval for a "slides" configuration doesn't actually cause the slides to transition automatically.
+
 ## <a name="0_2_2"></a>[0.2.2] - Added support for MMM-KeyBindings Instances
 
 * Added support for using MMM-KeyBindings control with multiple instances of the MagicMirror open.  For example, you can use a remote on the screen attached to the Raspberry Pi (SERVER) and use a keyboard on another computer with the mirror running in a browswer (LOCAL) to independently change slides on the respective screens.

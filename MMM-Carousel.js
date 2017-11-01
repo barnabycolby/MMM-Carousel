@@ -115,7 +115,7 @@
             // Reference to function for manual transitions
             this.manualTransition = this.moduleTransition.bind(modules);
 
-            if (this.config.mode !== "slides" || (this.config.mode === "slides" && this.timer > 0)) {
+            if (this.config.mode !== "slides" || (this.config.mode === "slides" && timer > 0)) {
                 // We set a timer to cause the page transitions
                 // If we're in slides mode and the timer is set to 0, we only use manual transitions
                 this.transitionTimer = setInterval(this.manualTransition, timer);
