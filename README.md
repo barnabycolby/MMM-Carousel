@@ -226,12 +226,12 @@ var config = {
 ```
 
 #### <a name="advanced-slides"></a>Example - Advanced Slides Carousel
-The `slides` parameter can accept an array of both String or an Object of the form: `{ name: "ModuleName", position: "top_left", classes: "CSSclassName", carouselId = "1" }`. 
+The `slides` parameter can accept an array of both String or an Object of the form: `{ name: "ModuleName", position: "top_left", classes: "CSSclassName", carouselId: "1" }`. 
 Passing a config similar to the following shows a large clock on the first slide and then a small clock and additional modules on the second.  `carouselId` is an optional parameter which can be used to set a unique identifier for multiple instances of a module. To use, set the same parameter in the module's `config` section.
 ```
     mode: 'slides',
     slides: [
-        [   {name:'clock', classes:'zoom200', position:"middle_center", carouselId = "1"} ],
+        [   {name:'clock', classes:'zoom200', position:"middle_center", carouselId: "1"} ],
         [   {name:'clock', classes:'', position:"top_left", carouselId = "2"}, 
             {name:'calendar', position:'top_left'}, 
             'MMM-WunderGround', 
