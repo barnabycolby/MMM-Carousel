@@ -14,8 +14,6 @@
     
     Screencast (from @AgilesChroms) : https://www.youtube.com/watch?v=2WTgQLaAMQk
 
-    Screencast (from @AgilesChroms) : https://www.youtube.com/watch?v=2WTgQLaAMQk 
-
 * ***New:*** Modules can be moved to different positions and CSS classes applied to them for each slide.
 * ***New:*** Multiple instances of a module can be used on different slides.
 * ***New:*** Integration with [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings) for keyboard and bluetooth remote navigation.
@@ -232,7 +230,7 @@ Passing a config similar to the following shows a large clock on the first slide
     mode: 'slides',
     slides: [
         [   {name:'clock', classes:'zoom200', position:"middle_center", carouselId: "1"} ],
-        [   {name:'clock', classes:'', position:"top_left", carouselId = "2"}, 
+        [   {name:'clock', classes:'', position:"top_left", carouselId: "2"}, 
             {name:'calendar', position:'top_left'}, 
             'MMM-WunderGround', 
             'newsfeed'
