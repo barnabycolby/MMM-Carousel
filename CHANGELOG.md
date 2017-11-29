@@ -1,3 +1,8 @@
+## <a name="0_2_4"></a>[0.2.4] - Added slideTranistionSpeed Parameter per #4
+
+* Added a parameter for slide transition speed. Default is 1500ms.
+
+
 ## <a name="0_2_3"></a>[0.2.3] - Fix for #1 - Fix timed transition for slides
 
 * Bug fix for Issue #1 -- Correct issue where setting transitionInterval for a "slides" configuration doesn't actually cause the slides to transition automatically.

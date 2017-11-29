@@ -5,6 +5,7 @@
     Module.register('MMM-Carousel', {
         defaults: {
             transitionInterval: 10000,
+            slideTransitionSpeed: 1500,
             ignoreModules: [],
             mode: 'global', //global || positional || slides
             top_bar: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
@@ -110,6 +111,7 @@
             modules.currentIndex = -1;
             modules.showPageIndicators = this.config.showPageIndicators; 
             modules.showPageControls = this.config.showPageControls;
+            modules.slideTransitionSpeed = this.config.slideTransitionSpeed;
             this.moduleTransition.call(modules);
 
             // Reference to function for manual transitions
@@ -166,7 +168,7 @@
                 // In testing, calling show/hide twice seems to cause no issues
                 //console.log("Processing " + this[i].name);
                 if ((this.slides === undefined) && (i === this.currentIndex)) {
-                    this[i].show(1500, {lockString: "mmmc"});
+                    this[i].show(this.slideTransitionSpeed, {lockString: "mmmc"});
                 } else if (this.slides !== undefined) {
                     // Handle slides
                     var mods = this.slides[this.currentIndex];
@@ -175,7 +177,7 @@
                     for (var s = 0; s < mods.length; s++) {
                         if (typeof mods[s] === "string" && mods[s] === this[i].name) {
                         // If only the module name is given as a string, and it matches, show the module
-                            this[i].show(1500, {lockString: "mmmc"});
+                            this[i].show(this.slideTransitionSpeed, {lockString: "mmmc"});
                             show = true;
                             break;
                         } else if (typeof mods[s] === "object" && ("name" in mods[s]) && mods[s].name === this[i].name) {
@@ -202,7 +204,7 @@
                                 selectWrapper(mods[s].position).appendChild(document.getElementById(this[i].identifier));
                             }
                             // Finally show the module
-                            this[i].show(1500, {lockString: "mmmc"});
+                            this[i].show(this.slideTransitionSpeed, {lockString: "mmmc"});
                             show = true;
                             break;
                         }
