@@ -1,6 +1,6 @@
-/*global Module, MM, setInterval, esversion: 6 */
+/*global Module, MM, setInterval */
+/* jshint esversion:6 */
 (function () {
-    'use strict';
 
     Module.register('MMM-Carousel', {
         defaults: {
@@ -28,6 +28,8 @@
             keyBindingsMode: "DEFAULT",
             keyBindings: { NextSlide: "ArrowRight", PrevSlide: "ArrowLeft", Slide0: "Home" }
         },
+
+        requiresVersion: "2.3.0", // Uses 'MODULE_DOM_CREATED' notification instead of 'DOM_OBJECTS_CREATED'
 
         start: function () {
             this.setupKeyBindings();

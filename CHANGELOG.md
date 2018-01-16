@@ -1,3 +1,7 @@
+## <a name="0_2_4"></a>[0.2.4] - Module Fix for bug in MichMich/MagicMirror#1140
+
+* Uses 'MODULE_DOM_CREATED' notification instead of 'DOM_OBJECTS_CREATED'
+
 ## <a name="0_2_4"></a>[0.2.4] - Added slideTranistionSpeed Parameter per #4
 
 * Added a parameter for slide transition speed. Default is 1500ms.
