@@ -74,6 +74,14 @@ The following properties can be configured:
                 <br><b>Default value:</b> <code>10000</code>
 			</td>
 		</tr>
+        <tr>
+            <td><code>slideTransitionSpeed</code></td>
+            <td>The speed in milliseconds to fade in each module.
+                <br> <br> This value is <b>OPTIONAL</b>
+                <br><b>Possible values:</b> Any valid <code>int</code>
+                <br><b>Default value:</b> <code>1500</code> (ms)
+            </td>
+        </tr>
 		<tr>
 			<td><code>ignoreModules</code></td>
 			<td>A list of module names whom should not be considered as part of the carousel. For example, the `alert` module should be able to display a notification at any time, by ignoring it we can prevent the plugin from hiding any notifications. <b> NOTE: is only used in <code>'global'</code> and <code>'slides'</code> modes.  Ignored modules in <code>'slides'</code> mode are shown on every slide.</b>.

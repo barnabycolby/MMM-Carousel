@@ -1,10 +1,11 @@
-/*global Module, MM, setInterval, esversion: 6 */
+/*global Module, MM, setInterval */
+/* jshint esversion:6 */
 (function () {
-    'use strict';
 
     Module.register('MMM-Carousel', {
         defaults: {
             transitionInterval: 10000,
+            slideTransitionSpeed: 1500,
             ignoreModules: [],
             mode: 'global', //global || positional || slides
             top_bar: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
@@ -28,6 +29,8 @@
             keyBindings: { NextSlide: "ArrowRight", PrevSlide: "ArrowLeft", Slide0: "Home" }
         },
 
+        requiresVersion: "2.3.0", // Uses 'MODULE_DOM_CREATED' notification instead of 'DOM_OBJECTS_CREATED'
+
         start: function () {
             this.setupKeyBindings();
         },
@@ -46,7 +49,7 @@
 
         notificationReceived: function (notification, payload, sender) {
             var position, positions = ['top_bar', 'bottom_bar', 'top_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'bottom_right', 'upper_third', 'middle_center', 'lower_third'];
-            if (notification === 'DOM_OBJECTS_CREATED') {
+            if (notification === 'MODULE_DOM_CREATED') {
                 // Initially, all modules are hidden except the first and any ignored modules
                 // We start by getting a list of all of the modules in the transition cycle
                 if ((this.config.mode === 'global') || (this.config.mode === 'slides')) {
@@ -110,6 +113,7 @@
             modules.currentIndex = -1;
             modules.showPageIndicators = this.config.showPageIndicators; 
             modules.showPageControls = this.config.showPageControls;
+            modules.slideTransitionSpeed = this.config.slideTransitionSpeed;
             this.moduleTransition.call(modules);
 
             // Reference to function for manual transitions
@@ -166,7 +170,7 @@
                 // In testing, calling show/hide twice seems to cause no issues
                 //console.log("Processing " + this[i].name);
                 if ((this.slides === undefined) && (i === this.currentIndex)) {
-                    this[i].show(1500, {lockString: "mmmc"});
+                    this[i].show(this.slideTransitionSpeed, {lockString: "mmmc"});
                 } else if (this.slides !== undefined) {
                     // Handle slides
                     var mods = this.slides[this.currentIndex];
@@ -175,7 +179,7 @@
                     for (var s = 0; s < mods.length; s++) {
                         if (typeof mods[s] === "string" && mods[s] === this[i].name) {
                         // If only the module name is given as a string, and it matches, show the module
-                            this[i].show(1500, {lockString: "mmmc"});
+                            this[i].show(this.slideTransitionSpeed, {lockString: "mmmc"});
                             show = true;
                             break;
                         } else if (typeof mods[s] === "object" && ("name" in mods[s]) && mods[s].name === this[i].name) {
@@ -202,7 +206,7 @@
                                 selectWrapper(mods[s].position).appendChild(document.getElementById(this[i].identifier));
                             }
                             // Finally show the module
-                            this[i].show(1500, {lockString: "mmmc"});
+                            this[i].show(this.slideTransitionSpeed, {lockString: "mmmc"});
                             show = true;
                             break;
                         }

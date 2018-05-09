@@ -1,6 +1,6 @@
 {
   "name": "mmm-carousel",
-  "version": "0.2.3",
+  "version": "0.2.5-dev",
   "description": "Displays a single magic mirror module at a time or in groups of slides, rotating through the list of configured modules in a carousel-like fashion.",
   "main": "MMM-Carousel.js",
   "scripts": {
@@ -16,7 +16,10 @@
     "carousel",
     "navigation",
     "move",
-    "resize modules"
+    "resize modules",
+    "slides",
+    "tabs",
+    "pages"
   ],
   "author": "Barnaby Colby",
   "contributor": "shbatm",
