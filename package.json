@@ -32,6 +32,6 @@
     "grunt": "latest",
     "grunt-jslint": "latest",
     "load-grunt-config": "latest",
-    "grunt-contrib-nodeunit": "^1.0.0"
+    "grunt-contrib-nodeunit": "^2.0.0"
   }
 }
