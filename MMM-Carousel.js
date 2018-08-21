@@ -42,11 +42,16 @@
 
         setUpTransitionTimers: function (positionIndex) {
             var modules, timer = this.config.transitionInterval;
+
             modules = MM.getModules().exceptModule(this).filter(function (module) {
-                if (positionIndex === null) {
-                    return this.config.ignoreModules.indexOf(module.name) === -1;
+				// get module name, then if carouselID exists use that instead
+				var moduleName = module.name;
+				if (module.config.carouselID !== undefined)
+					moduleName = module.config.carouselID;
+				if (positionIndex === null) {
+                    return this.config.ignoreModules.indexOf(moduleName) === -1;
                 }
-                return ((this.config[positionIndex].ignoreModules.indexOf(module.name) === -1) && (module.data.position === positionIndex));
+                return ((this.config[positionIndex].ignoreModules.indexOf(moduleName) === -1) && (module.data.position === positionIndex));
             }, this);
 
             if (this.config.mode === 'slides') {
@@ -78,8 +83,13 @@
 
             for (i = 0; i < this.length; i += 1) {
                 // There is currently no easy way to discover whether a module is ALREADY shown/hidden
-                // In testing, calling show/hide twice seems to cause no issues
-                if (((this.slides === undefined) && (i === this.currentIndex)) || ((this.slides !== undefined) && (this.slides[this.currentIndex].indexOf(this[i].name) !== -1))) {
+                // In testing, calling show/hide twice seems to cause no issues				
+				// get module name, then if carouselID exists use that instead				
+				var moduleName = this[i].name;
+				if (this[i].config.carouselID !== undefined)
+					moduleName = this[i].config.carouselID;
+				console.log("i " + i + " = " + this[i].name + ", " + moduleName);
+                if (((this.slides === undefined) && (i === this.currentIndex)) || ((this.slides !== undefined) && (this.slides[this.currentIndex].indexOf(moduleName) !== -1))) {
                     this[i].show(1500);
                 } else {
                     this[i].hide(0);
