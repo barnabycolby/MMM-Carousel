@@ -31,6 +31,8 @@ var config = {
 
 Note that a `position` setting is not required.
 
+**NOTE:** For the other modules in the config.js file, the name of any instance of a module is automatically it's module name, meaning if you have two instances of the 'clock' module in your config.js file than each is named 'clock' as far as the MMM-Carousel code is concerned. This can cause obvious conflicts if you want to ignore certain modules or create slides involving multiple instances of the same module type. To overcome this you can add a 'carouselID' value to any module's config options. If this value is found than it will replace the module name as far as it is handled by MMM-Carousel.
+
 ### Configuration options
 The following properties can be configured:
 
