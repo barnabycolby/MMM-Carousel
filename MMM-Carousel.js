@@ -88,7 +88,6 @@
 				var moduleName = this[i].name;
 				if (this[i].config.carouselID !== undefined)
 					moduleName = this[i].config.carouselID;
-				console.log("i " + i + " = " + this[i].name + ", " + moduleName);
                 if (((this.slides === undefined) && (i === this.currentIndex)) || ((this.slides !== undefined) && (this.slides[this.currentIndex].indexOf(moduleName) !== -1))) {
                     this[i].show(1500);
                 } else {
