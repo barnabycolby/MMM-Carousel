@@ -1,6 +1,6 @@
 /*global Module, MM, setInterval */
 /* jshint esversion:6 */
-(function () {
+(function() {
 
     Module.register('MMM-Carousel', {
         defaults: {
@@ -8,17 +8,17 @@
             slideTransitionSpeed: 1500,
             ignoreModules: [],
             mode: 'global', //global || positional || slides
-            top_bar: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
-            top_left: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
-            top_center: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
-            top_right: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
-            upper_third: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
-            middle_center: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
-            lower_third: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
-            bottom_left: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
-            bottom_center: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
-            bottom_right: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
-            bottom_bar: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
+            top_bar: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
+            top_left: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
+            top_center: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
+            top_right: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
+            upper_third: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
+            middle_center: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
+            lower_third: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
+            bottom_left: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
+            bottom_center: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
+            bottom_right: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
+            bottom_bar: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
             slides: [
                 []
             ],
@@ -31,12 +31,12 @@
 
         requiresVersion: "2.3.0", // Uses 'MODULE_DOM_CREATED' notification instead of 'DOM_OBJECTS_CREATED'
 
-        start: function () {
+        start: function() {
             this.setupKeyBindings();
         },
 
         /* Setup Key Bindings for the MMM-KeyBindings module */
-        setupKeyBindings: function () {
+        setupKeyBindings: function() {
             this.currentKeyPressMode = this.config.keyBindingsMode;
             this.instance = (["localhost", "127.0.0.1", "::1", "::ffff:127.0.0.1", undefined, "0.0.0.0"].indexOf(window.location.hostname) > -1) ? "SERVER" : "LOCAL";
             this.reverseKeyMap = {};
@@ -47,7 +47,7 @@
             }
         },
 
-        notificationReceived: function (notification, payload, sender) {
+        notificationReceived: function(notification, payload, sender) {
             var position, positions = ['top_bar', 'bottom_bar', 'top_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'bottom_right', 'upper_third', 'middle_center', 'lower_third'];
             if (notification === 'MODULE_DOM_CREATED') {
                 // Initially, all modules are hidden except the first and any ignored modules
@@ -70,30 +70,47 @@
             // if (notification === "KEYPRESS") {
             //     console.log(payload);
             // }
-            if (notification === "KEYPRESS" && (this.currentKeyPressMode === this.config.keyBindingsMode) && 
-                    payload.KeyName in this.reverseKeyMap && payload.Sender === this.instance) {
+            if (notification === "KEYPRESS" && (this.currentKeyPressMode === this.config.keyBindingsMode) &&
+                payload.KeyName in this.reverseKeyMap && payload.Sender === this.instance) {
                 if (payload.KeyName === this.config.keyBindings.NextSlide) {
                     this.manualTransition(undefined, 1);
                     this.restartTimer();
-                }
-                else if (payload.KeyName === this.config.keyBindings.PrevSlide) {
+                } else if (payload.KeyName === this.config.keyBindings.PrevSlide) {
                     this.manualTransition(undefined, -1);
                     this.restartTimer();
-                }
-                else if (this.reverseKeyMap[payload.KeyName].startsWith("Slide")) {
+                } else if (this.reverseKeyMap[payload.KeyName].startsWith("Slide")) {
                     var goToSlide = this.reverseKeyMap[payload.KeyName].match(/Slide([0-9]+)/i);
                     console.log((typeof goToSlide[1]) + " " + goToSlide[1]);
-                    if (typeof parseInt(goToSlide[1]) === "number") { 
+                    if (typeof parseInt(goToSlide[1]) === "number") {
                         this.manualTransition(parseInt(goToSlide[1]));
-                        this.restartTimer();                        
+                        this.restartTimer();
+                    }
+                }
+            }
+
+            if (notification === "CAROUSEL_NEXT") {
+                this.manualTransition(undefined, 1);
+                this.restartTimer();
+            }
+            if (notification === "CAROUSEL_PREVIOUS") {
+                this.manualTransition(undefined, -1);
+                this.restartTimer();
+            }
+            if (notification === "CAROUSEL_GOTO") {
+                if (typeof payload === "number" || typeof payload === "string") {
+                    try {
+                        this.manualTransition(parseInt(payload) + 1);
+                        this.restartTimer();
+                    } catch (err) {
+                        console.warn("Could not navigate to slide " + payload);
                     }
                 }
             }
         },
 
-        setUpTransitionTimers: function (positionIndex) {
+        setUpTransitionTimers: function(positionIndex) {
             var modules, timer = this.config.transitionInterval;
-            modules = MM.getModules().exceptModule(this).filter(function (module) {
+            modules = MM.getModules().exceptModule(this).filter(function(module) {
                 if (positionIndex === null) {
                     return this.config.ignoreModules.indexOf(module.name) === -1;
                 }
@@ -111,7 +128,7 @@
             }
 
             modules.currentIndex = -1;
-            modules.showPageIndicators = this.config.showPageIndicators; 
+            modules.showPageIndicators = this.config.showPageIndicators;
             modules.showPageControls = this.config.showPageControls;
             modules.slideTransitionSpeed = this.config.slideTransitionSpeed;
             this.moduleTransition.call(modules);
@@ -126,27 +143,27 @@
             }
         },
 
-        moduleTransition: function (goToIndex=-1, goDirection=0) {
+        moduleTransition: function(goToIndex = -1, goDirection = 0) {
             var i, resetCurrentIndex = this.length;
             if (this.slides !== undefined) {
                 resetCurrentIndex = this.slides.length;
             }
 
             // Update the current index
-            if (goToIndex === -1) {                             // Go to a specific slide?
+            if (goToIndex === -1) { // Go to a specific slide?
                 if (goDirection === 0) {
-                    this.currentIndex += 1;                     // Normal Transition, Increment by 1
+                    this.currentIndex += 1; // Normal Transition, Increment by 1
                 } else {
                     // console.log("Currently on slide " + this.currentIndex + " and going to slide " + (this.currentIndex + goDirection));
-                    this.currentIndex += goDirection;           // Told to go a specific direction
+                    this.currentIndex += goDirection; // Told to go a specific direction
                 }
-                if (this.currentIndex >= resetCurrentIndex) {   // Wrap-around back to beginning
+                if (this.currentIndex >= resetCurrentIndex) { // Wrap-around back to beginning
                     this.currentIndex = 0;
                 } else if (this.currentIndex < 0) {
-                    this.currentIndex = resetCurrentIndex - 1;  // Went too far backwards, wrap-around to end
+                    this.currentIndex = resetCurrentIndex - 1; // Went too far backwards, wrap-around to end
                 }
             } else if (goToIndex >= 0 && goToIndex < resetCurrentIndex) {
-                this.currentIndex = goToIndex;                  // Go to a specific slide if in range
+                this.currentIndex = goToIndex; // Go to a specific slide if in range
             }
 
             /* selectWrapper(position)
@@ -155,7 +172,7 @@
              * argument position string - The name of the position.
              */
             var selectWrapper = function(position) {
-                var classes = position.replace("_"," ");
+                var classes = position.replace("_", " ");
                 var parentWrapper = document.getElementsByClassName(classes);
                 if (parentWrapper.length > 0) {
                     var wrapper = parentWrapper[0].getElementsByClassName("container");
@@ -164,13 +181,13 @@
                     }
                 }
             };
-            
+
             for (i = 0; i < this.length; i += 1) {
                 // There is currently no easy way to discover whether a module is ALREADY shown/hidden
                 // In testing, calling show/hide twice seems to cause no issues
                 //console.log("Processing " + this[i].name);
                 if ((this.slides === undefined) && (i === this.currentIndex)) {
-                    this[i].show(this.slideTransitionSpeed, {lockString: "mmmc"});
+                    this[i].show(this.slideTransitionSpeed, { lockString: "mmmc" });
                 } else if (this.slides !== undefined) {
                     // Handle slides
                     var mods = this.slides[this.currentIndex];
@@ -178,23 +195,23 @@
                     // Loop through all of the modules that are supposed to be in this slide
                     for (var s = 0; s < mods.length; s++) {
                         if (typeof mods[s] === "string" && mods[s] === this[i].name) {
-                        // If only the module name is given as a string, and it matches, show the module
-                            this[i].show(this.slideTransitionSpeed, {lockString: "mmmc"});
+                            // If only the module name is given as a string, and it matches, show the module
+                            this[i].show(this.slideTransitionSpeed, { lockString: "mmmc" });
                             show = true;
                             break;
                         } else if (typeof mods[s] === "object" && ("name" in mods[s]) && mods[s].name === this[i].name) {
-                        // If the slide definition has an object, and it's name matches the module continue
+                            // If the slide definition has an object, and it's name matches the module continue
                             // check if carouselId is set (mutiple module instances) and this is not the one we should show
                             if ((typeof mods[s].carouselId !== "undefined") &&
                                 (typeof this[i].data.config.carouselId !== "undefined") &&
-                                (mods[s].carouselId !== this[i].data.config.carouselId))  { break; }
+                                (mods[s].carouselId !== this[i].data.config.carouselId)) { break; }
                             if (typeof mods[s].classes === "string") {
-                            // Check if we have any classes we're supposed to add
+                                // Check if we have any classes we're supposed to add
                                 var dom = document.getElementById(this[i].identifier);
                                 // Remove any classes added by this module (other slides)
-                                dom.className = dom.className.split("mmmc")[0]; 
-                                if (mods[s].classes) {  
-                                // check for an empty classes tag (required to remove classes added from other slides)
+                                dom.className = dom.className.split("mmmc")[0];
+                                if (mods[s].classes) {
+                                    // check for an empty classes tag (required to remove classes added from other slides)
                                     // If we have a valid class list, add the classes
                                     dom.classList.add("mmmc");
                                     dom.classList.add(mods[s].classes);
@@ -202,20 +219,20 @@
                             }
 
                             if (typeof mods[s].position === "string") {
-                            // Check if we were given a position to change, if so, move the module to the new position
+                                // Check if we were given a position to change, if so, move the module to the new position
                                 selectWrapper(mods[s].position).appendChild(document.getElementById(this[i].identifier));
                             }
                             // Finally show the module
-                            this[i].show(this.slideTransitionSpeed, {lockString: "mmmc"});
+                            this[i].show(this.slideTransitionSpeed, { lockString: "mmmc" });
                             show = true;
                             break;
                         }
                     }
                     // The module is not in this slide.
-                    if (!show) { this[i].hide(0, {lockString: "mmmc"}); }
+                    if (!show) { this[i].hide(0, { lockString: "mmmc" }); }
                 } else {
                     // We aren't using slides and this module shouldn't be shown.
-                    this[i].hide(0, {lockString: "mmmc"});
+                    this[i].hide(0, { lockString: "mmmc" });
                 }
             }
 
@@ -228,34 +245,33 @@
                 if (this.showPageIndicators) {
                     var currPages = document.getElementsByClassName("MMMCarouselCurrentPage");
                     if (currPages && currPages.length > 0) {
-                        for(i = 0; i < currPages.length; i++)
-                        {
-                           currPages[i].classList.remove('MMMCarouselCurrentPage');
+                        for (i = 0; i < currPages.length; i++) {
+                            currPages[i].classList.remove('MMMCarouselCurrentPage');
                         }
                     }
                     document.getElementById("sliderLabel_" + this.currentIndex).classList.add('MMMCarouselCurrentPage');
                 }
-                
+
                 if (this.showPageControls) {
                     var currBtns = document.getElementsByClassName("MMMCarouselAvailable");
                     if (currBtns && currBtns.length > 0) {
                         while (currBtns.length > 0) {
-                           currBtns[0].classList.remove('MMMCarouselAvailable');
+                            currBtns[0].classList.remove('MMMCarouselAvailable');
                         }
                     }
                     if (this.currentIndex !== resetCurrentIndex - 1) {
                         // console.log("Trying to enable button sliderNextBtn_" + (this.currentIndex+1));
-                        document.getElementById("sliderNextBtn_" + (this.currentIndex+1)).classList.add('MMMCarouselAvailable');
+                        document.getElementById("sliderNextBtn_" + (this.currentIndex + 1)).classList.add('MMMCarouselAvailable');
                     }
                     if (this.currentIndex !== 0) {
                         // console.log("Trying to enable button sliderPrevBtn_" + (this.currentIndex-1));
-                        document.getElementById("sliderPrevBtn_" + (this.currentIndex-1)).classList.add('MMMCarouselAvailable');
+                        document.getElementById("sliderPrevBtn_" + (this.currentIndex - 1)).classList.add('MMMCarouselAvailable');
                     }
                 }
             }
         },
 
-        restartTimer: function () {
+        restartTimer: function() {
             if (this.config.transitionTimer > 0) {
                 // Restart the timer
                 clearInterval(this.transitionTimer);
@@ -263,7 +279,7 @@
             }
         },
 
-        manualTransitionCallback: function (slideNum) {
+        manualTransitionCallback: function(slideNum) {
             // console.log("manualTransition was called by slider_" + slideNum);
             // Perform the manual transitio
             this.manualTransition(slideNum);
@@ -280,16 +296,17 @@
          *
          * return domobject - The dom to display.
          */
-        getDom: function () {
+        getDom: function() {
             var self = this;
+
             function makeOnChangeHandler(id) {
-                return function () {
+                return function() {
                     self.manualTransitionCallback(id);
                 };
             }
 
             if (this.config.mode === "slides" && (this.config.showPageIndicators || this.config.showPageControls)) {
-                
+
                 var div = document.createElement("div");
                 div.className = "MMMCarouselContainer";
 
@@ -320,11 +337,11 @@
                 if (this.config.showPageControls) {
                     var nextWrapper = document.createElement("div");
                     nextWrapper.className = "next control";
-                    
+
                     var previousWrapper = document.createElement("div");
                     previousWrapper.className = "previous control";
 
-                    for (var j = 0; j < this.config.slides.length; j++) {   
+                    for (var j = 0; j < this.config.slides.length; j++) {
                         if (j !== 0) {
                             var nCtrlLabelWrapper = document.createElement("label");
                             nCtrlLabelWrapper.setAttribute("for", "slider_" + j);

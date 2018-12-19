@@ -1,3 +1,8 @@
+## <a name="0_2_5"></a>[0.2.5] - Added direct controls via Notification.
+
+* Added control from Module Notification (See [README](README.md#Navigation-from-other-modules)).
+* Removed unneccessary and unused tests and Grunt file.
+
 ## <a name="0_2_4"></a>[0.2.4] - Module Fix for bug in MichMich/MagicMirror#1140
 
 * Uses 'MODULE_DOM_CREATED' notification instead of 'DOM_OBJECTS_CREATED'
