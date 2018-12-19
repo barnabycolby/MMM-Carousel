@@ -99,7 +99,7 @@
             if (notification === "CAROUSEL_GOTO") {
                 if (typeof payload === "number" || typeof payload === "string") {
                     try {
-                        this.manualTransition(parseInt(payload) + 1);
+                        this.manualTransition(parseInt(payload) - 1);
                         this.restartTimer();
                     } catch (err) {
                         console.warn("Could not navigate to slide " + payload);
