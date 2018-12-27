@@ -24,9 +24,13 @@ Module.register('MMM-Carousel', {
         showPageControls: true,
         // MMM-KeyBindings mapping.
         keyBindings: {
-            mode: "DEFAULT",
-            map: { NextSlide: "ArrowRight", PrevSlide: "ArrowLeft", Slide0: "Home" }
+            enabled: true
         }
+    },
+
+    keyBindings: {
+        mode: "DEFAULT",
+        map: { NextSlide: "ArrowRight", PrevSlide: "ArrowLeft", Slide0: "Home" }
     },
 
     requiresVersion: "2.3.0", // Uses 'MODULE_DOM_CREATED' notification instead of 'DOM_OBJECTS_CREATED'
@@ -36,14 +40,14 @@ Module.register('MMM-Carousel', {
     },
 
     validKeyPress: function(kp) {
-        if (kp.keyName === this.config.keyBindings.NextSlide) {
+        if (kp.keyName === this.keyHandler.config.map.NextSlide) {
             this.manualTransition(undefined, 1);
             this.restartTimer();
-        } else if (kp.keyName === this.config.keyBindings.PrevSlide) {
+        } else if (kp.keyName === this.keyHandler.config.map.PrevSlide) {
             this.manualTransition(undefined, -1);
             this.restartTimer();
-        } else if (this.keyBindings.reverseMap[kp.keyName].startsWith("Slide")) {
-            var goToSlide = this.keyBindings.reverseMap[kp.keyName].match(/Slide([0-9]+)/i);
+        } else if (this.keyHandler.reverseMap[kp.keyName].startsWith("Slide")) {
+            var goToSlide = this.keyHandler.reverseMap[kp.keyName].match(/Slide([0-9]+)/i);
             console.log((typeof goToSlide[1]) + " " + goToSlide[1]);
             if (typeof parseInt(goToSlide[1]) === "number") {
                 this.manualTransition(parseInt(goToSlide[1]));
@@ -55,15 +59,16 @@ Module.register('MMM-Carousel', {
     notificationReceived: function(notification, payload, sender) {
         var position, positions = ['top_bar', 'bottom_bar', 'top_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'bottom_right', 'upper_third', 'middle_center', 'lower_third'];
         if (notification === 'MODULE_DOM_CREATED') {
-
             // Register Key Handler
-            if (MM.getModules().filter(kb => kb.name === "MMM-KeyBindings").length > 0) {
+            if (this.config.keyBindings.enabled &&
+                MM.getModules().filter(kb => kb.name === "MMM-KeyBindings").length > 0) {
+                this.keyBindings = Object.assign({}, this.keyBindings, this.config.keyBindings);
                 KeyHandler.register(this.name, {
                     validKeyPress: (kp) => {
                         this.validKeyPress(kp); // Your Key Press Function
                     }
                 });
-                this.keyHandler = KeyHandler.create(this.name, this.config.keyBindings);
+                this.keyHandler = KeyHandler.create(this.name, this.keyBindings);
             }
 
             // Initially, all modules are hidden except the first and any ignored modules
