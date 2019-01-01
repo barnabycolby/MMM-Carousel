@@ -1,3 +1,9 @@
+## <a name="0_2_6"></a>[0.2.6] - Named Slide Support & Update for new MMM-KeyBindings
+
+* Added support for named slides.
+* Updated Key Handling for new MMM-KeyBindings methods.
+* Broadcast API request to new MMM-Remote-Control API.
+
 ## <a name="0_2_5"></a>[0.2.5] - Added direct controls via Notification.
 
 * Added control from Module Notification (See [README](README.md#Navigation-from-other-modules)).
