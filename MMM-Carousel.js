@@ -89,15 +89,21 @@ Module.register('MMM-Carousel', {
                 actions: {
                     next: {
                         notification: "CAROUSEL_NEXT",
+                        prettyName: "Next Slide"
                     },
                     previous: {
                         notification: "CAROUSEL_PREVIOUS",
+                        prettyName: "Previous Slide"
                     },
                 }
             };
             if (this.config.mode === 'slides') {
                 Object.keys(this.config.slides).forEach(s => {
-                    api.actions[(s.replace(/\s/g, '').toLowerCase())] = { notification: "CAROUSEL_GOTO", payload: { slide: s } };
+                    api.actions[(s.replace(/\s/g, '').toLowerCase())] = { 
+                        notification: "CAROUSEL_GOTO", 
+                        payload: { slide: s }, 
+                        prettyName: "Go To Slide " + s
+                    };
                 });
             }
             this.sendNotification("REGISTER_API", api);
