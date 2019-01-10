@@ -23,6 +23,14 @@ body {
     bottom: 60px;
 }
 
+.zoom50 {
+  zoom: 0.50;
+}
+
+.zoom75 {
+  zoom: 0.75;
+}
+
 .zoom125 {
   zoom: 1.25;
 }
@@ -135,6 +143,4 @@ body {
   width: 100%;
   left: 0%;
   z-index: 50;
-  background-color: black;
-
 }
