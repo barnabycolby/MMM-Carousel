@@ -310,7 +310,7 @@ Module.register('MMM-Carousel', {
     },
 
     restartTimer: function() {
-        if (this.transitionTimer > 0) {
+        if (this.config.transitionInterval > 0) {
             // Restart the timer
             clearInterval(this.transitionTimer);
             this.transitionTimer = setInterval(this.manualTransition, this.config.transitionInterval);
