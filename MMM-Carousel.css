@@ -1,0 +1,146 @@
+
+/*****************************************************
+ *													 *
+ * Custom Styles for Slider Animations Adapted from: *
+ * https://www.htmllion.com/						 *
+ *	pure-css-based-fullscreen-slider.html			 *
+ *													 *
+ *****************************************************/
+
+ /* Overwrite some of the main.css values */
+html {
+  /*cursor: auto;*/
+}
+
+body {
+  /*overflow: hidden;*/
+  overflow:visible;
+  margin-bottom: 0px;
+  height: calc(100% - 60px);
+}
+
+.region.bottom {
+    bottom: 60px;
+}
+
+.zoom50 {
+  zoom: 0.50;
+}
+
+.zoom75 {
+  zoom: 0.75;
+}
+
+.zoom125 {
+  zoom: 1.25;
+}
+
+.zoom150 {
+  zoom: 1.5;
+}
+
+.zoom175 {
+  zoom: 1.75;
+}
+
+.zoom200 {
+  zoom: 2.0;
+}
+
+
+/* Next and Previous arrow */
+.control {
+  position: absolute;
+  bottom: 0px;
+  width: 150px;
+  height: 150px;
+  z-index: 55;
+}
+
+/* Show button when you hover near */
+.control:hover label {
+  opacity: 0.2;
+  cursor: pointer !important;
+}
+
+.control:hover {
+  cursor: pointer !important;
+}
+
+.control label {
+  z-index: 0;
+  display: none;
+  text-align: center;
+  line-height: 50px;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  left: 33%;  /* Center in .control div: this.width / .control.width; */
+  top: 33%;   /* Center in .control div: this.height / .control.height;; */
+  font-size: 50px;
+  color: #FFF;
+  cursor: pointer !important;
+  opacity: 0.0;
+}
+
+/*Increase brightness when directly over*/
+.control label:hover {
+  opacity: 0.5;
+}
+
+.next {
+  right: -60px;
+}
+
+.previous {
+  left: -60px;
+}
+
+/* Slider Pagger */ 
+.slider-pagination {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  z-index: 1000;
+}
+
+.slider-pagination label {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  margin: 0 2px;
+  border: solid 1px rgba(255,255,255,0.4);
+  cursor: pointer !important;
+}
+
+.MMMCarouselCurrentPage {
+  background: rgba(255,255,255,1) !important;
+}
+/* Hide actual radio buttons */
+.slide-radio
+{
+	position: absolute;
+	bottom: -200px;
+	left: -200px;
+	visibility: hidden;
+}
+
+/* Slider Pagger arrow event */
+.MMMCarouselAvailable {
+  display: block !important;
+  z-index: 100 !important;
+}
+
+.MMMCarouselContainer {
+  overflow: visible !important;
+  position: absolute;
+  height: 60px;
+  bottom: -60px;
+  width: 100%;
+  left: 0%;
+  z-index: 50;
+}
