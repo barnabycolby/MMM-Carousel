@@ -95,6 +95,10 @@ Module.register('MMM-Carousel', {
                         notification: "CAROUSEL_PREVIOUS",
                         prettyName: "Previous Slide"
                     },
+                    toggle: {
+                        notification: "CAROUSEL_TIMER_TOGGLE",
+                        prettyName: "Toggle Timer Slide"
+                    },
                 }
             };
             if (this.config.mode === 'slides') {
@@ -111,6 +115,17 @@ Module.register('MMM-Carousel', {
 
         if (this.keyHandler && this.keyHandler.validate(notification, payload)) { return; }
 
+        if (notification === "CAROUSEL_TIMER_TOGGLE") {
+	        if (this.config.transitionInterval <= 0) {
+		        this.config.transitionInterval = 5000;
+		        this.restartTimer();
+	        } else {
+		        this.config.transitionInterval = 0;    
+		        clearInterval(this.transitionTimer);
+            }
+            this.sendNotification("CAROUSEL_NEXT");
+        }
+        
         if (notification === "CAROUSEL_NEXT") {
             this.manualTransition(undefined, 1);
             this.restartTimer();
