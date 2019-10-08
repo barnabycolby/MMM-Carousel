@@ -272,3 +272,27 @@ You can navigate to different slides or transition points manually from other mo
 ```shell
 curl -X GET http://magicmirrorip:8080/api/module/carousel/action
 ```
+
+
+#### Example - Recipe for MMM-AssistantMk2
+```javascript
+var recipe = {
+   transcriptionHook: {
+      "TH_CHANGE_MODE_CAROUSEL": {
+         pattern: "change mode",
+         command: "CHANGE_MODE_CAROUSEL"
+      },
+   },
+   command: {
+      "CHANGE_MODE_CAROUSEL": {
+
+         notificationExec: {
+            notification: "CAROUSEL_TIMER_TOGGLE"
+         }
+      }
+   }
+}
+
+exports.recipe = recipe // Don't remove this line.
+
+```
