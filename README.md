@@ -274,25 +274,68 @@ curl -X GET http://magicmirrorip:8080/api/module/carousel/action
 ```
 
 
-#### Example - Recipe for MMM-AssistantMk2
+#### Example1 - Recipe for MMM-AssistantMk2
 ```javascript
 var recipe = {
    transcriptionHook: {
-      "TH_CHANGE_MODE_CAROUSEL": {
+      "MY_COMMAND_06": {
          pattern: "change mode",
-         command: "CHANGE_MODE_CAROUSEL"
+         command: "MY_COMMAND_06_01"
       },
    },
    command: {
-      "CHANGE_MODE_CAROUSEL": {
-
+      "MY_COMMAND_06_01": {
          notificationExec: {
-            notification: "CAROUSEL_TIMER_TOGGLE"
+            notification: "CAROUSEL_TOGGLE_SLIDE_MODE"
          }
-      }
-   }
+      },
+   },
 }
 
 exports.recipe = recipe // Don't remove this line.
+```
 
+#### Example2 - Recipe for MMM-AssistantMk2
+```javascript
+var recipe = {
+   transcriptionHook: {
+      "MY_COMMAND_08": {
+         pattern: "start carousel",
+         command: "MY_COMMAND_08_01"
+      },
+   },
+   command: {
+      "MY_COMMAND_08_01": {
+         notificationExec: {
+            notification: "CAROUSEL_START_SLIDE",
+         }
+      },
+   },
+}
+
+exports.recipe = recipe // Don't remove this line.
+```
+
+#### Example3 - Recipe for MMM-AssistantMk2
+```javascript
+var recipe = {
+   transcriptionHook: {
+      "MY_COMMAND_07": {
+         pattern: "set time to (( |\\d+)+)",
+         command: "MY_COMMAND_07_01"
+      },
+   },
+   command: {
+      "MY_COMMAND_07_01": {
+         notificationExec: {
+            notification: "CAROUSEL_CHANGE_SLIDE_INTERVAL_TIME",
+            payload: (pattern) => { 
+               return  pattern[1];
+            }
+         }
+      },
+   },
+}
+
+exports.recipe = recipe // Don't remove this line.
 ```
