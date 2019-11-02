@@ -2,7 +2,8 @@
 /* jshint esversion:6 */
 Module.register('MMM-Carousel', {
     defaults: {
-        transitionInterval: 10000,
+	defaultTransitionsInterval: 5*1000,
+        transitionInterval: 10*1000,
         slideTransitionSpeed: 1500,
         ignoreModules: [],
         mode: 'global', //global || positional || slides
@@ -95,10 +96,14 @@ Module.register('MMM-Carousel', {
                         notification: "CAROUSEL_PREVIOUS",
                         prettyName: "Previous Slide"
                     },
-                    toggle: {
-                        notification: "CAROUSEL_TIMER_TOGGLE",
-                        prettyName: "Toggle Timer Slide"
+                    modetoggle: {
+                        notification: "CAROUSEL_TOGGLE_SLIDE_MODE",
+                        prettyName: "Toggle Slide Mode"
                     },
+                    intervaltime: {
+                        notification: "CAROUSEL_CHANGE_SLIDE_INTERVAL_TIME",
+                        prettyName: "Change Slide Time"
+                    }
                 }
             };
             if (this.config.mode === 'slides') {
@@ -115,15 +120,19 @@ Module.register('MMM-Carousel', {
 
         if (this.keyHandler && this.keyHandler.validate(notification, payload)) { return; }
 
-        if (notification === "CAROUSEL_TIMER_TOGGLE") {
+	if (notification === "CAROUSEL_CHANGE_SLIDE_INTERVAL_TIME") {
+		var payloadRaw = payload;
+		var removedWs  = payloadRaw.replace(/\s/g, "");
+		var newTime = parseInt(removedWs);
+		this.startSlide(newTime);
+	}
+
+        if (notification === "CAROUSEL_TOGGLE_SLIDE_MODE") {
 	        if (this.config.transitionInterval <= 0) {
-		        this.config.transitionInterval = 5000;
-		        this.restartTimer();
+			this.startSlide(parseInt(this.config.defaultTransitionsInterval));
 	        } else {
-		        this.config.transitionInterval = 0;    
-		        clearInterval(this.transitionTimer);
+			this.stopSlide();
             }
-            this.sendNotification("CAROUSEL_NEXT");
         }
         
         if (notification === "CAROUSEL_NEXT") {
@@ -332,6 +341,18 @@ Module.register('MMM-Carousel', {
         }
     },
 
+    startSlide: function(slideTime) {
+	this.config.transitionInterval = slideTime;
+	this.restartTimer();
+	this.sendNotification("CAROUSEL_NEXT");
+    },
+
+    stopSlide: function() {
+	this.config.transitionInterval = 0;
+	clearInterval(this.transitionTimer);
+	this.sendNotification("CAROUSEL_NEXT");
+    },
+	
     manualTransitionCallback: function(slideNum) {
         // console.log("manualTransition was called by slider_" + slideNum);
         // Perform the manual transitio
