@@ -103,6 +103,14 @@ Module.register('MMM-Carousel', {
                     intervaltime: {
                         notification: "CAROUSEL_CHANGE_SLIDE_INTERVAL_TIME",
                         prettyName: "Change Slide Time"
+                    },
+                    start: {
+                        notification: "CAROUSEL_START_SLIDE",
+                        prettyName: "Start Slide"
+                    },
+                    stop: {
+                        notification: "CAROUSEL_STOP_SLIDE",
+                        prettyName: "Stop Slide"
                     }
                 }
             };
@@ -126,12 +134,19 @@ Module.register('MMM-Carousel', {
 		var newTime = parseInt(removedWs);
 		this.startSlide(newTime);
 	}
+		
+	if (notification === "CAROUSEL_START_SLIDE") {
+		this.startSlide(parseInt(this.config.defaultTransitionsInterval));
+	}
+	if (notification === "CAROUSEL_STOP_SLIDE") {
+		this.stopSlide();
+	}
 
         if (notification === "CAROUSEL_TOGGLE_SLIDE_MODE") {
 	        if (this.config.transitionInterval <= 0) {
-			this.startSlide(parseInt(this.config.defaultTransitionsInterval));
+			this.sendNotification("CAROUSEL_START_SLIDE");
 	        } else {
-			this.stopSlide();
+			this.sendNotification("CAROUSEL_STOP_SLIDE");
             }
         }
         
