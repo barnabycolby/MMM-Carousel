@@ -23,7 +23,7 @@ Run these commands at the root of your magic mirror install.
 
 ```shell
 cd modules
-git clone https://github.com/shbatm/MMM-Carousel
+git clone https://github.com/acimail01/MMM-Carousel.git
 ```
 
 ## Using the module
