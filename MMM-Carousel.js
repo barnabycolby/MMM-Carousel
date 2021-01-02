@@ -18,8 +18,8 @@
             bottom_center: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
             bottom_right: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
             bottom_bar: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
-			fullscreen_above: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
-			fullscreen_below: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
+            fullscreen_above: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
+            fullscreen_below: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
             slides: [
                 []
             ]
