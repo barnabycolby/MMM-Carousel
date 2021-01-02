@@ -18,13 +18,15 @@
             bottom_center: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
             bottom_right: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
             bottom_bar: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
+			fullscreen_above: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
+			fullscreen_below: {enabled: false, ignoreModules: [], overrideTransitionInterval: 10000},
             slides: [
                 []
             ]
         },
 
         notificationReceived: function (notification) {
-            var position, positions = ['top_bar', 'bottom_bar', 'top_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'bottom_right', 'upper_third', 'middle_center', 'lower_third'];
+            var position, positions = ['top_bar', 'bottom_bar', 'top_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'bottom_right', 'upper_third', 'middle_center', 'lower_third','fullscreen_above','fullscreen_below'];
             if (notification === 'DOM_OBJECTS_CREATED') {
                 // Initially, all modules are hidden except the first and any ignored modules
                 // We start by getting a list of all of the modules in the transition cycle
