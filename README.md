@@ -33,7 +33,7 @@ var config = {
     modules: [
         {
             module: 'MMM-Carousel',
-            position: 'bottom_bar',  // Only required to show navigation
+            position: 'bottom_bar',  // Required to draw in position
             config: {
                 // See below for configurable options
             }
