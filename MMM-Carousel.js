@@ -2,7 +2,7 @@
 /* jshint esversion:6 */
 Module.register('MMM-Carousel', {
     defaults: {
-        transitionInterval: 10*1000,
+        transitionInterval: 10000,
         slideTransitionSpeed: 1500,
         ignoreModules: [],
         mode: 'global', //global || positional || slides
@@ -36,7 +36,7 @@ Module.register('MMM-Carousel', {
     requiresVersion: "2.3.0", // Uses 'MODULE_DOM_CREATED' notification instead of 'DOM_OBJECTS_CREATED'
 
     start: function() {
-		this.atimer = this.config.transitionInterval;
+
     },
 
     validKeyPress: function(kp) {
@@ -95,22 +95,6 @@ Module.register('MMM-Carousel', {
                         notification: "CAROUSEL_PREVIOUS",
                         prettyName: "Previous Slide"
                     },
-					stop: {
-                        notification: "CAROUSEL_STOP_SLIDE",
-                        prettyName: "Stop Slide"
-                    },
-					start: {
-                        notification: "CAROUSEL_START_SLIDE",
-                        prettyName: "Start Slide"
-                    },
-                    modetoggle: {
-                        notification: "CAROUSEL_TOGGLE_SLIDE_MODE",
-                        prettyName: "Toggle Slide Mode"
-                    },
-					setintervaltime: {
-                        notification: "CAROUSEL_CHANGE_SLIDE_INTERVAL_TIME",
-                        prettyName: "Change Slide Time"
-                    },
                 }
             };
             if (this.config.mode === 'slides') {
@@ -127,42 +111,15 @@ Module.register('MMM-Carousel', {
 
         if (this.keyHandler && this.keyHandler.validate(notification, payload)) { return; }
 
-		if (notification === "CAROUSEL_CHANGE_SLIDE_INTERVAL_TIME") {
-			var payloadRaw = payload;
-			var removedWs  = payloadRaw.replace(/\s/g, "");
-			this.atimer =  parseInt(removedWs);
-			this.startSlide(this.atimer);
-		}	
-
-		if (notification === "CAROUSEL_TOGGLE_SLIDE_MODE") {
-			if(this.atimer <= 0) {
-				this.atimer = this.config.transitionInterval;
-				this.startSlide(this.atimer);
-			} else {
-				this.atimer = 0;
-				this.stopSlide();
-			}
-		}
-
-		if (notification === "CAROUSEL_START_SLIDE") {
-			this.startSlide(parseInt(this.config.transitionInterval));
-		}
-		
-		if (notification === "CAROUSEL_STOP_SLIDE") {
-			this.stopSlide();
-		}
-        
-		if (notification === "CAROUSEL_NEXT") {
+        if (notification === "CAROUSEL_NEXT") {
             this.manualTransition(undefined, 1);
             this.restartTimer();
         }
-        
-		if (notification === "CAROUSEL_PREVIOUS") {
+        if (notification === "CAROUSEL_PREVIOUS") {
             this.manualTransition(undefined, -1);
             this.restartTimer();
         }
-        
-		if (notification === "CAROUSEL_GOTO") {
+        if (notification === "CAROUSEL_GOTO") {
             if (typeof payload === "number" || typeof payload === "string") {
                 try {
                     this.manualTransition(parseInt(payload) - 1);
@@ -182,7 +139,7 @@ Module.register('MMM-Carousel', {
     },
 
     setUpTransitionTimers: function(positionIndex) {
-        var modules, timer = this.atimer;
+        var modules, timer = this.config.transitionInterval;
         modules = MM.getModules().exceptModule(this).filter(function(module) {
             if (positionIndex === null) {
                 return this.config.ignoreModules.indexOf(module.name) === -1;
@@ -217,16 +174,22 @@ Module.register('MMM-Carousel', {
     },
 
     moduleTransition: function(goToIndex = -1, goDirection = 0, goToSlide = undefined) {
-        var i, resetCurrentIndex = this.length;
+        var i, noChange = false, resetCurrentIndex = this.length;
         if (this.slides !== undefined) {
             resetCurrentIndex = Object.keys(this.slides).length;
         }
 
         // Update the current index
         if (goToSlide) {
+            console.log("In goToSlide, current slide index" + this.currentIndex);
             let slide = Object.keys(this.slides).find((s, i) => {
                 if (goToSlide === s) {
-                    this.currentIndex = i;
+                    if (i == this.currentIndex) {
+                        console.log("No change, requested slide is the same");
+                        noChange = true;
+                    } else {
+                        this.currentIndex = i;
+                    }
                     return true;
                 }
                 return false;
@@ -244,9 +207,20 @@ Module.register('MMM-Carousel', {
                 this.currentIndex = resetCurrentIndex - 1; // Went too far backwards, wrap-around to end
             }
         } else if (goToIndex >= 0 && goToIndex < resetCurrentIndex) {
-            this.currentIndex = goToIndex; // Go to a specific slide if in range
+            
+            if (goToIndex == this.currentIndex) {
+                console.log("No change, requested slide is the same");
+                noChange = true;
+            }
+            else {
+                this.currentIndex = goToIndex; // Go to a specific slide if in range
+            }
         }
-
+        
+        // Some modules like MMM-RTSPStream get into an odd state if you enable them when already enabled
+        console.log(" No change value:" + noChange);
+        if (noChange == true) {return}
+        
         /* selectWrapper(position)
          * Select the wrapper dom object for a specific position.
          *
@@ -266,7 +240,7 @@ Module.register('MMM-Carousel', {
         for (i = 0; i < this.length; i += 1) {
             // There is currently no easy way to discover whether a module is ALREADY shown/hidden
             // In testing, calling show/hide twice seems to cause no issues
-            //console.log("Processing " + this[i].name);
+            console.log("Processing " + this[i].name);
             if ((this.slides === undefined) && (i === this.currentIndex)) {
                 this[i].show(this.slideTransitionSpeed, { lockString: "mmmc" });
             } else if (this.slides !== undefined) {
@@ -353,10 +327,10 @@ Module.register('MMM-Carousel', {
     },
 
     restartTimer: function() {
-        if (this.atimer > 0) {
+        if (this.config.transitionInterval > 0) {
             // Restart the timer
             clearInterval(this.transitionTimer);
-            this.transitionTimer = setInterval(this.manualTransition, this.atimer);
+            this.transitionTimer = setInterval(this.manualTransition, this.config.transitionInterval);
         }
     },
 
@@ -365,17 +339,6 @@ Module.register('MMM-Carousel', {
         // Perform the manual transitio
         this.manualTransition(slideNum);
         this.restartTimer();
-    },
-
-    stopSlide: function() {
-		this.atimer = 0;
-		clearInterval(this.transitionTimer);
-    },
-	
-    startSlide: function(slideTime) {
-		this.atimer = slideTime;
-		this.restartTimer();
-		this.sendNotification("CAROUSEL_NEXT");
     },
 
     getStyles: function() {
