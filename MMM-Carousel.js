@@ -17,6 +17,8 @@ Module.register('MMM-Carousel', {
         bottom_center: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
         bottom_right: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
         bottom_bar: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
+        fullscreen_above: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
+        fullscreen_below: { enabled: false, ignoreModules: [], overrideTransitionInterval: 10000 },
         slides: [
             []
         ],
@@ -57,7 +59,7 @@ Module.register('MMM-Carousel', {
     },
 
     notificationReceived: function(notification, payload, sender) {
-        var position, positions = ['top_bar', 'bottom_bar', 'top_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'bottom_right', 'upper_third', 'middle_center', 'lower_third'];
+        var position, positions = ['top_bar', 'bottom_bar', 'top_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'bottom_right', 'upper_third', 'middle_center', 'lower_third','fullscreen_above','fullscreen_below'];
         if (notification === 'MODULE_DOM_CREATED') {
             // Register Key Handler
             if (this.config.keyBindings.enabled &&
