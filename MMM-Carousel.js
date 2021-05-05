@@ -362,9 +362,10 @@ Module.register('MMM-Carousel', {
             };
         }
 
+        var div = document.createElement("div");
+        
         if (this.config.mode === "slides" && (this.config.showPageIndicators || this.config.showPageControls)) {
 
-            var div = document.createElement("div");
             div.className = "MMMCarouselContainer";
 
             var paginationWrapper = document.createElement("div");
@@ -419,7 +420,7 @@ Module.register('MMM-Carousel', {
                 div.appendChild(nextWrapper);
                 div.appendChild(previousWrapper);
             }
-            return div;
-        }
+           }
+         return div;
     },
 });
