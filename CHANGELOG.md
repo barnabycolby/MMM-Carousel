@@ -1,3 +1,7 @@
+## <a name="0_2_7"></a>[0.2.7] - Add fullscreen positions
+
+* Added support for fullscreen positions.
+
 ## <a name="0_2_6"></a>[0.2.6] - Named Slide Support & Update for new MMM-KeyBindings
 
 * Added support for named slides.
@@ -17,7 +21,6 @@
 
 * Added a parameter for slide transition speed. Default is 1500ms.
 
-
 ## <a name="0_2_3"></a>[0.2.3] - Fix for #1 - Fix timed transition for slides
 
 * Bug fix for Issue #1 -- Correct issue where setting transitionInterval for a "slides" configuration doesn't actually cause the slides to transition automatically.
@@ -25,7 +28,6 @@
 ## <a name="0_2_2"></a>[0.2.2] - Added support for MMM-KeyBindings Instances
 
 * Added support for using MMM-KeyBindings control with multiple instances of the MagicMirror open.  For example, you can use a remote on the screen attached to the Raspberry Pi (SERVER) and use a keyboard on another computer with the mirror running in a browswer (LOCAL) to independently change slides on the respective screens.
-
 
 ## <a name="0_2_1"></a>[0.2.1] - Multiple instances of a module
 
@@ -37,7 +39,7 @@ Changes:
             module: "clock",
             position: "top_left",
             config: {
-				carouselId: "1",
+                carouselId: "1",
                 displayType: "both"
             }
         },
@@ -45,8 +47,8 @@ Changes:
             module: "clock",
             position: "top_left",
             config: {
-				carouselId: 2,
-			}
+                carouselId: 2,
+            }
         },
         {
             module: 'MMM-Carousel',
