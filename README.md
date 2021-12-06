@@ -108,7 +108,7 @@ The following properties can be configured:
 				<br> <br> This value is <b>OPTIONAL</b>
 				<br><b>Possible values:</b> Object with keys;
 				<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>enabled</code>, a boolean to rotate this position or not,
-				<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>ignoredModules</code>, a <code>String array</code> of modules names to ignore.
+				<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>ignoreModules</code>, a <code>String array</code> of modules names to ignore.
 				<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>overrideTransitionInterval</code>, a <code>int</code> a transition time for this position only.
                 <br><b>Default value:</b> <code>{enabled: false, ignoreModules: [], overrideTransitionInterval: 10000}</code>
 			</td>
