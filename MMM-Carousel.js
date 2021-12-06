@@ -50,7 +50,7 @@ Module.register('MMM-Carousel', {
             this.restartTimer();
         } else if (this.keyHandler.reverseMap[kp.keyName].startsWith("Slide")) {
             var goToSlide = this.keyHandler.reverseMap[kp.keyName].match(/Slide([0-9]+)/i);
-            console.log((typeof goToSlide[1]) + " " + goToSlide[1]);
+            Log.log((typeof goToSlide[1]) + " " + goToSlide[1]);
             if (typeof parseInt(goToSlide[1]) === "number") {
                 this.manualTransition(parseInt(goToSlide[1]));
                 this.restartTimer();
@@ -127,14 +127,14 @@ Module.register('MMM-Carousel', {
                     this.manualTransition(parseInt(payload) - 1);
                     this.restartTimer();
                 } catch (err) {
-                    console.warn("Could not navigate to slide " + payload);
+                    Log.error("Could not navigate to slide " + payload);
                 }
             } else if (typeof payload === "object") {
                 try {
                     this.manualTransition(undefined, 0, payload.slide);
                     this.restartTimer();
                 } catch (err) {
-                    console.warn("Could not navigate to slide " + payload.slide);
+                    Log.error("Could not navigate to slide " + payload.slide);
                 }
             }
         }
@@ -183,11 +183,11 @@ Module.register('MMM-Carousel', {
 
         // Update the current index
         if (goToSlide) {
-            console.log("In goToSlide, current slide index" + this.currentIndex);
+            Log.log("In goToSlide, current slide index" + this.currentIndex);
             let slide = Object.keys(this.slides).find((s, i) => {
                 if (goToSlide === s) {
                     if (i == this.currentIndex) {
-                        console.log("No change, requested slide is the same");
+                        Log.log("No change, requested slide is the same");
                         noChange = true;
                     } else {
                         this.currentIndex = i;
@@ -200,7 +200,7 @@ Module.register('MMM-Carousel', {
             if (goDirection === 0) {
                 this.currentIndex += 1; // Normal Transition, Increment by 1
             } else {
-                // console.log("Currently on slide " + this.currentIndex + " and going to slide " + (this.currentIndex + goDirection));
+                // Log.log("Currently on slide " + this.currentIndex + " and going to slide " + (this.currentIndex + goDirection));
                 this.currentIndex += goDirection; // Told to go a specific direction
             }
             if (this.currentIndex >= resetCurrentIndex) { // Wrap-around back to beginning
@@ -211,7 +211,7 @@ Module.register('MMM-Carousel', {
         } else if (goToIndex >= 0 && goToIndex < resetCurrentIndex) {
             
             if (goToIndex == this.currentIndex) {
-                console.log("No change, requested slide is the same");
+                Log.log("No change, requested slide is the same");
                 noChange = true;
             }
             else {
@@ -220,7 +220,7 @@ Module.register('MMM-Carousel', {
         }
         
         // Some modules like MMM-RTSPStream get into an odd state if you enable them when already enabled
-        console.log(" No change value:" + noChange);
+        Log.log(" No change value:" + noChange);
         if (noChange == true) {return}
         
         /* selectWrapper(position)
@@ -242,7 +242,7 @@ Module.register('MMM-Carousel', {
         for (i = 0; i < this.length; i += 1) {
             // There is currently no easy way to discover whether a module is ALREADY shown/hidden
             // In testing, calling show/hide twice seems to cause no issues
-            console.log("Processing " + this[i].name);
+            Log.log("Processing " + this[i].name);
             if ((this.slides === undefined) && (i === this.currentIndex)) {
                 this[i].show(this.slideTransitionSpeed, { lockString: "mmmc" });
             } else if (this.slides !== undefined) {
@@ -317,11 +317,11 @@ Module.register('MMM-Carousel', {
                     }
                 }
                 if (this.currentIndex !== resetCurrentIndex - 1) {
-                    // console.log("Trying to enable button sliderNextBtn_" + (this.currentIndex+1));
+                    // Log.log("Trying to enable button sliderNextBtn_" + (this.currentIndex+1));
                     document.getElementById("sliderNextBtn_" + (this.currentIndex + 1)).classList.add('MMMCarouselAvailable');
                 }
                 if (this.currentIndex !== 0) {
-                    // console.log("Trying to enable button sliderPrevBtn_" + (this.currentIndex-1));
+                    // Log.log("Trying to enable button sliderPrevBtn_" + (this.currentIndex-1));
                     document.getElementById("sliderPrevBtn_" + (this.currentIndex - 1)).classList.add('MMMCarouselAvailable');
                 }
             }
@@ -337,7 +337,7 @@ Module.register('MMM-Carousel', {
     },
 
     manualTransitionCallback: function(slideNum) {
-        // console.log("manualTransition was called by slider_" + slideNum);
+        // Log.log("manualTransition was called by slider_" + slideNum);
         // Perform the manual transitio
         this.manualTransition(slideNum);
         this.restartTimer();
