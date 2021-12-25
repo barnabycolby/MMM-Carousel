@@ -1,3 +1,10 @@
+# Changelog
+
+## <a name="0_2_8"></a>[0.2.8] - Add fullscreen positions
+
+* Cleanup
+* Changing links to fork from Kristjan ESPERANTO
+
 ## <a name="0_2_7"></a>[0.2.7] - Add fullscreen positions
 
 * Added support for fullscreen positions.
@@ -8,7 +15,7 @@
 * Updated Key Handling for new MMM-KeyBindings methods.
 * Broadcast API request to new MMM-Remote-Control API.
 
-## <a name="0_2_5"></a>[0.2.5] - Added direct controls via Notification.
+## <a name="0_2_5"></a>[0.2.5] - Added direct controls via Notification
 
 * Added control from Module Notification (See [README](README.md#Navigation-from-other-modules)).
 * Removed unneccessary and unused tests and Grunt file.
@@ -34,7 +41,8 @@
 Changes:
 
 * Added the ability to handle mutiple instances of a module. To use, add a `carouselId: "uniqueString"` to each modules' `config` section:
-```
+
+```javascript
         {
             module: "clock",
             position: "top_left",
@@ -67,7 +75,8 @@ Changes:
 Changes:
 
 * Added the ability to pass an object with detail for a module on a per slide basis.  Passing a config similar to the following shows a large clock on the first slide and then a small clock and additional modules on the second.
-```
+
+```javascript
     mode: 'slides',
     slides: [
         [   {name:'clock', classes:'zoom200', position:"middle_center"} ],
@@ -77,6 +86,7 @@ Changes:
             'newsfeed'
         ]
 ```
+
 * Made use of `zoom` classes introduced in [0.1.1]: using the method above, supported zooms are 070%, 080%, 090%, 125%, 150%, 175%, and 200%. Pass `classes:''` for 100%.
 * Added support for indefinite slides -- set `transitionInterval: 0` for manual-transition only slides
 * Added KeyPress events to go to specific slide index. (e.g. `Slide0: "Home"` in the KeyBindings would jump to the first slide when the home key is pushed). Works with any number of slides in the format `Slide#: "KeyName"` where # is the 0-based index of the slide.
