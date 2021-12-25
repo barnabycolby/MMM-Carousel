@@ -23,7 +23,7 @@ Run these commands at the root of your magic mirror install.
 
 ```shell
 cd modules
-git clone https://github.com/acimail01/MMM-Carousel.git
+git clone https://github.com/KristjanESPERANTO/MMM-Carousel
 ```
 
 ## Using the module
@@ -339,3 +339,4 @@ var recipe = {
 
 exports.recipe = recipe // Don't remove this line.
 ```
+
