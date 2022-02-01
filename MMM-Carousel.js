@@ -7,67 +7,67 @@ Module.register("MMM-Carousel", {
     top_bar: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     top_left: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     top_center: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     top_right: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     upper_third: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     middle_center: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     lower_third: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     bottom_left: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     bottom_center: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     bottom_right: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     bottom_bar: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     fullscreen_above: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     fullscreen_below: {
       enabled: false,
       ignoreModules: [],
-      overrideTransitionInterval: 10000
+      overrideTransitionInterval: undefined
     },
     slides: [[]],
     showPageIndicators: true,
@@ -75,7 +75,9 @@ Module.register("MMM-Carousel", {
     // MMM-KeyBindings mapping.
     keyBindings: {
       enabled: true
-    }
+    },
+    transitionTimeout: 0,
+    homeSlide: 0
   },
 
   keyBindings: {
@@ -255,12 +257,17 @@ Module.register("MMM-Carousel", {
       // If we're in slides mode and the timer is set to 0, we only use manual transitions
       this.transitionTimer = setInterval(this.manualTransition, timer);
     }
+    else if (
+      this.config.mode === "slides" && timer === 0 && this.config.transitionTimeout > 0
+    ) {
+      this.transitionTimer = setTimeout(() => { this.transitionTimeoutCallback(); }, this.config.transitionTimeout)
+    }
   },
 
   moduleTransition: function (
     goToIndex = -1,
     goDirection = 0,
-    goToSlide = undefined
+    goToSlide = undefined,
   ) {
     let i,
       noChange = false,
@@ -450,11 +457,34 @@ Module.register("MMM-Carousel", {
         this.config.transitionInterval
       );
     }
+    else if (this.config.transitionTimeout > 0) {
+      // Restart the timeout
+      clearTimeout(this.transitionTimer);
+      this.transitionTimer = setTimeout(() => {
+        this.transitionTimeoutCallback();
+      }, this.config.transitionTimeout);
+    }
   },
 
-  manualTransitionCallback: function (slideNum) {
+  transitionTimeoutCallback: () => {
+    let goToIndex = -1;
+    let goToSlide = undefined;
+    if (typeof this.config.homeSlide === "number") {
+      goToIndex = this.config.homeSlide;
+    }
+    else if (typeof this.config.homeSlide === "string") {
+      goToSlide = this.config.homeSlide;
+    }
+    else {
+      goToIndex = 0;
+    }
+    this.moduleTransition(goToIndex, undefined, goToSlide);
+    this.restartTimer();
+  },
+
+  manualTransitionCallback: function (slideNum, slideName=undefined) {
     // Log.log("manualTransition was called by slider_" + slideNum);
-    // Perform the manual transitio
+    // Perform the manual transition
     this.manualTransition(slideNum);
     this.restartTimer();
   },

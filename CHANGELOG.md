@@ -1,5 +1,10 @@
 # Changelog
 
+## <a name="0_3_0"></a>[0.3.0] - Add option to default to home slide on timeout
+
+* Add `homeSlide` and `transitionTimeout` to timeout and return to a home page, similar to MMM-Pages (#30)
+* Merge downstream changes from @KristjanESPERANTO and others (Thanks!)
+
 ## <a name="0_2_8"></a>[0.2.8] - Add fullscreen positions
 
 * Cleanup
@@ -80,9 +85,9 @@ Changes:
     mode: 'slides',
     slides: [
         [   {name:'clock', classes:'zoom200', position:"middle_center"} ],
-        [   {name:'clock', classes:'', position:"top_left"}, 
-            {name:'calendar', position:'top_left'}, 
-            'MMM-WunderGround', 
+        [   {name:'clock', classes:'', position:"top_left"},
+            {name:'calendar', position:'top_left'},
+            'MMM-WunderGround',
             'newsfeed'
         ]
 ```
