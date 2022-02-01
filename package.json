@@ -1,6 +1,6 @@
 {
   "name": "mmm-carousel",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "Displays a single magic mirror module at a time or in groups of slides, rotating through the list of configured modules in a carousel-like fashion.",
   "main": "MMM-Carousel.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KristjanESPERANTO/MMM-Carousel.git"
+    "url": "git+https://github.com/shbatm/MMM-Carousel.git"
   },
   "keywords": [
     "magic",
@@ -25,7 +25,7 @@
   "contributor": "shbatm",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/KristjanESPERANTO/MMM-Carousel//issues"
+    "url": "https://github.com/shbatm/MMM-Carousel//issues"
   },
-  "homepage": "https://github.com/KristjanESPERANTO/MMM-Carousel/#readme"
+  "homepage": "https://github.com/shbatm/MMM-Carousel/#readme"
 }

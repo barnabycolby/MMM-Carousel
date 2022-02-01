@@ -1,24 +1,24 @@
 # MMM-Carousel w/ Slide Navigation
 
-> This is an extension to the [MagicMirror](https://github.com/MichMich/MagicMirror) project, allowing the modules to be displayed in a rotating carousel instead of displaying all of them at once.
+> This is an extension to the [MagicMirror²](https://github.com/MichMich/MagicMirror) project, allowing the modules to be displayed in a rotating carousel instead of displaying all of them at once.
 > This version of the module was forked from [barnabycolby's MMM-Carousel](https://github.com/barnabycolby/MMM-Carousel).
->  
+>
 > There are three modes available:
 
 * `'global'` - All modules not cited in the `ignoreModules` config are rotated, displaying only one at a time for the duration of `transitionInterval`.  This is particularly useful on small screens where there may not be enough space to display several components at once.
 * `'positional'` - Modules are grouped by `position` setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.
 * `'slides'` - groups of modules can be assigned to be displayed at the same time (regardless of `position`), an unlimited number of these "slide" groups can be set up. Module positions and appearances can also be changed for each slide.
-* ***New:*** Slide Indicators and Navigation Buttons can be enabled (see config settings)
+* Slide Indicators and Navigation Buttons can be enabled (see config settings)
 
-    ![](https://raw.githubusercontent.com/shbatm/MMM-Carousel/wip/img/slide.jpg)
+    ![](https://raw.githubusercontent.com/shbatm/MMM-Carousel/master/img/slide.jpg)
 
-    ![](https://raw.githubusercontent.com/shbatm/MMM-Carousel/wip/img/navbar.jpg)
+    ![](https://raw.githubusercontent.com/shbatm/MMM-Carousel/master/img/navbar.jpg)
 
     Screencast (from @AgilesChroms) : <https://www.youtube.com/watch?v=2WTgQLaAMQk>
 
-* ***New:*** Modules can be moved to different positions and CSS classes applied to them for each slide.
-* ***New:*** Multiple instances of a module can be used on different slides.
-* ***New:*** Integration with [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings) for keyboard and bluetooth remote navigation.
+* Modules can be moved to different positions and CSS classes applied to them for each slide.
+* Multiple instances of a module can be used on different slides.
+* Integration with [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings) for keyboard and bluetooth remote navigation.
 
 ## Installation
 
@@ -26,7 +26,7 @@ Run these commands at the root of your magic mirror install.
 
 ```shell
 cd modules
-git clone https://github.com/KristjanESPERANTO/MMM-Carousel
+git clone https://github.com/shbatm/MMM-Carousel
 ```
 
 ## Using the module
@@ -236,11 +236,11 @@ var config = {
                     "Slide 2": ['weatherforecast', 'MMM-Trello', 'planetrise', 'newsfeed'],
                     "Slide 3": ['MMM-fitbit']
                 },
-                keyBindings: { 
+                keyBindings: {
                     enabled: true,
                     map: {
-                        NextSlide: "ArrowRight", 
-                        PrevSlide: "ArrowLeft", 
+                        NextSlide: "ArrowRight",
+                        PrevSlide: "ArrowLeft",
                         Slide0:    "Home"
                     },
                     mode: "DEFAULT"
@@ -260,9 +260,9 @@ Passing a config similar to the following shows a large clock on the first slide
     mode: 'slides',
     slides: {
         Main: [   {name:'clock', classes:'zoom200', position:"middle_center", carouselId: "1"} ],
-        "Slide 2: [   {name:'clock', classes:'', position:"top_left", carouselId: "2"}, 
-            {name:'calendar', position:'top_left'}, 
-            'MMM-WunderGround', 
+        "Slide 2: [   {name:'clock', classes:'', position:"top_left", carouselId: "2"},
+            {name:'calendar', position:'top_left'},
+            'MMM-WunderGround',
             'newsfeed'
         ]
     }
@@ -346,7 +346,7 @@ var recipe = {
       "MY_COMMAND_07_01": {
          notificationExec: {
             notification: "CAROUSEL_CHANGE_SLIDE_INTERVAL_TIME",
-            payload: (pattern) => { 
+            payload: (pattern) => {
                return  pattern[1];
             }
          }
