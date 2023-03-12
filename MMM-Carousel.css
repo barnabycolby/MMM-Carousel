@@ -1,6 +1,6 @@
 body {
   overflow: visible;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   height: calc(100% - 60px);
 }
 
@@ -35,20 +35,10 @@ body {
 /* Next and Previous arrow */
 .control {
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   width: 150px;
   height: 150px;
   z-index: 55;
-}
-
-/* Show button when you hover near */
-.control:hover label {
-  opacity: 0.2;
-  cursor: pointer !important;
-}
-
-.control:hover {
-  cursor: pointer !important;
 }
 
 .control label {
@@ -65,11 +55,6 @@ body {
   color: #fff;
   cursor: pointer !important;
   opacity: 0;
-}
-
-/*Increase brightness when directly over*/
-.control label:hover {
-  opacity: 0.5;
 }
 
 .next {
@@ -95,15 +80,31 @@ body {
   height: 10px;
   border-radius: 50%;
   display: inline-block;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgb(255 255 255 / 20%);
   margin: 0 2px;
-  border: solid 1px rgba(255, 255, 255, 0.4);
+  border: solid 1px rgb(255 255 255 / 40%);
   cursor: pointer !important;
 }
 
-.MMMCarouselCurrentPage {
-  background: rgba(255, 255, 255, 1) !important;
+/* Show button when you hover near */
+.control:hover {
+  cursor: pointer !important;
 }
+
+.control:hover label {
+  opacity: 0.2;
+  cursor: pointer !important;
+}
+
+/* Increase brightness when directly over */
+.control label:hover {
+  opacity: 0.5;
+}
+
+.mmm-carousel-current-page {
+  background: rgb(255 255 255 / 100%) !important;
+}
+
 /* Hide actual radio buttons */
 .slide-radio {
   position: absolute;
@@ -113,12 +114,12 @@ body {
 }
 
 /* Slider Pagger arrow event */
-.MMMCarouselAvailable {
+.mmm-carousel-available {
   display: block !important;
   z-index: 100 !important;
 }
 
-.MMMCarouselContainer {
+.mmm-carousel-container {
   overflow: visible !important;
   position: absolute;
   height: 60px;
