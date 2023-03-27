@@ -23,7 +23,7 @@
 
 ## Installation
 
-Run these commands at the root of your magic mirror install.
+Run these commands at the root of your MagicMirror to install.
 
 ```shell
 cd modules
