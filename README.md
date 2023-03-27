@@ -35,7 +35,7 @@ git clone https://github.com/shbatm/MMM-Carousel
 To use this module, add the following configuration block to the modules array in the `config/config.js` file:
 
 ```js
-var config = {
+let config = {
   modules: [
     {
       module: "MMM-Carousel",
@@ -72,7 +72,7 @@ The following properties can be configured:
 #### Example - Global Carousel
 
 ```javascript
-var config = {
+let config = {
   modules: [
     {
       module: "MMM-Carousel",
@@ -89,7 +89,7 @@ var config = {
 #### Example - Positional Carousel
 
 ```javascript
-var config = {
+let config = {
   modules: [
     {
       module: "MMM-Carousel",
@@ -112,7 +112,7 @@ var config = {
 #### Example - Slides Carousel
 
 ```javascript
-var config = {
+let config = {
   modules: [
     {
       module: "MMM-Carousel",
@@ -142,7 +142,7 @@ var config = {
 #### Example - Slides Carousel w/ [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings)
 
 ```javascript
-var config = {
+let config = {
   modules: [
     {
       module: "MMM-Carousel",
@@ -218,7 +218,7 @@ curl -X GET http://magicmirrorip:8080/api/module/carousel/action
 #### Example1 - Recipe for MMM-AssistantMk2
 
 ```javascript
-var recipe = {
+let recipe = {
   transcriptionHook: {
     MY_COMMAND_06: {
       pattern: "change mode",
@@ -240,7 +240,7 @@ exports.recipe = recipe; // Don't remove this line.
 #### Example2 - Recipe for MMM-AssistantMk2
 
 ```javascript
-var recipe = {
+let recipe = {
   transcriptionHook: {
     MY_COMMAND_08: {
       pattern: "start carousel",
@@ -262,7 +262,7 @@ exports.recipe = recipe; // Don't remove this line.
 #### Example3 - Recipe for MMM-AssistantMk2
 
 ```javascript
-var recipe = {
+let recipe = {
   transcriptionHook: {
     MY_COMMAND_07: {
       pattern: "set time to (( |\\d+)+)",
