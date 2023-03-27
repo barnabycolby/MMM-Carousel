@@ -14,9 +14,7 @@
     "sourceType": "module"
   },
   "root": true,
-  "rules": {
-    "prefer-destructuring": "off"
-  },
+  "rules": {},
   "overrides": [
     {
       "files": ["*.md"],

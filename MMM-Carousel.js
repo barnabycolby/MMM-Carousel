@@ -373,7 +373,7 @@ Module.register("MMM-Carousel", {
               // Check if we have any classes we're supposed to add
               const dom = document.getElementById(this[i].identifier);
               // Remove any classes added by this module (other slides)
-              dom.className = dom.className.split("mmmc")[0];
+              [dom.className] = dom.className.split("mmmc");
               if (mods[s].classes) {
                 // check for an empty classes tag (required to remove classes added from other slides)
                 // If we have a valid class list, add the classes
