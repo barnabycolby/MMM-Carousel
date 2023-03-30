@@ -7,7 +7,7 @@ assignees: ""
 ---
 
 **Describe the bug**
-For general information on how to use this module, getting started setting up, or other questions, please visit the MagicMirror² Forum at https://forum.magicmirror.builders. To make sure the module developer is aware of your issue, please tag '@shbatm' on your forum post.
+For general information on how to use this module, getting started setting up, or other questions, please visit the MagicMirror² Forum at <https://forum.magicmirror.builders>. To make sure the module developer is aware of your issue, please tag '@shbatm' on your forum post.
 
 If you are having an actual issue, please include a clear and concise description of what the bug is.
 
@@ -28,7 +28,7 @@ Please include:
 - The configuration section for this module
 - The configuration section for any affected modules
 
-* It may be easier to post these in a [Gist](https://gist.github.com) and post the link here.
+- It may be easier to post these in a [Gist](https://gist.github.com) and post the link here.
 
 **Logs**
 If applicable, please include the relevant logs to help explain your problem. + From the console or `~/.pm2/logs/` + From the web console using DevTools (<key>Ctrl</key>+<key>Shift</key>+<key>I</key>)

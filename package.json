@@ -1,7 +1,7 @@
 {
   "name": "mmm-carousel",
   "version": "0.3.0",
-  "description": "Displays a single magic mirror module at a time or in groups of slides, rotating through the list of configured modules in a carousel-like fashion.",
+  "description": "Displays a single MagicMirror² module at a time or in groups of slides, rotating through the list of configured modules in a carousel-like fashion.",
   "main": "MMM-Carousel.js",
   "repository": {
     "type": "git",
@@ -28,16 +28,14 @@
   "devDependencies": {
     "eslint": "^8.36.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.7.0",
-    "eslint-plugin-import": "^2.27.5",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-markdownlint": "^0.4.1",
     "eslint-plugin-prettier": "^4.2.1",
-    "lint-staged": "^13.2.0",
-    "markdownlint": "^0.27.0",
-    "prettier": "^2.8.4",
-    "stylelint": "^15.2.0",
-    "stylelint-config-standard": "^30.0.1",
+    "markdownlint": "^0.28.0",
+    "prettier": "^2.8.7",
+    "stylelint": "^15.3.0",
+    "stylelint-config-standard": "^31.0.0",
     "stylelint-prettier": "^3.0.0"
   },
   "scripts": {

@@ -14,11 +14,7 @@
     "sourceType": "module"
   },
   "root": true,
-  "rules": {
-    "default-case": "off",
-    "import/no-unresolved": "off",
-    "prefer-destructuring": "off"
-  },
+  "rules": {},
   "overrides": [
     {
       "files": ["*.md"],
