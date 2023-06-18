@@ -468,7 +468,7 @@ Module.register("MMM-Carousel", {
     }
   },
 
-  transitionTimeoutCallback: () => {
+  transitionTimeoutCallback: function() {
     let goToIndex = -1;
     let goToSlide;
     if (typeof this.config.homeSlide === "number") {
@@ -478,7 +478,7 @@ Module.register("MMM-Carousel", {
     } else {
       goToIndex = 0;
     }
-    this.moduleTransition(goToIndex, undefined, goToSlide);
+    this.manualTransition(goToIndex, undefined, goToSlide);
     this.restartTimer();
   },
 
