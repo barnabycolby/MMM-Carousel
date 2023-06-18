@@ -343,7 +343,7 @@ Module.register("MMM-Carousel", {
       // In testing, calling show/hide twice seems to cause no issues
       Log.log(`Processing ${this[i].name}`);
       if (this.slides === undefined && i === this.currentIndex) {
-        this[i].show(this.slideTransitionSpeed, { lockString: "mmmc" });
+        this[i].show(this.slideTransitionSpeed, false, { lockString: "mmmc" });
       } else if (this.slides !== undefined) {
         // Handle slides
         const mods = this.slides[Object.keys(this.slides)[this.currentIndex]];
@@ -352,7 +352,9 @@ Module.register("MMM-Carousel", {
         for (let s = 0; s < mods.length; s += 1) {
           if (typeof mods[s] === "string" && mods[s] === this[i].name) {
             // If only the module name is given as a string, and it matches, show the module
-            this[i].show(this.slideTransitionSpeed, { lockString: "mmmc" });
+            this[i].show(this.slideTransitionSpeed, false, {
+              lockString: "mmmc"
+            });
             show = true;
             break;
           } else if (
@@ -389,18 +391,20 @@ Module.register("MMM-Carousel", {
               );
             }
             // Finally show the module
-            this[i].show(this.slideTransitionSpeed, { lockString: "mmmc" });
+            this[i].show(this.slideTransitionSpeed, false, {
+              lockString: "mmmc"
+            });
             show = true;
             break;
           }
         }
         // The module is not in this slide.
         if (!show) {
-          this[i].hide(0, { lockString: "mmmc" });
+          this[i].hide(0, false, { lockString: "mmmc" });
         }
       } else {
         // We aren't using slides and this module shouldn't be shown.
-        this[i].hide(0, { lockString: "mmmc" });
+        this[i].hide(0, false, { lockString: "mmmc" });
       }
     }
 
