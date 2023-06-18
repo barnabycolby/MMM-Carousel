@@ -1,5 +1,11 @@
 # Changelog
 
+## <a name="0_3_1"></a>[0.3.1]
+
+- Fix transitionTimeoutCallback by @btastic (#66)
+- Use screenshots instead of photos (#54)
+- Update devDependencies
+
 ## <a name="0_3_0"></a>[0.3.0] - Add option to default to home slide on timeout
 
 - Add `homeSlide` and `transitionTimeout` to timeout and return to a home page, similar to MMM-Pages (#30)
