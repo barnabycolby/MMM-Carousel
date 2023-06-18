@@ -468,7 +468,7 @@ Module.register("MMM-Carousel", {
     }
   },
 
-  transitionTimeoutCallback: function() {
+  transitionTimeoutCallback() {
     let goToIndex = -1;
     let goToSlide;
     if (typeof this.config.homeSlide === "number") {
