@@ -1,5 +1,9 @@
 # Changelog
 
+## <a name="0_3_2"></a>[0.3.2]
+
+- Added Play/Pause Control (#70)
+
 ## <a name="0_3_1"></a>[0.3.1]
 
 - Fix transitionTimeoutCallback by @btastic (#66)

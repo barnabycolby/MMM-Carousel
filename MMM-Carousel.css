@@ -97,18 +97,17 @@ body {
 }
 
 .mmm-carousel-current-page {
-  background: rgba(255, 255, 255, 1) !important;
+  background: rgba(255 255 255 / 100%) !important;
 }
 
-.mmm-carousel-paused .slider-pagination label  {
-	border-color: black;
-	background: rgba(0, 0, 0, 0.2);
+.mmm-carousel-paused .slider-pagination label {
+  border-color: black;
+  background: rgba(0 0 0 / 20%);
 }
 
 .mmm-carousel-paused .mmm-carousel-current-page {
-	background: rgba(0, 0, 0, 1) !important;
+  background: rgba(0 0 0 / 100%) !important;
 }
-
 
 /* Hide actual radio buttons */
 .slide-radio {

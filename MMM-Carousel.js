@@ -84,7 +84,12 @@ Module.register("MMM-Carousel", {
 
   keyBindings: {
     mode: "DEFAULT",
-    map: { NextSlide: "ArrowRight", PrevSlide: "ArrowLeft", Slide0: "Home" }
+    map: {
+      NextSlide: "ArrowRight",
+      PrevSlide: "ArrowLeft",
+      Pause: "ArrowDown",
+      Slide0: "Home"
+    }
   },
 
   requiresVersion: "2.3.0", // Uses 'MODULE_DOM_CREATED' notification instead of 'DOM_OBJECTS_CREATED'
@@ -98,6 +103,8 @@ Module.register("MMM-Carousel", {
     } else if (kp.keyName === this.keyHandler.config.map.PrevSlide) {
       this.manualTransition(undefined, -1);
       this.restartTimer();
+    } else if (kp.keyName === this.keyHandler.config.map.Pause) {
+      this.toggleTimer();
     } else if (this.keyHandler.reverseMap[kp.keyName].startsWith("Slide")) {
       const goToSlide =
         this.keyHandler.reverseMap[kp.keyName].match(/Slide([0-9]+)/i);
@@ -191,14 +198,13 @@ Module.register("MMM-Carousel", {
         `${this.config.name}: notification ${notification} from ${sender.name}`
       );
 
-    if (notification === "CAROUSEL_PLAYPAUSE") {
-      this.toggleTimer();
-    }
     if (notification === "CAROUSEL_NEXT") {
       this.manualTransition(undefined, 1);
       this.restartTimer();
     } else if (notification === "CAROUSEL_PREVIOUS") {
       this.manualTransition(undefined, -1);
+    } else if (notification === "CAROUSEL_PLAYPAUSE") {
+      this.toggleTimer();
       this.restartTimer();
     } else if (notification === "CAROUSEL_GOTO") {
       if (typeof payload === "number" || typeof payload === "string") {
@@ -458,10 +464,12 @@ Module.register("MMM-Carousel", {
     }
   },
 
-  updatePause: function(paused) {
+  updatePause(paused) {
     this.paused = paused;
-    
-    var carousel = document.getElementsByClassName("mmm-carousel-container")[0];
+
+    const carousel = document.getElementsByClassName(
+      "mmm-carousel-container"
+    )[0];
 
     if (this.paused) carousel.classList.add("mmm-carousel-paused");
     else carousel.classList.remove("mmm-carousel-paused");
@@ -476,8 +484,7 @@ Module.register("MMM-Carousel", {
         this.manualTransition,
         this.config.transitionInterval
       );
-    }
-    else if (this.config.transitionTimeout > 0) {
+    } else if (this.config.transitionTimeout > 0) {
       this.updatePause(false);
       // Restart the timeout
       clearTimeout(this.transitionTimer);
@@ -487,30 +494,25 @@ Module.register("MMM-Carousel", {
     }
   },
 
-
-  toggleTimer: function () {
+  toggleTimer() {
     if (this.config.transitionInterval > 0) {
       if (this.transitionTimer) {
-          this.updatePause(true);
-          clearInterval(this.transitionTimer);
-          this.transitionTimer = undefined;
-      }
-      else {
+        this.updatePause(true);
+        clearInterval(this.transitionTimer);
+        this.transitionTimer = undefined;
+      } else {
         this.updatePause(false);
         this.transitionTimer = setInterval(
           this.manualTransition,
           this.config.transitionInterval
         );
       }
-
-    }
-    else if (this.config.transitionTimeout > 0) {
+    } else if (this.config.transitionTimeout > 0) {
       if (this.transitionTimer) {
         this.updatePause(true);
         clearTimeout(this.transitionTimer);
         this.transitionTimer = undefined;
-      }
-      else {
+      } else {
         this.updatePause(false);
         this.transitionTimer = setTimeout(() => {
           this.transitionTimeoutCallback();
