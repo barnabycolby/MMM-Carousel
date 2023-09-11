@@ -191,6 +191,9 @@ Module.register("MMM-Carousel", {
         `${this.config.name}: notification ${notification} from ${sender.name}`
       );
 
+    if (notification === "CAROUSEL_PLAYPAUSE") {
+      this.toggleTimer();
+    }
     if (notification === "CAROUSEL_NEXT") {
       this.manualTransition(undefined, 1);
       this.restartTimer();
@@ -455,15 +458,27 @@ Module.register("MMM-Carousel", {
     }
   },
 
+  updatePause: function(paused) {
+    this.paused = paused;
+    
+    var carousel = document.getElementsByClassName("mmm-carousel-container")[0];
+
+    if (this.paused) carousel.classList.add("mmm-carousel-paused");
+    else carousel.classList.remove("mmm-carousel-paused");
+  },
+
   restartTimer() {
     if (this.config.transitionInterval > 0) {
+      this.updatePause(false);
       // Restart the timer
       clearInterval(this.transitionTimer);
       this.transitionTimer = setInterval(
         this.manualTransition,
         this.config.transitionInterval
       );
-    } else if (this.config.transitionTimeout > 0) {
+    }
+    else if (this.config.transitionTimeout > 0) {
+      this.updatePause(false);
       // Restart the timeout
       clearTimeout(this.transitionTimer);
       this.transitionTimer = setTimeout(() => {
@@ -472,7 +487,39 @@ Module.register("MMM-Carousel", {
     }
   },
 
-  transitionTimeoutCallback() {
+
+  toggleTimer: function () {
+    if (this.config.transitionInterval > 0) {
+      if (this.transitionTimer) {
+          this.updatePause(true);
+          clearInterval(this.transitionTimer);
+          this.transitionTimer = undefined;
+      }
+      else {
+        this.updatePause(false);
+        this.transitionTimer = setInterval(
+          this.manualTransition,
+          this.config.transitionInterval
+        );
+      }
+
+    }
+    else if (this.config.transitionTimeout > 0) {
+      if (this.transitionTimer) {
+        this.updatePause(true);
+        clearTimeout(this.transitionTimer);
+        this.transitionTimer = undefined;
+      }
+      else {
+        this.updatePause(false);
+        this.transitionTimer = setTimeout(() => {
+          this.transitionTimeoutCallback();
+        }, this.config.transitionTimeout);
+      }
+    }
+  },
+
+  transitionTimeoutCallback: () => {
     let goToIndex = -1;
     let goToSlide;
     if (typeof this.config.homeSlide === "number") {

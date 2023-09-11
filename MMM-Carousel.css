@@ -96,14 +96,19 @@ body {
   cursor: pointer !important;
 }
 
-/* Increase brightness when directly over */
-.control label:hover {
-  opacity: 0.5;
+.mmm-carousel-current-page {
+  background: rgba(255, 255, 255, 1) !important;
 }
 
-.mmm-carousel-current-page {
-  background: rgb(255 255 255 / 100%) !important;
+.mmm-carousel-paused .slider-pagination label  {
+	border-color: black;
+	background: rgba(0, 0, 0, 0.2);
 }
+
+.mmm-carousel-paused .mmm-carousel-current-page {
+	background: rgba(0, 0, 0, 1) !important;
+}
+
 
 /* Hide actual radio buttons */
 .slide-radio {
