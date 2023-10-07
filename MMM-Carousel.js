@@ -606,7 +606,7 @@ Module.register("MMM-Carousel", {
             nCtrlLabelWrapper.setAttribute("for", `slider_${j}`);
             nCtrlLabelWrapper.id = `sliderNextBtn_${j}`;
             nCtrlLabelWrapper.innerHTML =
-              '<i class="fa fa-arrow-circle-right"></i>';
+              "<i class='fa fa-arrow-circle-right'></i>";
             nextWrapper.appendChild(nCtrlLabelWrapper);
           }
 
@@ -615,7 +615,7 @@ Module.register("MMM-Carousel", {
             pCtrlLabelWrapper.setAttribute("for", `slider_${j}`);
             pCtrlLabelWrapper.id = `sliderPrevBtn_${j}`;
             pCtrlLabelWrapper.innerHTML =
-              '<i class="fa fa-arrow-circle-left"></i>';
+              "<i class='fa fa-arrow-circle-left'></i>";
             previousWrapper.appendChild(pCtrlLabelWrapper);
           }
         }
