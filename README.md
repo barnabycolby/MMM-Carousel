@@ -5,9 +5,9 @@
 >
 > There are three modes available:
 
-- `'global'` - All modules not cited in the `ignoreModules` config are rotated, displaying only one at a time for the duration of `transitionInterval`. This is particularly useful on small screens where there may not be enough space to display several components at once.
-- `'positional'` - Modules are grouped by `position` setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.
-- `'slides'` - groups of modules can be assigned to be displayed at the same time (regardless of `position`), an unlimited number of these "slide" groups can be set up. Module positions and appearances can also be changed for each slide.
+- `'global'` ― All modules not cited in the `ignoreModules` config are rotated, displaying only one at a time for the duration of `transitionInterval`. This is particularly useful on small screens where there may not be enough space to display several components at once.
+- `'positional'` ― Modules are grouped by `position` setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.
+- `'slides'` ― groups of modules can be assigned to be displayed at the same time (regardless of `position`), an unlimited number of these "slide" groups can be set up. Module positions and appearances can also be changed for each slide.
   ![slide](./img/slide.png)
 
 - Slide Indicators and Navigation Buttons can be enabled (see config settings)
@@ -19,7 +19,7 @@
 - Modules can be moved to different positions and CSS classes applied to them for each slide.
 - Multiple instances of a module can be used on different slides.
 - Integration with [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings) for keyboard and bluetooth remote navigation.
-- Rotational Home Page - returns to a specified page on timeout
+- Rotational Home Page ― returns to a specified page on timeout
 
 ## Installation
 
@@ -56,7 +56,7 @@ The following properties can be configured:
 
 | Option                                                                                                                                                                            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mode`                                                                                                                                                                            | `global` - All modules not cited in the `ignoreModules` config are rotated, displaying only one at a time for the duration of `transitionInterval`. This is particularly useful on small screens where there may not be enough space to display several components at once.<br>`positional` - Modules are grouped by position setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.<br>`slides` - groups of modules can be assigned to be displayed at the same time (regardless of position), an unlimited number of these "slide" groups can be set up.<br><br>This value is **OPTIONAL**<br>Possible values: `global` or `positional` or `slides`<br>Default value: `global` |
+| `mode`                                                                                                                                                                            | `global` ― All modules not cited in the `ignoreModules` config are rotated, displaying only one at a time for the duration of `transitionInterval`. This is particularly useful on small screens where there may not be enough space to display several components at once.<br>`positional` ― Modules are grouped by position setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.<br>`slides` ― groups of modules can be assigned to be displayed at the same time (regardless of position), an unlimited number of these "slide" groups can be set up.<br><br>This value is **OPTIONAL**<br>Possible values: `global` or `positional` or `slides`<br>Default value: `global` |
 | `transitionInterval`                                                                                                                                                              | The number of milliseconds to display each module for.<br><br>This value is **OPTIONAL**<br>Possible values: Any valid int, passing 0 with mode:`"slides"` will disable the timer for manual navigation.<br>Default value: `10000`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | `transitionTimeout`                                                                                                                                                               | Time, in milliseconds, before automatically returning to the home page. If a home page is not set, this returns to the first slide instead.<br><br>This value is **OPTIONAL** and is only valid when `transitionInterval` is disabled.<br>Default value: `0` (disabled)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `homeSlide`                                                                                                                                                                       | Which slide index/name is the home page. If none is set, this returns to the first slide instead.<br><br>This value is **OPTIONAL** and is only valid when `transitionInterval` is disabled.<br>Default value: `0`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -69,7 +69,7 @@ The following properties can be configured:
 | `keyBindings`                                                                                                                                                                     | Key bindings to use for navigation with MMM-KeyBindings module. The values are the KeyNames to respond to from the `"KEYPRESS"` events generated in MMM-KeyBindings.<br><br>This value is **OPTIONAL**<br>Default value:<br><pre>keyBindings: {<br> enabled: true,<br> mode: "DEFAULT",<br> map: {<br>NextSlide:"ArrowRight",<br>PrevSlide:"ArrowLeft",<br>Pause: "ArrowDown",<br>Slide0:"Home"<br> }<br>}</pre><br>Note: any `Slide##` can be assigned to jump to a specific slide.                                                                                                                                                                                                                                                                                                                                             |
 | `keyBindings.mode`                                                                                                                                                                | Mode Keyword for responding to key press events sent from MMM-KeyBindings. Default: `"DEFAULT"` which repsonds to any key press when no other module has taken focus or changed the keyword.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
-#### Example - Global Carousel
+#### Example ― Global Carousel
 
 ```javascript
 let config = {
@@ -86,7 +86,7 @@ let config = {
 };
 ```
 
-#### Example - Positional Carousel
+#### Example ― Positional Carousel
 
 ```javascript
 let config = {
@@ -109,7 +109,7 @@ let config = {
 };
 ```
 
-#### Example - Slides Carousel
+#### Example ― Slides Carousel
 
 ```javascript
 let config = {
@@ -139,7 +139,7 @@ let config = {
 };
 ```
 
-#### Example - Slides Carousel with [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings)
+#### Example ― Slides Carousel with [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings)
 
 ```javascript
 let config = {
@@ -179,7 +179,7 @@ let config = {
 };
 ```
 
-#### <a name="advanced-slides"></a>Example - Advanced Slides Carousel
+#### <a name="advanced-slides"></a>Example ― Advanced Slides Carousel
 
 The `slides` parameter can accept an array of both String or an Object of the form: `{ name: "ModuleName", position: "top_left", classes: "CSSclassName", carouselId: "1" }`.
 Passing a config similar to the following shows a large clock on the first slide and then a small clock and additional modules on the second. `carouselId` is an optional parameter which can be used to set a unique identifier for multiple instances of a module. To use, set the same parameter in the module's `config` section.
@@ -216,7 +216,7 @@ You can navigate to different slides or transition points manually from other mo
 curl -X GET http://magicmirrorip:8080/api/module/carousel/action
 ```
 
-#### Example1 - Recipe for MMM-AssistantMk2
+#### Example1 ― Recipe for MMM-AssistantMk2
 
 ```javascript
 let recipe = {
@@ -238,7 +238,7 @@ let recipe = {
 exports.recipe = recipe; // Don't remove this line.
 ```
 
-#### Example2 - Recipe for MMM-AssistantMk2
+#### Example2 ― Recipe for MMM-AssistantMk2
 
 ```javascript
 let recipe = {
@@ -260,7 +260,7 @@ let recipe = {
 exports.recipe = recipe; // Don't remove this line.
 ```
 
-#### Example3 - Recipe for MMM-AssistantMk2
+#### Example3 ― Recipe for MMM-AssistantMk2
 
 ```javascript
 let recipe = {
