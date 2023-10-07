@@ -36,4 +36,4 @@ If applicable, please include the relevant logs to help explain your problem. + 
 **Additional context**
 Add any other context about the problem here.
 
-If you are not comfortable posting the logs or configuration on a public place, you may also send @shbatm a private chat on the [MagicMirror² Forum](https://forum.magicmirror.builders) or send an e-mail to support@shbatm.com. E-mails asking general questions or without an accompanying Issue will not be answered.
+If you are not comfortable posting the logs or configuration on a public place, you may also send @shbatm a private chat on the [MagicMirror² Forum](https://forum.magicmirror.builders) or send an e-mail to <support@shbatm.com>. E-mails asking general questions or without an accompanying Issue will not be answered.
