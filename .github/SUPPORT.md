@@ -2,7 +2,7 @@
 
 For general information on how to use this module, getting started setting up, or other questions, please visit the MagicMirror² Forum at <https://forum.magicmirror.builders>.
 
-To make sure the module developer is aware of your issue, please tag '@shbatm' on your forum post
+To make sure the module developer is aware of your issue, please tag '@shbatm' on your forum post.
 
 If you experience errors with this module, or have a suggestion for improvements, please raise an issue by clicking the ISSUE button here in the Repository. When raising an issue, please include:
 
