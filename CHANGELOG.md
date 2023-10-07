@@ -48,7 +48,7 @@
 
 ## <a name="0_2_2"></a>[0.2.2] - Added support for MMM-KeyBindings Instances
 
-- Added support for using MMM-KeyBindings control with multiple instances of the MagicMirror open. For example, you can use a remote on the screen attached to the Raspberry Pi (SERVER) and use a keyboard on another computer with the mirror running in a browswer (LOCAL) to independently change slides on the respective screens.
+- Added support for using MMM-KeyBindings control with multiple instances of the MagicMirror² open. For example, you can use a remote on the screen attached to the Raspberry Pi (SERVER) and use a keyboard on another computer with the mirror running in a browswer (LOCAL) to independently change slides on the respective screens.
 
 ## <a name="0_2_1"></a>[0.2.1] - Multiple instances of a module
 
