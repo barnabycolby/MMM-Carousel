@@ -15,10 +15,9 @@
 - Add `homeSlide` and `transitionTimeout` to timeout and return to a home page, similar to MMM-Pages (#30)
 - Merge downstream changes from @KristjanESPERANTO and others (Thanks!)
 
-## <a name="0_2_8"></a>[0.2.8] - Add fullscreen positions
+## <a name="0_2_8"></a>[0.2.8]
 
 - Cleanup
-- Changing links to fork from Kristjan ESPERANTO
 
 ## <a name="0_2_7"></a>[0.2.7] - Add fullscreen positions
 
