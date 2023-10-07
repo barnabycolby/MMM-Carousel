@@ -1,4 +1,4 @@
-# MMM-Carousel w/ Slide Navigation
+# MMM-Carousel with Slide Navigation
 
 > This is an extension to the [MagicMirror²](https://github.com/MichMich/MagicMirror) project, allowing the modules to be displayed in a rotating carousel instead of displaying all of them at once.
 > This version of the module was forked from [barnabycolby's MMM-Carousel](https://github.com/barnabycolby/MMM-Carousel).
@@ -139,7 +139,7 @@ let config = {
 };
 ```
 
-#### Example - Slides Carousel w/ [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings)
+#### Example - Slides Carousel with [MMM-KeyBindings](https://github.com/shbatm/MMM-KeyBindings)
 
 ```javascript
 let config = {
