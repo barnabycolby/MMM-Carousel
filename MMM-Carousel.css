@@ -129,6 +129,6 @@ body {
   height: 60px;
   bottom: -60px;
   width: 100%;
-  left: 0%;
+  left: 0;
   z-index: 50;
 }
