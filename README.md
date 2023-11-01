@@ -1,20 +1,23 @@
 # MMM-Carousel with Slide Navigation
 
-> This is an extension to the [MagicMirror²](https://github.com/MichMich/MagicMirror) project, allowing the modules to be displayed in a rotating carousel instead of displaying all of them at once.
-> This version of the module was forked from [barnabycolby's MMM-Carousel](https://github.com/barnabycolby/MMM-Carousel).
->
-> There are three modes available:
+This is an extension to the [MagicMirror²](https://github.com/MichMich/MagicMirror) project, allowing the modules to be displayed in a rotating carousel instead of displaying all of them at once.
+
+This version of the module was forked from [barnabycolby's MMM-Carousel](https://github.com/barnabycolby/MMM-Carousel).
+
+Check out this screencast from @AgilesChroms to see how it looks: <https://www.youtube.com/watch?v=2WTgQLaAMQk>.
+
+## Modes
+
+There are three modes available:
 
 - `'global'` ― All modules not cited in the `ignoreModules` config are rotated, displaying only one at a time for the duration of `transitionInterval`. This is particularly useful on small screens where there may not be enough space to display several components at once.
 - `'positional'` ― Modules are grouped by `position` setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.
 - `'slides'` ― groups of modules can be assigned to be displayed at the same time (regardless of `position`), an unlimited number of these "slide" groups can be set up. Module positions and appearances can also be changed for each slide.
   ![slide](./img/example1-slide.png)
-
-- Slide Indicators and Navigation Buttons can be enabled (see config settings)
-
+  - Slide Indicators and Navigation Buttons can be enabled (see config settings)
   ![navbar](./img/example2-navbar.png)
 
-  Screencast (from @AgilesChroms) : <https://www.youtube.com/watch?v=2WTgQLaAMQk>
+## Additional features
 
 - Modules can be moved to different positions and CSS classes applied to them for each slide.
 - Multiple instances of a module can be used on different slides.
