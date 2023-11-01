@@ -18,8 +18,16 @@
     "tabs",
     "pages"
   ],
-  "author": "Barnaby Colby",
-  "contributor": "shbatm",
+  "author": {
+    "name": "Barnaby Colby",
+    "url": "https://github.com/barnabycolby/"
+  },
+  "contributors": [
+    {
+      "name": "shbatm",
+      "url": "https://github.com/shbatm/"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/shbatm/MMM-Carousel/issues"
