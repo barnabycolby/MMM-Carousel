@@ -8,11 +8,11 @@
 - `'global'` ― All modules not cited in the `ignoreModules` config are rotated, displaying only one at a time for the duration of `transitionInterval`. This is particularly useful on small screens where there may not be enough space to display several components at once.
 - `'positional'` ― Modules are grouped by `position` setting and rotated within a position except for modules listed in that position's `ignoreModules`, an `overrideTransitionInterval` can also be set to rotated different position at different speeds.
 - `'slides'` ― groups of modules can be assigned to be displayed at the same time (regardless of `position`), an unlimited number of these "slide" groups can be set up. Module positions and appearances can also be changed for each slide.
-  ![slide](./img/slide.png)
+  ![slide](./img/example1-slide.png)
 
 - Slide Indicators and Navigation Buttons can be enabled (see config settings)
 
-  ![navbar](./img/navbar.png)
+  ![navbar](./img/example2-navbar.png)
 
   Screencast (from @AgilesChroms) : <https://www.youtube.com/watch?v=2WTgQLaAMQk>
 
