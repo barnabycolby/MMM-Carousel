@@ -15,7 +15,7 @@ There are three modes available:
 - `'slides'` ― groups of modules can be assigned to be displayed at the same time (regardless of `position`), an unlimited number of these "slide" groups can be set up. Module positions and appearances can also be changed for each slide.
   ![slide](./img/example1-slide.png)
   - Slide Indicators and Navigation Buttons can be enabled (see config settings)
-  ![navbar](./img/example2-navbar.png)
+    ![navbar](./img/example2-navbar.png)
 
 ## Additional features
 
