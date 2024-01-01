@@ -1,0 +1,134 @@
+body {
+  overflow: visible;
+  margin-bottom: 0;
+  height: calc(100% - 60px);
+}
+
+.region.bottom {
+  bottom: 60px;
+}
+
+.zoom50 {
+  zoom: 0.5;
+}
+
+.zoom75 {
+  zoom: 0.75;
+}
+
+.zoom125 {
+  zoom: 1.25;
+}
+
+.zoom150 {
+  zoom: 1.5;
+}
+
+.zoom175 {
+  zoom: 1.75;
+}
+
+.zoom200 {
+  zoom: 2;
+}
+
+/* Next and Previous arrow */
+.control {
+  position: absolute;
+  bottom: 0;
+  width: 150px;
+  height: 150px;
+  z-index: 55;
+}
+
+.control label {
+  z-index: 0;
+  display: none;
+  text-align: center;
+  line-height: 50px;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  left: 33%; /* Center in .control div: this.width / .control.width; */
+  top: 33%; /* Center in .control div: this.height / .control.height;; */
+  font-size: 50px;
+  color: #fff;
+  cursor: pointer !important;
+  opacity: 0;
+}
+
+.next {
+  right: -60px;
+}
+
+.previous {
+  left: -60px;
+}
+
+/* Slider Pagger */
+.slider-pagination {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  z-index: 1000;
+}
+
+.slider-pagination label {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background: rgb(255 255 255 / 20%);
+  margin: 0 2px;
+  border: solid 1px rgb(255 255 255 / 40%);
+  cursor: pointer !important;
+}
+
+/* Show button when you hover near */
+.control:hover {
+  cursor: pointer !important;
+}
+
+.control:hover label {
+  opacity: 0.2;
+  cursor: pointer !important;
+}
+
+.mmm-carousel-current-page {
+  background: rgba(255 255 255 / 100%) !important;
+}
+
+.mmm-carousel-paused .slider-pagination label {
+  border-color: black;
+  background: rgba(0 0 0 / 20%);
+}
+
+.mmm-carousel-paused .mmm-carousel-current-page {
+  background: rgba(0 0 0 / 100%) !important;
+}
+
+/* Hide actual radio buttons */
+.slide-radio {
+  position: absolute;
+  bottom: -200px;
+  left: -200px;
+  visibility: hidden;
+}
+
+/* Slider Pagger arrow event */
+.mmm-carousel-available {
+  display: block !important;
+  z-index: 100 !important;
+}
+
+.mmm-carousel-container {
+  overflow: visible !important;
+  position: absolute;
+  height: 60px;
+  bottom: -60px;
+  width: 100%;
+  left: 0;
+  z-index: 50;
+}

@@ -1,30 +1,53 @@
 {
   "name": "mmm-carousel",
-  "version": "0.1.0",
-  "description": "Displays a single magic mirror module at a time, rotating through the list of configured modules in a carousel-like fashion.",
+  "version": "0.3.3",
+  "description": "Displays a single MagicMirror² module at a time or in groups of slides, rotating through the list of configured modules in a carousel-like fashion.",
   "main": "MMM-Carousel.js",
-  "scripts": {
-    "test": "grunt"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/barnabycolby/MMM-Carousel.git"
+    "url": "git+https://github.com/shbatm/MMM-Carousel.git"
   },
   "keywords": [
     "magic",
     "mirror",
-    "carousel"
+    "carousel",
+    "navigation",
+    "move",
+    "resize modules",
+    "slides",
+    "tabs",
+    "pages"
   ],
-  "author": "Barnaby Colby",
+  "author": {
+    "name": "Barnaby Colby",
+    "url": "https://github.com/barnabycolby/"
+  },
+  "contributors": [
+    {
+      "name": "shbatm",
+      "url": "https://github.com/shbatm/"
+    }
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/barnabycolby/MMM-Carousel/issues"
+    "url": "https://github.com/shbatm/MMM-Carousel/issues"
   },
-  "homepage": "https://github.com/barnabycolby/MMM-Carousel#readme",
-  "dependencies": {
-    "grunt": "latest",
-    "grunt-jslint": "latest",
-    "load-grunt-config": "latest",
-    "grunt-contrib-nodeunit": "^1.0.0"
+  "homepage": "https://github.com/shbatm/MMM-Carousel/#readme",
+  "devDependencies": {
+    "@eslint/js": "^8.56.0",
+    "@stylistic/eslint-plugin": "^1.5.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-import": "^2.29.1",
+    "globals": "^13.24.0",
+    "markdownlint-cli": "^0.38.0",
+    "prettier": "^3.1.1",
+    "stylelint": "^16.1.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-prettier": "^5.0.0"
+  },
+  "scripts": {
+    "lint": "eslint . && stylelint **/*.css && markdownlint . --ignore node_modules && prettier --check .",
+    "lint:fix": "eslint . --fix && stylelint **/*.css --fix && markdownlint . --ignore node_modules --fix && prettier --write .",
+    "test": "npm run lint"
   }
 }
