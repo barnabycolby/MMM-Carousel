@@ -1,6 +1,6 @@
 {
   "name": "mmm-carousel",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Displays a single MagicMirror² module at a time or in groups of slides, rotating through the list of configured modules in a carousel-like fashion.",
   "main": "MMM-Carousel.js",
   "repository": {
@@ -34,21 +34,20 @@
   },
   "homepage": "https://github.com/shbatm/MMM-Carousel/#readme",
   "devDependencies": {
-    "eslint": "^8.54.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-json": "^3.1.0",
-    "eslint-plugin-markdownlint": "^0.5.0",
-    "eslint-plugin-prettier": "^5.0.1",
-    "markdownlint": "^0.32.1",
-    "prettier": "^3.1.0",
-    "stylelint": "^15.11.0",
-    "stylelint-config-standard": "^34.0.0",
-    "stylelint-prettier": "^4.1.0"
+    "@eslint/js": "^8.56.0",
+    "@stylistic/eslint-plugin": "^1.5.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-import": "^2.29.1",
+    "globals": "^13.24.0",
+    "markdownlint-cli": "^0.38.0",
+    "prettier": "^3.1.1",
+    "stylelint": "^16.1.0",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-prettier": "^5.0.0"
   },
   "scripts": {
-    "lint": "eslint . && stylelint **/*.css && prettier --check .",
-    "lint:fix": "eslint --fix . && stylelint --fix **/*.css && prettier --write .",
+    "lint": "eslint . && stylelint **/*.css && markdownlint . --ignore node_modules && prettier --check .",
+    "lint:fix": "eslint . --fix && stylelint **/*.css --fix && markdownlint . --ignore node_modules --fix && prettier --write .",
     "test": "npm run lint"
   }
 }
