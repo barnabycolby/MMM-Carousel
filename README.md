@@ -1,6 +1,6 @@
 # MMM-Carousel with Slide Navigation
 
-This is an extension to the [MagicMirror²](https://github.com/MichMich/MagicMirror) project, allowing the modules to be displayed in a rotating carousel instead of displaying all of them at once.
+This is an extension to the [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror) project, allowing the modules to be displayed in a rotating carousel instead of displaying all of them at once.
 
 This version of the module was forked from [barnabycolby's MMM-Carousel](https://github.com/barnabycolby/MMM-Carousel).
 
@@ -31,6 +31,13 @@ Run these commands at the root of your MagicMirror² to install.
 ```shell
 cd modules
 git clone https://github.com/shbatm/MMM-Carousel
+```
+
+## Update
+
+```
+cd ~/MagicMirror/modules/MMM-Carousel
+git pull
 ```
 
 ## Using the module
